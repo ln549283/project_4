@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="920" viewBox="0 0 1300 920">
+<rect width="1300" height="920" fill="#f1e8d5"/>
+<text x="40" y="50" font-family="sans-serif" font-size="28" text-anchor="start" fill="#26333c">UX — rectangles fonctionnels à 360 × 640 dp</text>
+<text x="40" y="82" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">GABARIT STUDIO — données exactes / solution dévoilée / illustration finale à produire</text>
+<rect x="50" y="140" width="360" height="640" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="230" y="120" font-family="sans-serif" font-size="24" text-anchor="middle" fill="#26333c">P03 Routes</text>
+<rect x="50" y="140" width="360" height="56" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="60" y="165" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Retour • titre • menu</text>
+<rect x="50" y="196" width="360" height="52" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="60" y="221" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Objectif / fiche</text>
+<rect x="50" y="248" width="360" height="372" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="60" y="273" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Zone scène</text>
+<rect x="50" y="620" width="360" height="88" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="60" y="645" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Outils locaux</text>
+<rect x="50" y="708" width="360" height="72" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="60" y="733" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Carnet • Indice</text>
+<rect x="98" y="360" width="88" height="88" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="186" y="360" width="88" height="88" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="274" y="360" width="88" height="88" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="98" y="448" width="88" height="88" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="186" y="448" width="88" height="88" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="274" y="448" width="88" height="88" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="470" y="140" width="360" height="640" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="650" y="120" font-family="sans-serif" font-size="24" text-anchor="middle" fill="#26333c">P05 Barge</text>
+<rect x="470" y="140" width="360" height="56" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="480" y="165" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Retour • titre • menu</text>
+<rect x="470" y="196" width="360" height="52" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="480" y="221" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Objectif / fiche</text>
+<rect x="470" y="248" width="360" height="372" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="480" y="273" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Zone scène</text>
+<rect x="470" y="620" width="360" height="88" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="480" y="645" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Outils locaux</text>
+<rect x="470" y="708" width="360" height="72" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="480" y="733" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Carnet • Indice</text>
+<rect x="488" y="360" width="48" height="92" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="542" y="360" width="48" height="92" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="596" y="360" width="48" height="92" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="650" y="360" width="48" height="92" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="704" y="360" width="48" height="92" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="758" y="360" width="48" height="92" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="890" y="140" width="360" height="640" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="1070" y="120" font-family="sans-serif" font-size="24" text-anchor="middle" fill="#26333c">P07 Frise</text>
+<rect x="890" y="140" width="360" height="56" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="900" y="165" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Retour • titre • menu</text>
+<rect x="890" y="196" width="360" height="52" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="900" y="221" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Objectif / fiche</text>
+<rect x="890" y="248" width="360" height="372" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="900" y="273" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Zone scène</text>
+<rect x="890" y="620" width="360" height="88" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="900" y="645" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Outils locaux</text>
+<rect x="890" y="708" width="360" height="72" fill="none" stroke="#26333c" stroke-width="2"/>
+<text x="900" y="733" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">Carnet • Indice</text>
+<rect x="916" y="300" width="308" height="44" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="916" y="348" width="308" height="44" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="916" y="396" width="308" height="44" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="916" y="444" width="308" height="44" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="916" y="492" width="308" height="44" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<rect x="916" y="540" width="308" height="44" fill="#d6ded7" stroke="#26333c" stroke-width="2"/>
+<text x="50" y="845" font-family="sans-serif" font-size="22" text-anchor="start" fill="#26333c">Surfaces schématiques. Minimum tactile 48 dp. Les textes agrandis font refluer la mise en page.</text>
+</svg>

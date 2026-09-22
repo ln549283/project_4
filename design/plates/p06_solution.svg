@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="960" viewBox="0 0 1200 960">
+<rect width="1200" height="960" fill="#f1e8d5"/>
+<text x="40" y="50" font-family="sans-serif" font-size="28" text-anchor="start" fill="#26333c">P06 — topologie de la solution</text>
+<text x="40" y="82" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">GABARIT STUDIO — données exactes / solution dévoilée / illustration finale à produire</text>
+<rect x="250" y="210" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 340 210 Q 430 210 430 300" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 340 390 Q 250 390 250 300" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="340" y="307" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">0,0 : face 0</text>
+<rect x="430" y="210" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 520 210 Q 430 210 430 300" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 520 390 Q 610 390 610 300" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="520" y="307" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">0,1 : face 1</text>
+<rect x="610" y="210" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 700 210 Q 610 210 610 300" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 700 390 Q 790 390 790 300" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="700" y="307" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">0,2 : face 1</text>
+<rect x="250" y="390" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 340 390 Q 430 390 430 480" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 340 570 Q 250 570 250 480" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="340" y="487" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">1,0 : face 0</text>
+<rect x="430" y="390" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 520 390 Q 430 390 430 480" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 520 570 Q 610 570 610 480" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="520" y="487" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">1,1 : face 1</text>
+<rect x="610" y="390" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 700 390 Q 610 390 610 480" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 700 570 Q 790 570 790 480" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="700" y="487" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">1,2 : face 1</text>
+<rect x="250" y="570" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 340 570 Q 430 570 430 660" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 340 750 Q 250 750 250 660" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="340" y="667" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">2,0 : face 0</text>
+<rect x="430" y="570" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 520 570 Q 610 570 610 660" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 520 750 Q 430 750 430 660" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="520" y="667" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">2,1 : face 0</text>
+<rect x="610" y="570" width="180" height="180" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<path d="M 700 570 Q 790 570 790 660" fill="none" stroke="#476d73" stroke-width="12"/>
+<path d="M 700 750 Q 610 750 610 660" fill="none" stroke="#476d73" stroke-width="12"/>
+<text x="700" y="667" font-family="sans-serif" font-size="14" text-anchor="middle" fill="#26333c">2,2 : face 0</text>
+<line x1="700" y1="210" x2="700" y2="160" stroke="#a86546" stroke-width="5"/>
+<text x="700" y="155" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#26333c">École</text>
+<line x1="250" y1="300" x2="205" y2="300" stroke="#a86546" stroke-width="5"/>
+<text x="205" y="295" font-family="sans-serif" font-size="18" text-anchor="end" fill="#26333c">Clocher</text>
+<line x1="520" y1="750" x2="520" y2="795" stroke="#a86546" stroke-width="5"/>
+<text x="520" y="790" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#26333c">Infirmerie</text>
+<line x1="250" y1="480" x2="205" y2="480" stroke="#a86546" stroke-width="5"/>
+<text x="205" y="475" font-family="sans-serif" font-size="18" text-anchor="end" fill="#26333c">Halle</text>
+<line x1="700" y1="750" x2="700" y2="795" stroke="#a86546" stroke-width="5"/>
+<text x="700" y="790" font-family="sans-serif" font-size="18" text-anchor="middle" fill="#26333c">Archives</text>
+<line x1="790" y1="300" x2="835" y2="300" stroke="#a86546" stroke-width="5"/>
+<text x="835" y="295" font-family="sans-serif" font-size="18" text-anchor="start" fill="#26333c">Grenier</text>
+<text x="40" y="820" font-family="sans-serif" font-size="20" text-anchor="start" fill="#26333c">École → Clocher</text>
+<text x="40" y="850" font-family="sans-serif" font-size="20" text-anchor="start" fill="#26333c">Infirmerie → Halle</text>
+<text x="40" y="880" font-family="sans-serif" font-size="20" text-anchor="start" fill="#26333c">Archives → Grenier</text>
+</svg>

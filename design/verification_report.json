@@ -1,0 +1,337 @@
+{
+  "design_version": "1.0",
+  "checks": "PASS",
+  "note": "Combinatorial design checks; not human playtests or Android tests.",
+  "puzzles": [
+    {
+      "puzzle": "p01",
+      "states_examined": 120,
+      "accepted_count": 1,
+      "accepted": [
+        [
+          "L3",
+          "L1",
+          "L5",
+          "L2",
+          "L4"
+        ]
+      ]
+    },
+    {
+      "puzzle": "p02",
+      "states_examined": 120,
+      "accepted_count": 1,
+      "accepted": [
+        [
+          "F4",
+          "F1",
+          "F5",
+          "F2",
+          "F3"
+        ]
+      ]
+    },
+    {
+      "puzzle": "p03",
+      "states_examined": 64,
+      "accepted_count": 1,
+      "accepted": [
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "paths": [
+        {
+          "route": "medicine",
+          "visited": [
+            [
+              1,
+              1,
+              "S"
+            ],
+            [
+              1,
+              0,
+              "E"
+            ],
+            [
+              0,
+              0,
+              "S"
+            ],
+            [
+              0,
+              1,
+              "W"
+            ]
+          ],
+          "end": [
+            0,
+            1,
+            "N"
+          ]
+        },
+        {
+          "route": "food",
+          "visited": [
+            [
+              1,
+              2,
+              "E"
+            ],
+            [
+              0,
+              2,
+              "S"
+            ]
+          ],
+          "end": [
+            0,
+            2,
+            "E"
+          ]
+        },
+        {
+          "route": "tools",
+          "visited": [
+            [
+              1,
+              2,
+              "S"
+            ],
+            [
+              1,
+              1,
+              "E"
+            ],
+            [
+              0,
+              1,
+              "S"
+            ],
+            [
+              0,
+              2,
+              "W"
+            ]
+          ],
+          "end": [
+            0,
+            2,
+            "N"
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle": "p06",
+      "states_examined": 512,
+      "accepted_count": 1,
+      "accepted": [
+        [
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "paths": [
+        {
+          "route": "school",
+          "visited": [
+            [
+              0,
+              2,
+              "N"
+            ],
+            [
+              0,
+              1,
+              "E"
+            ],
+            [
+              1,
+              1,
+              "N"
+            ],
+            [
+              1,
+              0,
+              "E"
+            ],
+            [
+              0,
+              0,
+              "S"
+            ]
+          ],
+          "end": [
+            0,
+            0,
+            "W"
+          ]
+        },
+        {
+          "route": "infirmary",
+          "visited": [
+            [
+              2,
+              1,
+              "S"
+            ],
+            [
+              2,
+              0,
+              "E"
+            ],
+            [
+              1,
+              0,
+              "S"
+            ]
+          ],
+          "end": [
+            1,
+            0,
+            "W"
+          ]
+        },
+        {
+          "route": "archives",
+          "visited": [
+            [
+              2,
+              2,
+              "S"
+            ],
+            [
+              2,
+              1,
+              "E"
+            ],
+            [
+              1,
+              1,
+              "S"
+            ],
+            [
+              1,
+              2,
+              "W"
+            ],
+            [
+              0,
+              2,
+              "S"
+            ]
+          ],
+          "end": [
+            0,
+            2,
+            "E"
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle": "p04",
+      "states_examined": 64,
+      "accepted_count": 1,
+      "accepted": [
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "puzzle": "p05",
+      "states_examined": 720,
+      "accepted_count": 4,
+      "accepted": [
+        [
+          "medicine",
+          "tools",
+          "press",
+          "lantern",
+          "dye",
+          "food"
+        ],
+        [
+          "food",
+          "dye",
+          "lantern",
+          "press",
+          "tools",
+          "medicine"
+        ],
+        [
+          "tools",
+          "medicine",
+          "press",
+          "lantern",
+          "food",
+          "dye"
+        ],
+        [
+          "dye",
+          "food",
+          "lantern",
+          "press",
+          "medicine",
+          "tools"
+        ]
+      ]
+    },
+    {
+      "puzzle": "p07",
+      "states_examined": 20160,
+      "accepted_count": 1,
+      "accepted": [
+        [
+          "deliver",
+          "stairs",
+          "floor",
+          "brace",
+          "evacuate",
+          "release"
+        ]
+      ]
+    }
+  ],
+  "progression_orders": [
+    [
+      "p00",
+      "p01",
+      "p02",
+      "p03",
+      "p04",
+      "p05",
+      "p06",
+      "p07",
+      "ending"
+    ],
+    [
+      "p00",
+      "p01",
+      "p02",
+      "p04",
+      "p03",
+      "p05",
+      "p06",
+      "p07",
+      "ending"
+    ]
+  ]
+}

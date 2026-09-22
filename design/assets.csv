@@ -1,0 +1,150 @@
+id,category,runtime_path,spec,usage,production_method,acceptance,status
+bg_workbench,background,assets/backgrounds/workbench.png,1080x1920 RGBA,"Établi, coffret et périphérie",Illustration originale en couches,Aucune preuve incrustée; zone sûre; palette,planned
+bg_archive,background,assets/backgrounds/archive.png,1080x1920 RGBA,Meuble et surfaces de comparaison,Illustration originale en couches,Aucune preuve incrustée; zone sûre; palette,planned
+bg_window,background,assets/backgrounds/window.png,1080x1920 RGBA,Fenêtre et zone de projection,Illustration originale en couches,Aucune preuve incrustée; zone sûre; palette,planned
+building_atelier,architecture,assets/architecture/atelier.png,768x768 RGBA,atelier,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+building_ecole,architecture,assets/architecture/ecole.png,768x768 RGBA,ecole,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+building_clocher,architecture,assets/architecture/clocher.png,768x768 RGBA,clocher,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+building_quai_haut,architecture,assets/architecture/quai_haut.png,768x768 RGBA,quai_haut,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+building_halle,architecture,assets/architecture/halle.png,768x768 RGBA,halle,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+building_grenier,architecture,assets/architecture/grenier.png,768x768 RGBA,grenier,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+building_infirmerie,architecture,assets/architecture/infirmerie.png,768x768 RGBA,infirmerie,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+building_refectoire,architecture,assets/architecture/refectoire.png,768x768 RGBA,refectoire,Découpe 2D originale réutilisable,Identité identique aux photos; pas de chemin masqué,planned
+variant_atelier_without_floor,architecture,assets/architecture/atelier_without_floor.png,512x512 RGBA,Variation factuelle atelier_without_floor,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_school_stairs_raised,architecture,assets/architecture/school_stairs_raised.png,512x512 RGBA,Variation factuelle school_stairs_raised,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_school_stairs_lowered,architecture,assets/architecture/school_stairs_lowered.png,512x512 RGBA,Variation factuelle school_stairs_lowered,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_awning_intact,architecture,assets/architecture/awning_intact.png,512x512 RGBA,Variation factuelle awning_intact,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_awning_torn,architecture,assets/architecture/awning_torn.png,512x512 RGBA,Variation factuelle awning_torn,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_pane_intact,architecture,assets/architecture/pane_intact.png,512x512 RGBA,Variation factuelle pane_intact,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_pane_broken,architecture,assets/architecture/pane_broken.png,512x512 RGBA,Variation factuelle pane_broken,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_sign_fixed,architecture,assets/architecture/sign_fixed.png,512x512 RGBA,Variation factuelle sign_fixed,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_sign_fallen,architecture,assets/architecture/sign_fallen.png,512x512 RGBA,Variation factuelle sign_fallen,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_chimney_whole,architecture,assets/architecture/chimney_whole.png,512x512 RGBA,Variation factuelle chimney_whole,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+variant_chimney_chipped,architecture,assets/architecture/chimney_chipped.png,512x512 RGBA,Variation factuelle chimney_chipped,Dérivé exact bâtiment maître,Seul attribut indiqué change; raccord constant,planned
+figure_nelle,figure,assets/props/nelle.png,384x768 RGBA,Silhouette nelle,Illustration originale,Reconnaissable à petite taille; pas de détail anxiogène,planned
+figure_aline,figure,assets/props/aline.png,384x768 RGBA,Silhouette aline,Illustration originale,Reconnaissable à petite taille; pas de détail anxiogène,planned
+figure_jo,figure,assets/props/jo.png,384x768 RGBA,Silhouette jo,Illustration originale,Reconnaissable à petite taille; pas de détail anxiogène,planned
+figure_children_group,figure,assets/props/children_group.png,384x768 RGBA,Silhouette children_group,Illustration originale,Reconnaissable à petite taille; pas de détail anxiogène,planned
+figure_nurse_group,figure,assets/props/nurse_group.png,384x768 RGBA,Silhouette nurse_group,Illustration originale,Reconnaissable à petite taille; pas de détail anxiogène,planned
+figure_archive_group,figure,assets/props/archive_group.png,384x768 RGBA,Silhouette archive_group,Illustration originale,Reconnaissable à petite taille; pas de détail anxiogène,planned
+prop_box_closed,prop,assets/props/box_closed.png,768x768 RGBA,Objet box_closed,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_box_lid,prop,assets/props/box_lid.png,768x768 RGBA,Objet box_lid,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_box_base,prop,assets/props/box_base.png,768x768 RGBA,Objet box_base,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_latch,prop,assets/props/latch.png,768x768 RGBA,Objet latch,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_paper_tab,prop,assets/props/paper_tab.png,768x768 RGBA,Objet paper_tab,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_barge,prop,assets/props/barge.png,768x768 RGBA,Objet barge,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_balance_pointer,prop,assets/props/balance_pointer.png,768x768 RGBA,Objet balance_pointer,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_floor,prop,assets/props/floor.png,768x768 RGBA,Objet floor,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_roof,prop,assets/props/roof.png,768x768 RGBA,Objet roof,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_door,prop,assets/props/door.png,768x768 RGBA,Objet door,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_brace,prop,assets/props/brace.png,768x768 RGBA,Objet brace,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_rope,prop,assets/props/rope.png,768x768 RGBA,Objet rope,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_telephone,prop,assets/props/telephone.png,768x768 RGBA,Objet telephone,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+prop_exhibition_plinth,prop,assets/props/exhibition_plinth.png,768x768 RGBA,Objet exhibition_plinth,Découpe en couches et pivots,Prise visible; états conformes au puzzle,planned
+p01_l3,puzzle,assets/puzzles/p01/l3.png,360x720 RGBA,Lé du panorama L3,Bords vectoriels partagés puis illustration,Deux signatures de couture exactes; orientation unique,planned
+p01_l1,puzzle,assets/puzzles/p01/l1.png,360x720 RGBA,Lé du panorama L1,Bords vectoriels partagés puis illustration,Deux signatures de couture exactes; orientation unique,planned
+p01_l5,puzzle,assets/puzzles/p01/l5.png,360x720 RGBA,Lé du panorama L5,Bords vectoriels partagés puis illustration,Deux signatures de couture exactes; orientation unique,planned
+p01_l2,puzzle,assets/puzzles/p01/l2.png,360x720 RGBA,Lé du panorama L2,Bords vectoriels partagés puis illustration,Deux signatures de couture exactes; orientation unique,planned
+p01_l4,puzzle,assets/puzzles/p01/l4.png,360x720 RGBA,Lé du panorama L4,Bords vectoriels partagés puis illustration,Deux signatures de couture exactes; orientation unique,planned
+p01_frame,puzzle,assets/puzzles/p01/frame.png,1800x720 RGBA,Ancres fixes du panorama,Géométrie dessinée,Gauche quai_bas et droite colline,planned
+photo_f4,evidence,assets/puzzles/p02/f4.png,1200x900 RGB,Photo F4,Composition depuis bâtiments maîtres,Matrice de dégâts JSON exacte; hors cadre respecté,planned
+photo_f1,evidence,assets/puzzles/p02/f1.png,1200x900 RGB,Photo F1,Composition depuis bâtiments maîtres,Matrice de dégâts JSON exacte; hors cadre respecté,planned
+photo_f5,evidence,assets/puzzles/p02/f5.png,1200x900 RGB,Photo F5,Composition depuis bâtiments maîtres,Matrice de dégâts JSON exacte; hors cadre respecté,planned
+photo_f2,evidence,assets/puzzles/p02/f2.png,1200x900 RGB,Photo F2,Composition depuis bâtiments maîtres,Matrice de dégâts JSON exacte; hors cadre respecté,planned
+photo_f3,evidence,assets/puzzles/p02/f3.png,1200x900 RGB,Photo F3,Composition depuis bâtiments maîtres,Matrice de dégâts JSON exacte; hors cadre respecté,planned
+route_face_0,puzzle,assets/puzzles/routes/face_0.svg,512x512 SVG,Volet commun P03/P06,Vecteur exact depuis couples de ports,Deux courbes séparées; ports centrés; même largeur,planned
+route_face_1,puzzle,assets/puzzles/routes/face_1.svg,512x512 SVG,Volet commun P03/P06,Vecteur exact depuis couples de ports,Deux courbes séparées; ports centrés; même largeur,planned
+route_pattern_dots,puzzle,assets/puzzles/routes/dots.svg,vector repeat,Tracé de parcours dots,Vecteur procédural,Distinct en niveaux de gris; non confondu avec courbe,planned
+route_pattern_dashes,puzzle,assets/puzzles/routes/dashes.svg,vector repeat,Tracé de parcours dashes,Vecteur procédural,Distinct en niveaux de gris; non confondu avec courbe,planned
+route_pattern_double,puzzle,assets/puzzles/routes/double.svg,vector repeat,Tracé de parcours double,Vecteur procédural,Distinct en niveaux de gris; non confondu avec courbe,planned
+mask_0,puzzle,assets/puzzles/p04/mask_0.svg,700x700 SVG,Calque 0,Généré depuis bitmap JSON,Rotation autour du centre; aucune approximation alpha,planned
+mask_1,puzzle,assets/puzzles/p04/mask_1.svg,700x700 SVG,Calque 1,Généré depuis bitmap JSON,Rotation autour du centre; aucune approximation alpha,planned
+mask_2,puzzle,assets/puzzles/p04/mask_2.svg,700x700 SVG,Calque 2,Généré depuis bitmap JSON,Rotation autour du centre; aucune approximation alpha,planned
+mask_target,puzzle,assets/puzzles/p04/target.svg,700x700 SVG,Contour témoin,Vecteur exact union des masques,Correspond à F2; sens haut visible,planned
+cargo_lantern,puzzle,assets/puzzles/p05/lantern.png,384x384 RGBA,Charge lantern,Illustration originale + labels UI séparés,Poids lisible; lantern/press hautes; 6 unités pour press,planned
+cargo_medicine,puzzle,assets/puzzles/p05/medicine.png,384x384 RGBA,Charge medicine,Illustration originale + labels UI séparés,Poids lisible; lantern/press hautes; 6 unités pour press,planned
+cargo_food,puzzle,assets/puzzles/p05/food.png,384x384 RGBA,Charge food,Illustration originale + labels UI séparés,Poids lisible; lantern/press hautes; 6 unités pour press,planned
+cargo_tools,puzzle,assets/puzzles/p05/tools.png,384x384 RGBA,Charge tools,Illustration originale + labels UI séparés,Poids lisible; lantern/press hautes; 6 unités pour press,planned
+cargo_dye,puzzle,assets/puzzles/p05/dye.png,384x384 RGBA,Charge dye,Illustration originale + labels UI séparés,Poids lisible; lantern/press hautes; 6 unités pour press,planned
+cargo_press,puzzle,assets/puzzles/p05/press.png,384x384 RGBA,Charge press,Illustration originale + labels UI séparés,Poids lisible; lantern/press hautes; 6 unités pour press,planned
+refuge_clocher,evidence,assets/puzzles/p06/clocher.png,600x600 RGB,Fiche de refuge clocher,Bâtiment maître et indices spécifiques,Cloche/escalier; plain-pied; étage sec distinguables,planned
+refuge_halle,evidence,assets/puzzles/p06/halle.png,600x600 RGB,Fiche de refuge halle,Bâtiment maître et indices spécifiques,Cloche/escalier; plain-pied; étage sec distinguables,planned
+refuge_grenier,evidence,assets/puzzles/p06/grenier.png,600x600 RGB,Fiche de refuge grenier,Bâtiment maître et indices spécifiques,Cloche/escalier; plain-pied; étage sec distinguables,planned
+action_deliver,puzzle,assets/puzzles/p07/deliver.svg,480x320 SVG,Carte opération deliver,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+action_stairs,puzzle,assets/puzzles/p07/stairs.svg,480x320 SVG,Carte opération stairs,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+action_floor,puzzle,assets/puzzles/p07/floor.svg,480x320 SVG,Carte opération floor,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+action_brace,puzzle,assets/puzzles/p07/brace.svg,480x320 SVG,Carte opération brace,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+action_evacuate,puzzle,assets/puzzles/p07/evacuate.svg,480x320 SVG,Carte opération evacuate,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+action_release,puzzle,assets/puzzles/p07/release.svg,480x320 SVG,Carte opération release,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+action_fasten_floor,puzzle,assets/puzzles/p07/fasten_floor.svg,480x320 SVG,Carte opération fasten_floor,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+action_load_roof,puzzle,assets/puzzles/p07/load_roof.svg,480x320 SVG,Carte opération load_roof,Illustration vectorielle schématique,Geste compréhensible sans texte; label externalisé,planned
+tide_0,puzzle,assets/puzzles/p07/tide_0.svg,720x480 SVG,Coupe niveau 0,Gabarit commun vectoriel,Hauteur et accès correspondent aux fenêtres JSON,planned
+tide_1,puzzle,assets/puzzles/p07/tide_1.svg,720x480 SVG,Coupe niveau 1,Gabarit commun vectoriel,Hauteur et accès correspondent aux fenêtres JSON,planned
+tide_2,puzzle,assets/puzzles/p07/tide_2.svg,720x480 SVG,Coupe niveau 2,Gabarit commun vectoriel,Hauteur et accès correspondent aux fenêtres JSON,planned
+tide_3,puzzle,assets/puzzles/p07/tide_3.svg,720x480 SVG,Coupe niveau 3,Gabarit commun vectoriel,Hauteur et accès correspondent aux fenêtres JSON,planned
+tide_4,puzzle,assets/puzzles/p07/tide_4.svg,720x480 SVG,Coupe niveau 4,Gabarit commun vectoriel,Hauteur et accès correspondent aux fenêtres JSON,planned
+tide_5,puzzle,assets/puzzles/p07/tide_5.svg,720x480 SVG,Coupe niveau 5,Gabarit commun vectoriel,Hauteur et accès correspondent aux fenêtres JSON,planned
+paper_report,evidence,assets/ui/evidence_report.png,900x1200 RGBA,Support preuve report,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+paper_photo_note,evidence,assets/ui/evidence_photo_note.png,900x1200 RGBA,Support preuve photo_note,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+paper_delivery,evidence,assets/ui/evidence_delivery.png,900x1200 RGBA,Support preuve delivery,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+paper_cargo_rules,evidence,assets/ui/evidence_cargo_rules.png,900x1200 RGBA,Support preuve cargo_rules,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+paper_press_note,evidence,assets/ui/evidence_press_note.png,900x1200 RGBA,Support preuve press_note,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+paper_refuges,evidence,assets/ui/evidence_refuges.png,900x1200 RGBA,Support preuve refuges,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+paper_statement,evidence,assets/ui/evidence_statement.png,900x1200 RGBA,Support preuve statement,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+paper_cartel_final,evidence,assets/ui/evidence_cartel_final.png,900x1200 RGBA,Support preuve cartel_final,Papier illustré sans texte raster,Texte UI séparé; aucun faux déchiffrement,planned
+icon_back,ui,assets/ui/back.svg,96x96 SVG,Commande back,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_menu,ui,assets/ui/menu.svg,96x96 SVG,Commande menu,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_notebook,ui,assets/ui/notebook.svg,96x96 SVG,Commande notebook,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_hint,ui,assets/ui/hint.svg,96x96 SVG,Commande hint,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_rotate_left,ui,assets/ui/rotate_left.svg,96x96 SVG,Commande rotate_left,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_rotate_right,ui,assets/ui/rotate_right.svg,96x96 SVG,Commande rotate_right,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_eye,ui,assets/ui/eye.svg,96x96 SVG,Commande eye,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_zoom,ui,assets/ui/zoom.svg,96x96 SVG,Commande zoom,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_compare,ui,assets/ui/compare.svg,96x96 SVG,Commande compare,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_undo,ui,assets/ui/undo.svg,96x96 SVG,Commande undo,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_reset,ui,assets/ui/reset.svg,96x96 SVG,Commande reset,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_check,ui,assets/ui/check.svg,96x96 SVG,Commande check,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_home,ui,assets/ui/home.svg,96x96 SVG,Commande home,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_sound,ui,assets/ui/sound.svg,96x96 SVG,Commande sound,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_settings,ui,assets/ui/settings.svg,96x96 SVG,Commande settings,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+icon_pin,ui,assets/ui/pin.svg,96x96 SVG,Commande pin,Système vectoriel homogène,Lisible à 24dp; label accessible présent,planned
+ui_paper_panel,ui,assets/ui/paper_panel.svg,9slice or vector,Composant paper_panel,Vectoriel,Contrastes vérifiés; pas de déformation du trait,planned
+ui_button_normal,ui,assets/ui/button_normal.svg,9slice or vector,Composant button_normal,Vectoriel,Contrastes vérifiés; pas de déformation du trait,planned
+ui_button_pressed,ui,assets/ui/button_pressed.svg,9slice or vector,Composant button_pressed,Vectoriel,Contrastes vérifiés; pas de déformation du trait,planned
+ui_focus_ring,ui,assets/ui/focus_ring.svg,9slice or vector,Composant focus_ring,Vectoriel,Contrastes vérifiés; pas de déformation du trait,planned
+ui_selected_outline,ui,assets/ui/selected_outline.svg,9slice or vector,Composant selected_outline,Vectoriel,Contrastes vérifiés; pas de déformation du trait,planned
+font_noto_sans_regular,font,assets/fonts/noto_sans_regular.ttf,TTF local,Police noto_sans_regular,Source officielle et licence enregistrée,Accents français; licence incluse; pas de réseau,planned
+font_noto_sans_semibold,font,assets/fonts/noto_sans_semibold.ttf,TTF local,Police noto_sans_semibold,Source officielle et licence enregistrée,Accents français; licence incluse; pas de réseau,planned
+font_noto_serif_medium,font,assets/fonts/noto_serif_medium.ttf,TTF local,Police noto_serif_medium,Source officielle et licence enregistrée,Accents français; licence incluse; pas de réseau,planned
+music_atelier,music,assets/audio/music_atelier.ogg,100s stereo loop,Musique atelier,Composition originale export master WAV,Boucle sans clic; niveau mesuré; droits tracés,planned
+music_passages,music,assets/audio/music_passages.ogg,110s stereo loop,Musique passages,Composition originale export master WAV,Boucle sans clic; niveau mesuré; droits tracés,planned
+music_rive_ouverte,music,assets/audio/music_rive_ouverte.ogg,85s stereo loop,Musique rive_ouverte,Composition originale export master WAV,Boucle sans clic; niveau mesuré; droits tracés,planned
+amb_rain_inside,ambience,assets/audio/amb_rain_inside.ogg,45s stereo loop,Ambiance rain_inside,Enregistrement autorisé ou synthèse originale,Pas de voix ni preuve sonore exclusive,planned
+amb_window,ambience,assets/audio/amb_window.ogg,40s stereo loop,Ambiance window,Enregistrement autorisé ou synthèse originale,Pas de voix ni preuve sonore exclusive,planned
+amb_exhibition,ambience,assets/audio/amb_exhibition.ogg,35s stereo loop,Ambiance exhibition,Enregistrement autorisé ou synthèse originale,Pas de voix ni preuve sonore exclusive,planned
+sfx_paper_pick,sfx,assets/audio/paper_pick.wav,0.1-2s mono 48kHz,Effet paper_pick,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_paper_drop,sfx,assets/audio/paper_drop.wav,0.1-2s mono 48kHz,Effet paper_drop,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_flap_a,sfx,assets/audio/flap_a.wav,0.1-2s mono 48kHz,Effet flap_a,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_flap_b,sfx,assets/audio/flap_b.wav,0.1-2s mono 48kHz,Effet flap_b,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_latch,sfx,assets/audio/latch.wav,0.1-2s mono 48kHz,Effet latch,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_box_open,sfx,assets/audio/box_open.wav,0.1-2s mono 48kHz,Effet box_open,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_calque_rotate,sfx,assets/audio/calque_rotate.wav,0.1-2s mono 48kHz,Effet calque_rotate,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_photo_slide,sfx,assets/audio/photo_slide.wav,0.1-2s mono 48kHz,Effet photo_slide,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_crate_a,sfx,assets/audio/crate_a.wav,0.1-2s mono 48kHz,Effet crate_a,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_crate_b,sfx,assets/audio/crate_b.wav,0.1-2s mono 48kHz,Effet crate_b,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_balanced,sfx,assets/audio/balanced.wav,0.1-2s mono 48kHz,Effet balanced,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_wood_place,sfx,assets/audio/wood_place.wav,0.1-2s mono 48kHz,Effet wood_place,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_water_step,sfx,assets/audio/water_step.wav,0.1-2s mono 48kHz,Effet water_step,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_contradiction,sfx,assets/audio/contradiction.wav,0.1-2s mono 48kHz,Effet contradiction,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_validated,sfx,assets/audio/validated.wav,0.1-2s mono 48kHz,Effet validated,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_telephone,sfx,assets/audio/telephone.wav,0.1-2s mono 48kHz,Effet telephone,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+sfx_last_page,sfx,assets/audio/last_page.wav,0.1-2s mono 48kHz,Effet last_page,Foley/synthèse original,Non strident; pas de clipping; variations cohérentes,planned
+store_icon_master,store,assets/store/icon_master.png,1024x1024 PNG,Support commercial icon_master,Composition depuis art final,Silhouette lisible; tailles finales revérifiées au release,planned
+store_icon_foreground,store,assets/store/icon_foreground.png,432x432 PNG,Support commercial icon_foreground,Composition depuis art final,Silhouette lisible; tailles finales revérifiées au release,planned
+store_icon_background,store,assets/store/icon_background.png,432x432 PNG,Support commercial icon_background,Composition depuis art final,Silhouette lisible; tailles finales revérifiées au release,planned
+store_icon_monochrome,store,assets/store/icon_monochrome.png,432x432 PNG,Support commercial icon_monochrome,Composition depuis art final,Silhouette lisible; tailles finales revérifiées au release,planned
+store_feature_graphic,store,assets/store/feature_graphic.png,1024x500 PNG,Support commercial feature_graphic,Composition depuis art final,Silhouette lisible; tailles finales revérifiées au release,planned
+store_screenshot_panorama,store,assets/store/screenshot_panorama.png,1080x1920 PNG,Capture réelle panorama,Capture build final,Aucune fonctionnalité fictive; langue/état final,planned
+store_screenshot_routes,store,assets/store/screenshot_routes.png,1080x1920 PNG,Capture réelle routes,Capture build final,Aucune fonctionnalité fictive; langue/état final,planned
+store_screenshot_barge,store,assets/store/screenshot_barge.png,1080x1920 PNG,Capture réelle barge,Capture build final,Aucune fonctionnalité fictive; langue/état final,planned
+store_screenshot_plancher,store,assets/store/screenshot_plancher.png,1080x1920 PNG,Capture réelle plancher,Capture build final,Aucune fonctionnalité fictive; langue/état final,planned

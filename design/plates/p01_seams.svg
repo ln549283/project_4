@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="960" viewBox="0 0 1200 960">
+<rect width="1200" height="960" fill="#f1e8d5"/>
+<text x="40" y="50" font-family="sans-serif" font-size="28" text-anchor="start" fill="#26333c">P01 — signatures de raccord</text>
+<text x="40" y="82" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">GABARIT STUDIO — données exactes / solution dévoilée / illustration finale à produire</text>
+<rect x="60" y="180" width="210" height="420" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="165" y="220" font-family="sans-serif" font-size="26" text-anchor="middle" fill="#26333c">L3</text>
+<text x="70" y="290" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">quai bas</text>
+<text x="70" y="400" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">corde haute</text>
+<text x="70" y="424" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">roseau bas</text>
+<text x="70" y="570" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">gauche → droite</text>
+<rect x="280" y="180" width="210" height="420" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="385" y="220" font-family="sans-serif" font-size="26" text-anchor="middle" fill="#26333c">L1</text>
+<text x="290" y="290" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">corde haute</text>
+<text x="290" y="314" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">roseau bas</text>
+<text x="290" y="400" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">toit haut</text>
+<text x="290" y="424" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">rail bas</text>
+<text x="290" y="570" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">gauche → droite</text>
+<rect x="500" y="180" width="210" height="420" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="605" y="220" font-family="sans-serif" font-size="26" text-anchor="middle" fill="#26333c">L5</text>
+<text x="510" y="290" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">toit haut</text>
+<text x="510" y="314" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">rail bas</text>
+<text x="510" y="400" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">fenetre haut</text>
+<text x="510" y="424" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">escalier bas</text>
+<text x="510" y="570" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">gauche → droite</text>
+<rect x="720" y="180" width="210" height="420" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="825" y="220" font-family="sans-serif" font-size="26" text-anchor="middle" fill="#26333c">L2</text>
+<text x="730" y="290" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">fenetre haut</text>
+<text x="730" y="314" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">escalier bas</text>
+<text x="730" y="400" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">arbre haut</text>
+<text x="730" y="424" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">mur bas</text>
+<text x="730" y="570" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">gauche → droite</text>
+<rect x="940" y="180" width="210" height="420" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="1045" y="220" font-family="sans-serif" font-size="26" text-anchor="middle" fill="#26333c">L4</text>
+<text x="950" y="290" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">arbre haut</text>
+<text x="950" y="314" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">mur bas</text>
+<text x="950" y="400" font-family="sans-serif" font-size="17" text-anchor="start" fill="#26333c">colline</text>
+<text x="950" y="570" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">gauche → droite</text>
+<text x="60" y="690" font-family="sans-serif" font-size="24" text-anchor="start" fill="#26333c">Chaque signature de couture a deux lignes visuelles communes.</text>
+<text x="60" y="730" font-family="sans-serif" font-size="22" text-anchor="start" fill="#26333c">Pas de rotation : l’encoche supérieure fixe le sens.</text>
+</svg>

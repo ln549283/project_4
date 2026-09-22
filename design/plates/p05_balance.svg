@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="960" viewBox="0 0 1200 960">
+<rect width="1200" height="960" fill="#f1e8d5"/>
+<text x="40" y="50" font-family="sans-serif" font-size="28" text-anchor="start" fill="#26333c">P05 — exemple accepté et bras de levier</text>
+<text x="40" y="82" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">GABARIT STUDIO — données exactes / solution dévoilée / illustration finale à produire</text>
+<rect x="70" y="260" width="155" height="230" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="148" y="300" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">Médicaments</text>
+<text x="148" y="360" font-family="sans-serif" font-size="42" text-anchor="middle" fill="#26333c">2</text>
+<text x="148" y="450" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">position -3</text>
+<rect x="240" y="260" width="155" height="230" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="318" y="300" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">Outils</text>
+<text x="318" y="360" font-family="sans-serif" font-size="42" text-anchor="middle" fill="#26333c">4</text>
+<text x="318" y="450" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">position -2</text>
+<rect x="410" y="260" width="155" height="230" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="488" y="300" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">Presse</text>
+<text x="488" y="360" font-family="sans-serif" font-size="42" text-anchor="middle" fill="#26333c">6</text>
+<text x="488" y="450" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">position -1</text>
+<rect x="580" y="260" width="155" height="230" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="658" y="300" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">Lanterne</text>
+<text x="658" y="360" font-family="sans-serif" font-size="42" text-anchor="middle" fill="#26333c">1</text>
+<text x="658" y="450" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">position 1</text>
+<rect x="750" y="260" width="155" height="230" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="828" y="300" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">Teintures</text>
+<text x="828" y="360" font-family="sans-serif" font-size="42" text-anchor="middle" fill="#26333c">5</text>
+<text x="828" y="450" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">position 2</text>
+<rect x="920" y="260" width="155" height="230" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="998" y="300" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">Vivres</text>
+<text x="998" y="360" font-family="sans-serif" font-size="42" text-anchor="middle" fill="#26333c">3</text>
+<text x="998" y="450" font-family="sans-serif" font-size="17" text-anchor="middle" fill="#26333c">position 3</text>
+<line x1="65" y1="510" x2="1110" y2="510" stroke="#476d73" stroke-width="6"/>
+<path d="M 590 510 L 560 565 L 620 565 Z" fill="#a86546"/>
+<text x="60" y="650" font-family="sans-serif" font-size="23" text-anchor="start" fill="#26333c">Presse et lanterne : deux emplacements centraux, sans arceau bas.</text>
+<text x="60" y="695" font-family="sans-serif" font-size="23" text-anchor="start" fill="#26333c">Médicaments et teintures : pas de voisinage immédiat.</text>
+<text x="60" y="740" font-family="sans-serif" font-size="23" text-anchor="start" fill="#26333c">Équilibre : -6 -8 -6 +1 +10 +9 = 0. Équation réservée au studio.</text>
+<text x="60" y="800" font-family="sans-serif" font-size="23" text-anchor="start" fill="#26333c">Quatre solutions acceptées : ne pas verrouiller ce seul arrangement.</text>
+</svg>

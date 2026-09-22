@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="960" viewBox="0 0 1200 960">
+<rect width="1200" height="960" fill="#f1e8d5"/>
+<text x="40" y="50" font-family="sans-serif" font-size="28" text-anchor="start" fill="#26333c">P07 — frise de reconstitution et fenêtres</text>
+<text x="40" y="82" font-family="sans-serif" font-size="16" text-anchor="start" fill="#26333c">GABARIT STUDIO — données exactes / solution dévoilée / illustration finale à produire</text>
+<rect x="50" y="140" width="1100" height="90" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="85" y="194" font-family="sans-serif" font-size="30" text-anchor="start" fill="#26333c">0</text>
+<text x="145" y="178" font-family="sans-serif" font-size="24" text-anchor="start" fill="#26333c">Livrer les outils</text>
+<text x="145" y="210" font-family="sans-serif" font-size="18" text-anchor="start" fill="#26333c">Rampe accessible au niveau 0 seulement</text>
+<rect x="50" y="245" width="1100" height="90" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="85" y="299" font-family="sans-serif" font-size="30" text-anchor="start" fill="#26333c">1</text>
+<text x="145" y="283" font-family="sans-serif" font-size="24" text-anchor="start" fill="#26333c">Relever l’escalier</text>
+<text x="145" y="315" font-family="sans-serif" font-size="18" text-anchor="start" fill="#26333c">Axe accessible au plus tard à 1</text>
+<rect x="50" y="350" width="1100" height="90" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="85" y="404" font-family="sans-serif" font-size="30" text-anchor="start" fill="#26333c">2</text>
+<text x="145" y="388" font-family="sans-serif" font-size="24" text-anchor="start" fill="#26333c">Déposer le plancher</text>
+<text x="145" y="420" font-family="sans-serif" font-size="18" text-anchor="start" fill="#26333c">Barge à hauteur à partir de 2 ; outils nécessaires</text>
+<rect x="50" y="455" width="1100" height="90" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="85" y="509" font-family="sans-serif" font-size="30" text-anchor="start" fill="#26333c">3</text>
+<text x="145" y="493" font-family="sans-serif" font-size="24" text-anchor="start" fill="#26333c">Étayer le passage</text>
+<text x="145" y="525" font-family="sans-serif" font-size="18" text-anchor="start" fill="#26333c">Appuis utilisables à partir de 3 ; plancher posé</text>
+<rect x="50" y="560" width="1100" height="90" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="85" y="614" font-family="sans-serif" font-size="30" text-anchor="start" fill="#26333c">4</text>
+<text x="145" y="598" font-family="sans-serif" font-size="24" text-anchor="start" fill="#26333c">Faire passer le groupe</text>
+<text x="145" y="630" font-family="sans-serif" font-size="18" text-anchor="start" fill="#26333c">Passage avant 5 ; escalier et étais présents</text>
+<rect x="50" y="665" width="1100" height="90" fill="#fffaf0" stroke="#26333c" stroke-width="2"/>
+<text x="85" y="719" font-family="sans-serif" font-size="30" text-anchor="start" fill="#26333c">5</text>
+<text x="145" y="703" font-family="sans-serif" font-size="24" text-anchor="start" fill="#26333c">Détacher la barge</text>
+<text x="145" y="735" font-family="sans-serif" font-size="18" text-anchor="start" fill="#26333c">Après le groupe ; conserver le support jusque-là</text>
+<text x="60" y="850" font-family="sans-serif" font-size="22" text-anchor="start" fill="#26333c">Pièce : plancher = 3 travées, toiture = 2, porte = 1 ; interruption = 3.</text>
+</svg>
