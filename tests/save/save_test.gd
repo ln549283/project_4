@@ -111,14 +111,14 @@ func _test_settings(service: RefCounted) -> void:
 
 func _cleanup_slots() -> void:
 	for name in ["campaign_a.json", "campaign_b.json", "campaign_a.json.tmp", "campaign_b.json.tmp", "campaign_a.json.invalid_backup.json", "campaign_b.json.invalid_backup.json", "campaign_restart_backup.json"]:
-		var path := ROOT + "/" + name
+		var path: String = ROOT + "/" + name
 		if FileAccess.file_exists(path):
 			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
 func _cleanup() -> void:
 	_cleanup_slots()
 	for name in ["settings.json", "settings.json.tmp", "settings_backup.json"]:
-		var path := ROOT + "/" + name
+		var path: String = ROOT + "/" + name
 		if FileAccess.file_exists(path):
 			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
