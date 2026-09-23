@@ -14,7 +14,7 @@ func _rebuild() -> void:
 	var contract: Dictionary = Session.state.puzzles_contract["p04"]
 	var turns: Array = Session.state.campaign["puzzles"]["p04"]["turns"]
 	for i in range(3):
-		box.add_child(UiFactory.make_label("Calque %s — %s" % [char(65 + i), "visible" if layer_visible[i] else "masqué"], Session.font_size_px(16)))
+		box.add_child(UiFactory.make_label("Calque %s — %s" % [["A", "B", "C"][i], "visible" if layer_visible[i] else "masqué"], Session.font_size_px(16)))
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 24)
 		row.add_child(UiFactory.make_button("↶", _rotate.bind(i, -1)))
