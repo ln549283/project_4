@@ -285,7 +285,7 @@ func _validate_puzzle_states(states: Dictionary) -> Dictionary:
 		if index >= 0 and abs(int(puzzles_contract["p05"]["positions"][index])) != 1:
 			return {"ok": false, "error": "p05_gauge"}
 	var p06: Dictionary = states["p06"]
-	if int(p06.get("water_level", -1)) not in puzzles_contract["p06"]["water_levels"]:
+	if not _contains_int(puzzles_contract["p06"]["water_levels"], int(p06.get("water_level", -1))):
 		return {"ok": false, "error": "p06_water"}
 	var placements: Dictionary = p06.get("fragments", {})
 	for fragment_id in puzzles_contract["p06"]["fragments"].keys():
@@ -311,6 +311,12 @@ func _validate_puzzle_states(states: Dictionary) -> Dictionary:
 	if p07_slots.size() != 6 or not _unique_known_or_null(p07_slots, puzzles_contract["p07"]["actions"]):
 		return {"ok": false, "error": "p07_slots"}
 	return {"ok": true}
+
+func _contains_int(values: Array, expected: int) -> bool:
+	for raw_value: Variant in values:
+		if int(raw_value) == expected:
+			return true
+	return false
 
 func _same_members(values: Array, expected: Array) -> bool:
 	if values.size() != expected.size():
