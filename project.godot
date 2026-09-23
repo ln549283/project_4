@@ -1,17 +1,15 @@
 ; Engine configuration file.
-; Generated for production T01. Edit through Godot when practical.
 config_version=5
 
 [application]
-
 config/name="Les Rives pliées"
 run/main_scene="res://scenes/boot.tscn"
 config/features=PackedStringArray("4.6")
 
-[display]
+[autoload]
+Session="*res://src/core/game_session.gd"
 
 [display/window]
-
 size/viewport_width=1080
 size/viewport_height=1920
 size/window_width_override=540
@@ -20,11 +18,6 @@ stretch/mode="canvas_items"
 handheld/orientation=1
 
 [rendering]
-
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/default_filters/use_nearest_mipmap_filter=false
-
-[application/run]
-
-disable_stdout=false

@@ -14,8 +14,12 @@ func _ready() -> void:
 		if DisplayServer.get_name() == "headless":
 			get_tree().quit(2)
 		return
-
-	status.text = "Greybox — contrats 1.1 chargés\nT01"
 	print("T01 BOOT PASS: contracts 1.1 validated")
 	if DisplayServer.get_name() == "headless":
 		get_tree().quit(0)
+		return
+	var session_result: Dictionary = Session.initialize()
+	if not session_result.get("ok", false):
+		status.text = "Impossible d'initialiser la session."
+		return
+	Session.navigate("s00", false)

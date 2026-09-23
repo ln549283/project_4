@@ -41,5 +41,7 @@ jobs:
         run: /tmp/godot/godot --headless --path . --script tests/state/state_test.gd
       - name: T04 save tests
         run: /tmp/godot/godot --headless --path . --script tests/save/save_test.gd
+      - name: T05 navigation tests
+        run: /tmp/godot/godot --headless --path . --script tests/ui/navigation_test.gd
       - name: Boot main scene
         run: /tmp/godot/godot --headless --path .
