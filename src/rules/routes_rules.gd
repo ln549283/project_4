@@ -61,6 +61,7 @@ static func trace(bits: Array, rows: int, cols: int, start: Array, tile_pairs: D
 		r = rr
 		c = cc
 		side = str(OPPOSITE[out_side])
+	return {"end": [], "visited": visited, "loop": false}
 
 static func _pair_map(raw_pairs: Array) -> Dictionary:
 	var result: Dictionary = {}
