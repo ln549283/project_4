@@ -1,6 +1,6 @@
-# Contrat complet des énigmes
+# Contrat complet des énigmes — conception 1.1 verrouillée
 
-Les valeurs exactes sont dans `design/puzzles.json`. Les états canoniques sont destinés au studio, pas au joueur. Ne jamais imprimer les bits de solution sur les assets. Les gabarits `design/plates/` sont des plans techniques à usage production, non des illustrations de jeu. P00 n'est pas compté dans les sept énigmes.
+Les valeurs exactes sont dans `design/puzzles.json`. Les états canoniques sont destinés au studio, pas au joueur. Ne jamais imprimer les bits de solution sur les assets. Les gabarits `design/plates/` sont des plans techniques à usage production, non des illustrations de jeu. P00 est une prise en main explicite, sans indices. P01 et P04 sont des respirations actives ; les étapes P02, P03, P05 et P06 portent l'essentiel du raisonnement. P07 est une synthèse jouée. Les durées ci-dessous sont des hypothèses de conception, non des mesures.
 
 ## Comportements communs
 
@@ -14,22 +14,20 @@ Les valeurs exactes sont dans `design/puzzles.json`. Les états canoniques sont 
 
 ## P00 — ouvrir ce qui reste
 
-**Rôle :** découverte des gestes, 1 min dans les 3 min d'arrivée.
+**Rôle :** découverte des gestes, 30–60 s dans l’arrivée.
 
 Deux attaches à gauche et droite du coffret. Deux embossages indiquent une flèche vers le haut. Toucher une attache la soulève ; une seconde touche la referme. La languette centrale ne coulisse que si les deux sont ouvertes. La toucher alors déplie le coffret. Alternative : sélection + bouton « Soulever », puis « Ouvrir ». Aucun glissement obligatoire.
 
 Erreur : si attache fermée, elle fléchit légèrement ; label « Une attache retient encore le couvercle. » Aucun bruit de serrure. Récompense : panorama fragmenté, signé Aline.
 
-H1 « Le couvercle est retenu sur les côtés. »
-H2 « Les deux attaches peuvent être soulevées séparément. »
-H3 « Observe ce qui retient encore le couvercle lorsque tu touches la languette. »
+La commande « Soulever les deux attaches, puis ouvrir » est montrée directement. Ce tutoriel ne se fait pas passer pour une énigme et ne possède pas de bouton Indice.
 
 Vérification novice : les deux cibles sont visibles, larges de 56 dp. Un doigt n'a pas à maintenir une attache pendant l'autre ; absence de multitouch obligatoire. Retour accueil puis reprise conserve chaque attache.
 
 ## P01 — les rives raccordées
 
 **But joueur :** remettre cinq lés verticaux dans le panorama.
-**Accès :** P00. **Durée budgétée :** 4 min (2–6). **Compétence :** observation de continuités.
+**Accès :** P00. **Hypothèse de durée :** 2–4 min. **Compétence :** observation de continuités.
 
 ### Matériel et règles
 
@@ -64,11 +62,11 @@ Hypothèse naturelle « les bâtiments doivent être triés par taille » contre
 ## P02 — l'heure sans horloge
 
 **But :** remettre cinq photos dans leur ordre de prise.
-**Accès :** P01. **Durée :** 8 min (5–10). **Compétence :** contraintes partielles et déduction.
+**Accès :** P01. **Hypothèse de durée :** 5–9 min. **Compétence :** contraintes partielles et déduction.
 
 ### Informations accessibles
 
-Fiche jointe, toujours visible : « Même crue, même heure. Aucune réparation entre ces cinq prises. » Les zones d'un même bâtiment portent des repères architecturaux constants, permettant de comparer sans connaissance du lieu. Les dégâts ne sont pas des états de portes susceptibles de changer dans les deux sens.
+Fiche jointe, toujours visible : « Même crue, même montée des eaux. Aucune réparation entre ces cinq prises. » Les zones d'un même bâtiment portent des repères architecturaux constants, permettant de comparer sans connaissance du lieu. Les dégâts ne sont pas des états de portes susceptibles de changer dans les deux sens.
 
 | Photo | Auvent | Vitre | Enseigne | Cheminée |
 |---|---|---|---|---|
@@ -99,7 +97,7 @@ Le joueur peut arriver à une impasse en observant uniquement l'eau. Les dégât
 ## P03 — les chemins de service
 
 **But :** retrouver les trois trajets du matériel.
-**Accès :** P02. **Durée :** 9 min (6–12). **Compétence :** visualiser les conséquences couplées d'un changement local.
+**Accès :** P02. **Hypothèse de durée :** 5–9 min. **Compétence :** visualiser les conséquences couplées d'un changement local.
 
 ### Topologie exacte
 
@@ -141,13 +139,13 @@ Tester une languette révèle immédiatement les deux faces et le caractère sch
 ## P04 — le contrejour
 
 **But :** reconstruire la silhouette visible sur F2.
-**Accès :** P02, indépendante de P03. **Durée :** 4 min (2–6). **Compétence :** superposition spatiale, observation. Respiration active.
+**Accès :** P02, indépendante de P03. **Hypothèse de durée :** 1–3 min. **Compétence :** superposition spatiale, observation. Respiration active.
 
 ### Géométrie et règles
 
 Trois calques à axes fixes. On peut les tourner chacun par quarts de tour, jamais les déplacer ni les inverser. Une encoche triangulaire en haut de chaque support donne une orientation stable ; ce repère ne marque pas la bonne rotation. Chaque calque peut être masqué temporairement pour l'observer mais doit être présent pour valider. Les zones opaques s'unissent en une ombre noire ; pas d'addition de couleurs ou de règle optique cachée.
 
-Le dessin fonctionnel est un masque logique **7×7**, échelle de production 70 pixels par cellule ; contours légèrement adoucis seulement hors silhouette logique. Le JSON donne chaque masque : trois portiques décalés ; leur union dessine un tablier de sept unités de large et quatre appuis. Tous tournent autour du centre de la cellule (3,3). Cible photographique orientée : ligne supérieure d'eau, ciel et cadre empêchent ambiguïté haut/bas. La cible est affichée en contour à côté puis superposable au toucher.
+Le dessin fonctionnel est un masque logique **7×7**, canvas vectoriel 700×700, 100 unités par cellule ; contours légèrement adoucis seulement hors silhouette logique. Le JSON donne chaque masque : trois portiques décalés ; leur union dessine un tablier de sept unités de large et quatre appuis. Tous tournent autour du centre de la cellule (3,3). Cible photographique orientée : ligne supérieure d'eau, ciel et cadre empêchent ambiguïté haut/bas. La cible est affichée en contour à côté puis superposable au toucher.
 
 Initial **1,2,3** quarts de tour horaires, solution **0,0,0** canonique. Depuis l'initial il faut 3,2,1 touches horaires respectivement, mais aucune interface n'affiche ces nombres comme indice. 64 combinaisons, une seule reproduit la cible.
 
@@ -166,25 +164,25 @@ Pas de rotation au degré près ; les gestes imprécis enclenchent des quarts de
 ## P05 — la charge utile
 
 **But :** reconstituer une cargaison stable qui respecte ses contraintes de transport.
-**Accès :** P03 ET P04. **Durée :** 10 min (6–13). **Compétence :** logique de placement, effet du bras de levier, expérimentation informée.
+**Accès :** P03 ET P04. **Hypothèse de durée :** 6–10 min. **Compétence :** logique de placement, effet du bras de levier, expérimentation informée.
 
 ### Matériel complet
 
-Vue de barge frontale, six berceaux numérotés uniquement par position, trois de part et d'autre du pivot. Distances au pivot, dessinées par intervalles égaux : **−3,−2,−1,+1,+2,+3**. Sur chaque caisse une masse relative en gros jetons et en chiffre : lanterne 1, médicaments 2, vivres 3, outils 4, teintures 5, petite presse 6. Toutes les charges sont obligatoires, une par berceau.
+Vue de barge frontale, six berceaux numérotés uniquement par position, trois de part et d'autre du pivot. Distances au pivot : intervalles unitaires de chaque côté, intervalle DOUBLE entre les deux berceaux centraux : **−3,−2,−1,+1,+2,+3**. Sur chaque caisse une masse relative en gros jetons et en chiffre : lanterne 1, médicaments 2, vivres 3, outils 4, teintures 5, petite presse 6. Toutes les charges sont obligatoires, une par berceau.
 
 Règles inscrites sur le plan de chargement, texte et pictos :
 
 1. « Embarquer les six charges. La barge doit rester horizontale. »
 2. « Lanterne et presse dans les deux berceaux centraux : leur gabarit ne passe pas sous les arceaux des autres places. » Les deux objets sont hauts et les quatre emplacements externes disposent d'arceaux bas.
-3. « Ne pas placer médicaments et teintures dans deux berceaux voisins. » Huit possibilités de confusion évitées : voisin = deux emplacements consécutifs de la rangée, y compris au centre ; pas une distance en pixels à deviner.
+La règle de voisinage médicaments/teintures de la conception 1.0 est supprimée : elle ne retirait aucune des quatre solutions déjà imposées par les deux règles précédentes. Ne pas l’afficher ni l’implémenter.
 
 La physique du jeu est le modèle de balance de l'exercice : moment gauche = moment droit. Le pivot visible et l'absence de flottabilité calculée évitent de revendiquer une simulation nautique réaliste. Inclinaison de prévisualisation limitée à ±8 degrés, proportionnelle au déséquilibre ; l'eau décorative ne modifie rien.
 
 ### Manipulation et feedback
 
-Sélectionner un objet puis un berceau ; glisser possible. Une place occupée échange les objets ; si un objet vient du plateau, l'occupant retourne à sa place dans le plateau. Les positions interdites par gabarit produisent un aperçu rouge hachuré et le texte « Trop haut pour cet arceau », sans consommer l'objet. Cette règle peut être acceptée en brouillon pour inspection, mais Vérifier la refuse explicitement. Choix de production : placement interdit ne s'applique pas, l'objet reste sélectionné.
+Sélectionner un objet puis un berceau ; glisser possible. Une place occupée échange les objets ; si un objet vient du plateau, l'occupant retourne à sa place dans le plateau. Les positions interdites par gabarit produisent un aperçu rouge hachuré et le texte « Trop haut pour cet arceau », sans consommer l'objet. Une pose interdite ne s'applique pas et l'objet reste sélectionné. Lors d'un échange, vérifier le gabarit des **deux** objets avant toute mutation. Si l'un des deux ne rentre pas, refuser l'échange entier. Un objet peut toujours retourner dans le plateau, par sélection puis toucher son emplacement fantôme : aucun arrangement partiel ne peut emprisonner un objet.
 
-Indicateur d'équilibre avec aiguille et marque centrale ; bouton « Comparer les côtés » montre les jetons aux distances réelles (aide visuelle permanente, pas un quatrième indice). Aucun calcul tapé. Vérifier diagnostique dans l'ordre : objets manquants, gabarits, voisinage, déséquilibre. Pas de renversement destructif.
+Indicateur d'équilibre avec aiguille et marque centrale ; bouton « Comparer les côtés » montre les jetons aux distances réelles (aide visuelle permanente, pas un quatrième indice). Aucun calcul tapé. Vérifier diagnostique dans l'ordre : objets manquants, gabarits, déséquilibre. Pas de renversement destructif.
 
 ### Toutes les solutions
 
@@ -199,70 +197,97 @@ Exhaustivité : 720 permutations, quatre acceptées. Tous les placements de la l
 
 H1 « Le poids n'est pas le seul facteur : sa distance au milieu compte aussi. »
 H2 « Installe d'abord les deux objets que les arceaux obligent à rester au centre. Observe de quel côté ils font pencher la barge. »
-H3 « Si un côté descend trop, rapproche une charge lourde du milieu ou éloigne une charge de l'autre côté. Vérifie ensuite les deux caisses qui ne doivent pas se toucher. »
+H3 « Si un côté descend trop, rapproche une charge lourde du milieu ou éloigne une charge de l'autre côté. Change une paire à la fois pour comprendre son effet. »
 
 ### Regard novice
 
 La balance réagit pendant l'expérience, mais les objets ne glissent pas. Un joueur sans notion de moment peut comparer les essais. Le dernier indice ne donne aucun ordre de caisses. Charge cognitive bornée par six objets, deux places contraintes. Cas à tester : utilisateur confond équilibre de poids total et bras de levier ; le pivot et l'aiguille doivent permettre de corriger sa compréhension sans tutoriel scolaire.
 
-## P06 — le quartier déplié
+## P06 — le quartier sous l’eau
 
-**But :** orienter les trois groupes vers leur refuge, en tenant compte de leurs besoins.
-**Accès :** P05. **Durée :** 13 min (8–17). **Compétence :** synthèse d'indices de destination, réseau couplé plus grand.
+**Remplace intégralement l’ancienne grille de neuf volets.** Aucun second puzzle de tuyaux en V1.
+**But :** reconstituer deux liaisons manquantes du plan et proposer trois parcours compatibles avec la crue.
+**Accès :** P05. **Hypothèse de durée :** 10–16 min, à vérifier. **Raisonnement :** croisement de preuves, élimination d’accès, partage d’un passage, contre-exemple.
 
-### Première déduction : les refuges
+### Toutes les informations disponibles avant manipulation
 
-Trois cartes d'origine :
-- École : « Le groupe suit le point de rassemblement marqué d'une cloche. »
-- Infirmerie : « Les blessés rejoignent l'abri de plain-pied ; aucune marche. »
-- Archives : « Les cartons doivent rester au sec au-dessus de la crue. »
+1. Le cliché F3, déjà présent depuis P02, montre une échelle de crue ; l’eau atteint exactement le repère **4**. Une loupe présente cet extrait sans souligner le bon chiffre. L’échelle va de 0 à 5, sens vertical évident.
+2. Le plan montre la hauteur de fermeture de chaque liaison ; « inaccessible lorsque l’eau atteint sa marque ». Les hauteurs sont également dessinées en coupe, donc aucune connaissance de topographie n’est requise.
+3. Le relevé de secours indique : École → Clocher ; Infirmerie → Halle haute ; Archives → Grenier. Le groupe au brancard **ne peut pas prendre de marches** ; les deux autres groupes le peuvent. Tous les refuges et les nœuds restent au sec jusqu’au repère 5 inclus.
+4. Le plan comporte quatre blancs, mais seulement deux fragments conservés : un morceau représentant une arcade de deux travées et un représentant une rampe de trois. La légende précise : « Deux liaisons bâties ; les autres blancs sont des bras d’eau. Les trajets peuvent partager un passage. »
 
-Trois refuges présentés simultanément : **Clocher** avec cloche et escalier extérieur ; **Halle** avec entrée large et zéro marche mais sol bas ; **Grenier** au-dessus de la ligne d'eau et accessible par échelle, sans cloche. Les pictos et labels retirent toute dépendance au vocabulaire architectural. Le joueur associe les trois cartes aux refuges : École→Clocher, Infirmerie→Halle, Archives→Grenier. La Halle est un abri valable pour la phase représentée, avant le dernier cran de crue ; ne pas laisser entendre qu'on évacue les blessés vers un lieu déjà submergé.
+Les fragments sont des **morceaux de carte** figurant des ouvrages fixes en maçonnerie. Ce ne sont pas deux planches transportables. Ils ne peuvent donc pas remplacer le plancher dans P07. Le plan est explicitement schématique et non à l’échelle. Chaque emplacement porte deux ou trois coutures-repères pour le fragment correspondant ; la longueur d’un trait à l’écran n’est jamais une mesure.
 
-### Deuxième déduction : carte 3×3
+### Graphe exact et visible
 
-Même règle de volets à deux faces que P03, aucune nouvelle règle cachée. Le plateau agrandi représente un autre plan de l'exercice, **pas** la même carte dont des ports auraient changé de nom. La transition montre le feuillet « Évacuation » se déplier sous le feuillet « Service » conservé.
+S = École ; I = Infirmerie ; A = Archives ; J = Place ; K = Terrasse ; L = Cour haute ; C = Clocher ; H = Halle haute ; G = Grenier. Les coordonnées de composition sont dans le JSON. Une intersection de traits sans nœud **ne permet pas** de changer de chemin ; dessiner un saut de ligne à tout croisement accidentel.
 
-| Origine | Port | Refuge / port | Longueur |
-|---|---|---|---:|
-| École | (0,2,N) | Clocher (0,0,W) | 5 cases |
-| Infirmerie | (2,1,S) | Halle (1,0,W) | 3 cases |
-| Archives | (2,2,S) | Grenier (0,2,E) | 5 cases |
+| Liaison fixe | Ferme à l’eau | Marches | Lecture |
+|---|---:|---|---|
+| S–J | 6 | Non | Accès de l’école à la place |
+| I–J | 6 | Non | Accès large de l’infirmerie |
+| A–J | 6 | Oui | Escalier des archives |
+| K–C | 6 | Oui | Montée vers le clocher |
+| L–H | 6 | Non | Rampe vers la halle haute |
+| L–G | 6 | Oui | Montée vers le grenier |
+| K–H | 6 | Oui | Raccourci par des marches |
+| I–H | 4 | Non | Raccourci bas noyé à la hauteur observée |
 
-État initial **1,0,1 / 1,0,0 / 1,0,1**. Solution **0,1,1 / 0,1,1 / 0,0,0**. Une solution sur 512, les neuf cases participent à au moins un trajet. Les trois flux sont indépendants sur les courbes mais partagent des volets, d'où contraintes couplées. Les ports inutilisés montrent explicitement une rive sans refuge.
+| Blanc | Fragment compatible | Liaison restaurée |
+|---|---|---|
+| J–K | Arcade, 2 travées | Large, sans marche, fermeture à 6 |
+| S–C | Arcade, 2 travées | Même type de liaison |
+| K–L | Rampe, 3 travées | Large, sans marche, fermeture à 6 |
+| A–G | Rampe, 3 travées | Même type de liaison |
 
-Au-delà du port Clocher, la vue de quartier montre une extension **fixe et interrompue** de trois travées vers Quai haut. Elle n'appartient pas au réseau à résoudre dans P06 ; son objectif est annoncé séparément après la validation (« Il restera à franchir l'interruption »). Pas de faux succès d'une évacuation terminée : le groupe n'a atteint que son rassemblement.
+Une arcade et une rampe seulement. Un fragment ne peut être dupliqué. Retirer ou déplacer un fragment est toujours possible avant validation ; cela invalide les parcours qui en dépendent, sans les effacer. Une route peut passer par l’origine d’un autre groupe. Aucun nombre de groupes maximum par liaison, aucun ordre de passage caché, aucun itinéraire le plus court imposé.
 
-### Validation et pédagogie
+### Interaction
 
-Deux éléments nécessaires : associations justes et connexions correspondantes. Si associations fausses, retour sur le besoin contredit : « Ce refuge impose des marches aux blessés » ou « Ce point ne porte pas la cloche du rassemblement » ou « Les cartons restent sous la ligne de crue ». Si réseau faux, feedback de sortie comme P03. Ne pas compter six voies bidirectionnelles comme six groupes.
+Choisir un cran d’eau 0–5 pour prévisualiser les accès submergés. Poser les deux fragments par toucher → emplacement. Sélectionner un groupe puis toucher les nœuds successifs de son parcours ; le prochain nœud doit être adjacent. Toucher un nœud déjà dans ce parcours tronque la suite, ce qui sert d’annulation locale. Les routes sont donc simples, sans boucle ; aucun mouvement fin le long d’un trait n’est requis. Trois motifs de tracé comme P03 ; les nœuds portent leurs noms et un détail agrandi.
 
-La solution peut se construire par le trajet court de l'infirmerie puis les trajets longs. La séparation des courbes importe davantage ; l'option tracé individuel et les motifs préviennent la confusion au centre. Réussite N07, dézoom qui révèle les attaches du plancher et l'interruption correspondante.
+On peut voir les trois parcours ensemble ou isolément. « Essayer » demande simultanément : hauteur conforme à F3, deux fragments correctement logés, trois itinéraires complets, secs et compatibles avec le brancard. Tester une hauteur fausse est autorisé en brouillon et ne détruit rien.
 
-H1 « Les trois groupes ne cherchent pas le même type d'abri. »
-H2 « Associe d'abord chaque besoin à un refuge. Ensuite, suis chaque chemin depuis ses deux extrémités. »
-H3 « Quand un passage arrive au bon endroit, garde sa trace affichée. Modifie les autres courbes sans casser cette liaison, et remonte depuis la destination du trajet qui résiste. »
+### Déduction novice et solutions admises
 
-### Regard novice
+À la hauteur 4, I–H est noyé. Le brancard doit quitter I vers J. Il ne peut emprunter J–A (marches), donc a besoin de l’arcade **J–K**. De K, il ne peut aller directement à H (marches), ni traverser le clocher ; il lui faut la rampe **K–L**, puis L–H. Les deux fragments sont maintenant placés par une nécessité, pas par une couleur ou un code. Les autres groupes peuvent partager ces passages.
 
-Le plateau tient dans un carré de 312 dp minimum ; cases d'environ 80 dp après marges, donc pas de précision excessive. Les destinations sont extérieures aux cases ; zoom sur le label disponible. Le jeu ne demande pas de mémoriser P03. La complexité vient de la relation entre parcours, pas d'une nouvelle convention graphique.
+- École : **S–J–K–C**.
+- Infirmerie : **I–J–K–L–H**.
+- Archives : **A–J–K–L–G** **ou** **A–J–K–H–L–G**. Les deux sont valides ; le second emprunte des marches, permises à ce groupe.
+
+Ne pas comparer seulement au premier exemple. Il y a une configuration valide de hauteur/fragments et deux triplets de parcours simples. Le vérificateur recherche les chemins, il ne suppose pas que les exemples sont exhaustifs.
+
+Contre-exemples indispensables : arcade S–C et rampe A–G sauvent deux trajets courts mais isolent le brancard ; garder I–H ne marche qu’à une hauteur fausse ; utiliser K–H pour le brancard ignore les marches. Chacun est réfutable par une preuve visible.
+
+Feedback dans cet ordre : hauteur incompatible avec F3 ; fragment manquant/incompatible ; origine ou destination absente ; liaison inexistante ; liaison noyée ; marches interdites. Montrer le segment observé et la règle, **jamais un autre itinéraire prêt à recopier**. Les trois routes correctes ne sont pas verrouillées avant le succès global.
+
+H1 « Commence par retrouver la hauteur de l'eau sur la dernière photographie. Tous les traits du plan ne seront plus des passages. »
+H2 « Le groupe avec le brancard ne peut pas emprunter les marches. Cherche son trajet avant de placer les deux fragments. »
+H3 « Un passage restauré peut servir à plusieurs groupes. Compare le coût des raccourcis isolés avec un détour partagé, puis vérifie chaque trajet en entier. »
+
+### Sortie et continuité
+
+P06 prouve qu’un trajet compatible conduit le groupe de l’école **au clocher**, pas déjà au quai haut. L’extension C→Quai haut est un raccord séparé visible en bord de maquette, absent du graphe de P06, et explicitement annoncé comme la dernière interruption à expliquer. Sa largeur est de trois travées. Ne jamais faire marcher les silhouettes jusqu’au quai avant P07. La Halle haute est au sec pendant **toute** la séquence, sans second sauvetage hors champ.
 
 ## P07 — ce qui portait
 
 **But :** comprendre puis reproduire le transfert du plancher et l'ordre du sauvetage.
-**Accès :** P06. **Durée :** 9 min (6–12). **Compétence :** transfert de fonction, causalité et contraintes de temps discrètes. Climax de synthèse ; pas une course.
+**Accès :** P06. **Hypothèse de durée :** 5–7 min. **Compétence :** transfert de fonction, causalité et contraintes de temps discrètes. Climax de synthèse ; pas une course.
 
 ### P07A — remplacer la fonction
 
-Trois pièces de l'atelier manipulables : porte (1 travée), toiture (2), plancher (3). Le gabarit de l'interruption Clocher→Quai haut mesure **3 travées**, appuis aux deux extrémités ; le plancher a trois panneaux rigidement liés. Les trois pièces portent des prises visibles, aucune action irréversible. Les dimensions se comparent par silhouettes superposables, pas par calcul de perspective. On n'empile pas des morceaux et on ne les scie pas : leurs attaches ont un profil unique qui n'accepte qu'une pièce rigide aux deux extrémités.
+Trois pièces de l'atelier manipulables : porte, toiture et plancher, **tous de portée 3 travées**. Le gabarit de l'interruption Clocher→Quai haut mesure **3 travées**, appuis aux deux extrémités ; le plancher a trois panneaux rigidement liés. Les trois pièces portent des prises visibles, aucune action irréversible. Les dimensions se comparent par silhouettes superposables, pas par calcul de perspective. On n'empile pas des morceaux et on ne les scie pas : leurs attaches ont un profil unique qui n'accepte qu'une pièce rigide aux deux extrémités.
 
-La photographie issue de P04 montre quatre appuis et les coutures du plancher ; la sous-face du plancher présente les marques jumelles. La toiture est trop courte, la porte aussi. Seul le **plancher** franchit l'interruption. Essayer une pièce courte montre l'espace restant et dit « L'autre appui reste hors d'atteinte. » La pièce revient si on annule ; la maison n'est pas détruite.
+Le détail F2 disponible depuis P02, repris après P04, montre un tablier **plat**, **deux unités de large**, avec des **attaches appariées**. La coupe de l’interruption montre une portée de trois. Les trois candidats font la même longueur : la porte n’a qu’une unité de largeur et des gonds simples ; la toiture a un profil rigide en V et pas d’attaches appariées ; le plancher est plat, deux unités de large et possède les bonnes attaches. Chaque face se consulte avec « Retourner la pièce », sans donner son nom dans le commentaire de Nelle. Le but est de retrouver l’élément photographié, pas de prétendre qu’aucune autre construction ne serait imaginable.
+
+Seul le **plancher** satisfait les quatre observations. Les critères sont dans `p07.requirements`. Diagnostic d’un essai : « Le profil ne correspond pas à la photo », « Le passage est trop étroit » ou « Les attaches ne correspondent pas ». Une pièce revient au support si l’essai échoue. La maison n’est pas détruite. La phrase de Nelle qui nommait le plancher avant le choix a été supprimée.
 
 Le joueur installe le plancher dans la **reconstitution** pour comprendre sa fonction. La frise qui suit reconstitue ensuite comment on l'a installé dans la crue : ne pas confondre préparation du modèle et geste chronologique réel.
 
-### P07B — six niveaux, six opérations
+### P07B — six phases observées, six opérations
 
-Frise à six colonnes **0,1,2,3,4,5**. Ce sont des positions de montée d'eau de la maquette, pas des minutes. Déposer des cartes ne fait pas avancer le temps. « Rejouer » simule les six colonnes, s'arrête à la première contradiction, puis revient au planning intact. Après réussite, reprise des six tableaux N09.
+Frise à six colonnes **0,1,2,3,4,5**. Ce sont six phases documentées de la reconstitution, associées aux repères de crue 0–5 ; pas six tours de jeu ni six durées égales. Déposer des cartes ne fait pas avancer le temps. « Rejouer » simule les six colonnes, s'arrête à la première contradiction, puis revient au planning intact. Après réussite, reprise des six tableaux N09.
 
 Règles visibles sur une coupe de rive et une fiche, toutes présentes avant premier essai :
 
@@ -272,32 +297,35 @@ Règles visibles sur une coupe de rive et une fiche, toutes présentes avant pre
 - Les étais ne prennent appui **qu'à partir du niveau 3** ; le plancher doit déjà être posé.
 - Le groupe doit passer **avant le niveau 5** ; l'escalier relevé et le plancher étayé sont nécessaires.
 - On détache la barge **après le passage** ; sinon le plancher perd son support.
-- Une opération principale par niveau, convention explicite de la reconstitution : chaque carte représente une phase entière, pas une action instantanée. Le modèle ne permet pas de cumuler deux cartes dans une colonne.
+- Le carnet conserve six phases avec un geste principal chacune. Une carte décrit le geste observé dans une phase ; il s’agit de classer les faits documentés, pas d’affirmer qu’une seule action réelle était physiquement possible à chaque hauteur.
 
 La livraison inclut le déchargement des caisses et la mise de la presse dans le puits central de ballast ; le dessin de cette carte montre ces deux états. Ce détail assure la continuité avec P05, sans demander un second calcul de chargement.
 
-Huit cartes proposées : **Livrer les outils**, **Relever l'escalier**, **Déposer le plancher**, **Étayer le passage**, **Faire passer le groupe**, **Détacher la barge**, **Refixer le plancher de l'atelier**, **Charger la toiture**. Six emplacements. Les deux hypothèses alternatives restent dans un bac « Non retenues » ; leur inadéquation est visuellement testable (plancher indisponible ou toiture trop courte). Le logiciel n'utilise pas une interdiction inexpliquée : elles ne satisfont pas les besoins des six opérations requises.
+Six cartes proposées : **Livrer les outils**, **Relever l’escalier**, **Déposer le plancher**, **Étayer le passage**, **Faire passer le groupe**, **Détacher la barge**. Les deux faux choix trop évidents de la version 1.0 sont supprimés, ainsi que leur bac. Les six gestes sont documentés dans le carnet de chantier accessible dès l’entrée de P07. Le joueur ne doit pas deviner une action absente de la liste.
 
 ### Solution et contradiction
 
 0 Livrer → 1 Relever → 2 Déposer → 3 Étayer → 4 Faire passer → 5 Détacher.
 
-Déduction : livraison ne peut se faire qu'à 0 ; escalier au plus tard à 1 donc 1 ; pour évacuer avant 5, il faut avoir étayé, au plus tôt 3, donc étayer à 3 et évacuer à 4 ; plancher avant étais et pas avant 2 donc 2 ; détacher après passage donc 5. Une solution parmi 20 160 séquences de six cartes distinctes choisies parmi huit. L'ordre des actions est cohérent avec les cinq photos mais demande en plus la justification mécanique et le rôle des appuis.
+Déduction : livraison ne peut se faire qu'à 0 ; escalier au plus tard à 1 donc 1 ; pour évacuer avant 5, il faut avoir étayé, au plus tôt 3, donc étayer à 3 et évacuer à 4 ; plancher avant étais et pas avant 2 donc 2 ; détacher après passage donc 5. Une solution parmi les **720 permutations de six cartes**. Ce nombre ne mesure pas la difficulté ; les fenêtres réduisent fortement l’espace utile. L'ordre des actions est cohérent avec les cinq photos mais demande en plus la justification mécanique et le rôle des appuis.
 
 Feedback à la première violation : montrer le niveau et son obstacle (rampe noyée, axe inaccessible, barge trop basse, étais sans appui, escalier absent, ponton instable, support détaché). Texte explicatif de 12 mots maximum, jamais la prochaine bonne carte. Si une étape manque : « Cette reconstitution ne permet pas encore le passage complet. » Possibilité de rouvrir la règle correspondante, pas de solution automatique.
 
 Les indices P07 sont communs aux deux sous-étapes (pas six indices) :
 
-H1 « Compare ce qui manque entre les deux rives avec les pièces de l'atelier, puis avec la photographie. »
+H1 « La longueur seule ne suffit pas. Compare aussi la largeur, le profil et les attaches visibles sur la photographie. »
 H2 « Pour la frise, distingue les gestes qui ont une dernière occasion de ceux qui doivent attendre une certaine hauteur d'eau. »
 H3 « Place d'abord les opérations dont la fenêtre est la plus courte. Puis vérifie que chaque support existe avant qu'on l'utilise, et reste en place jusqu'au dernier passage. »
 
 ### Regard novice
 
-Le mot « sacrifier » n'apparaît pas avant que le joueur comprenne le rôle du plancher. Un contour comparatif suffit à montrer la bonne longueur sans donner la réponse dans un dialogue. Les règles de marée sont illustrées sur une coupe unique, pas dispersées dans cinq pages. La crue ne progresse jamais pendant que le joueur lit un indice. L'épilogue ne demande pas de deviner une opinion morale.
+Le mot « sacrifier » n'apparaît pas avant que le joueur comprenne le rôle du plancher. Un contour comparatif suffit à montrer la bonne longueur sans donner la réponse dans un dialogue. Les repères de crue sont illustrées sur une coupe unique, pas dispersées dans cinq pages. La crue ne progresse jamais pendant que le joueur lit un indice. L'épilogue ne demande pas de deviner une opinion morale.
 
 ## Exhaustivité et anti-blocage
 
-Chaque puzzle a ses informations disponibles avant toute action nécessaire. Aucun objet consommé ne doit être redemandé. P03/P04 sont indépendants ; P05 exige les deux preuves. Le carnet conserve cartes et photos après transformation. P07A est réversible tant que la résolution n'est pas confirmée ; en relecture il est toujours réversible.
+Chaque puzzle a ses informations disponibles avant toute action nécessaire. Aucun objet consommé ne doit être redemandé. P03/P04 sont indépendants ; P05 exige les deux preuves. Le carnet conserve cartes et photos après transformation. P07A est réversible tant que la résolution n'est pas confirmée ; après résolution, il reste inspectable dans son état final. La relecture indépendante par chapitre est hors V1 ; une nouvelle partie reste disponible.
 
 Les contrôles formels portent sur les règles décrites, pas sur la facilité à percevoir des dessins encore à créer. Toute illustration fonctionnelle doit passer une comparaison avec ces données avant intégration. Ne pas remplacer une forme utile par une approximation générée.
+
+### Tracés de carte sans ambiguïté
+Les polylignes `p06.edges[].via` sont obligatoires : K–H contourne la cour par la droite, I–H contourne le plan par le haut. Ne pas remplacer ces arêtes par un segment droit qui traverserait le nœud L sans s’y arrêter. Les traits sont schématiques et ne codent aucune distance. Les extrémités restent exclusivement celles de `ends`.

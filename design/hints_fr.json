@@ -1,9 +1,4 @@
 {
-  "p00": [
-    "Le couvercle est retenu sur les côtés.",
-    "Les deux attaches peuvent être soulevées séparément.",
-    "Observe ce qui retient encore le couvercle lorsque tu touches la languette."
-  ],
   "p01": [
     "Le paysage continue d'un morceau au suivant.",
     "Compare deux détails à chaque couture, pas seulement la ligne de la berge.",
@@ -27,15 +22,15 @@
   "p05": [
     "Le poids n'est pas le seul facteur : sa distance au milieu compte aussi.",
     "Installe d'abord les deux objets que les arceaux obligent à rester au centre. Observe de quel côté ils font pencher la barge.",
-    "Si un côté descend trop, rapproche une charge lourde du milieu ou éloigne une charge de l'autre côté. Vérifie ensuite les deux caisses qui ne doivent pas se toucher."
+    "Si un côté descend trop, rapproche une charge lourde du milieu ou éloigne une charge de l'autre côté. Change une paire à la fois pour comprendre son effet."
   ],
   "p06": [
-    "Les trois groupes ne cherchent pas le même type d'abri.",
-    "Associe d'abord chaque besoin à un refuge. Ensuite, suis chaque chemin depuis ses deux extrémités.",
-    "Quand un passage arrive au bon endroit, garde sa trace affichée. Modifie les autres courbes sans casser cette liaison, et remonte depuis la destination du trajet qui résiste."
+    "Commence par retrouver la hauteur de l'eau sur la dernière photographie. Tous les traits du plan ne seront plus des passages.",
+    "Le groupe avec le brancard ne peut pas emprunter les marches. Cherche son trajet avant de placer les deux fragments.",
+    "Un passage restauré peut servir à plusieurs groupes. Compare le coût des raccourcis isolés avec un détour partagé, puis vérifie chaque trajet en entier."
   ],
   "p07": [
-    "Compare ce qui manque entre les deux rives avec les pièces de l'atelier, puis avec la photographie.",
+    "La longueur seule ne suffit pas. Compare aussi la largeur, le profil et les attaches visibles sur la photographie.",
     "Pour la frise, distingue les gestes qui ont une dernière occasion de ceux qui doivent attendre une certaine hauteur d'eau.",
     "Place d'abord les opérations dont la fenêtre est la plus courte. Puis vérifie que chaque support existe avant qu'on l'utilise, et reste en place jusqu'au dernier passage."
   ]

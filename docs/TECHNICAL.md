@@ -14,7 +14,7 @@ La documentation Android citée décrit OpenJDK 17, SDK/NDK, templates d'export 
 
 - Android minimum produit : Android 10/API 29, arm64-v8a ; cible d'API de publication fixée au lot release après lecture de la politique officielle alors applicable. Ce choix de minimum est un choix produit, pas une obligation du moteur.
 - Version moteur et export templates identiques, inscrites dans `toolchain.lock` dès installation ; pas de changement automatique en cours de production.
-- Rendu à 60 fps pendant manipulation ; limite 30 fps lorsque scène statique après 2 s, réveil immédiat à l'interaction. Ne pas recharger toutes les textures à chaque clic.
+- Cible de rendu fixe 60 fps ; pas de système de changement dynamique de fréquence en V1. Ne pas recharger toutes les textures à chaque clic.
 - Aucune permission dangereuse. Sauvegarde dans stockage interne application ; pas d'accès contacts, photos, microphone, GPS ou stockage partagé par défaut.
 - Son et contenu inclus dans le bundle ; aucune génération IA à l'exécution. Pas de dépendance à une connexion pour la première partie.
 - Package choisi : `com.nibylogames.foldedshores`, version commerciale initiale 1.0.0, versionCode 1 au premier release. Vérifier l'absence de collision dans le compte avant premier upload. Ne jamais réutiliser l'ID d'un autre jeu.
@@ -26,7 +26,7 @@ project.godot
 export_presets.cfg                 # sans identifiants de signature
 src/core/{game_state,progression,save_service,scene_router,audio_service}.gd
 src/puzzles/{p01,p02,p03,p04,p05,p06,p07}_controller.gd
-src/rules/{panorama,chronology,routes,masks,cargo,sequence}_rules.gd
+src/rules/{panorama,chronology,routes,masks,cargo,flood_map,sequence}_rules.gd
 src/ui/{paper_flap,evidence_card,drag_drop,focus_manager,hint_panel}.gd
 scenes/{boot,home,workbench,archive,window,ending}.tscn
 scenes/puzzles/p01.tscn ... p07.tscn
@@ -47,7 +47,7 @@ Le dépôt de conception contient `design/`, pas encore cette structure runtime.
 
 **GameState**, autoload : état sérialisable unique, mutation via commandes (`flip_tile`, `swap_photo`, `place_cargo`, `set_hint_level`, `solve_puzzle`). Aucun Node, Texture ou Callable sérialisé. Le rendu observe l'état ; aucune condition de victoire déduite d'une position animée en pixels.
 
-**Progression** : DAG de `design/puzzles.json`, `can_enter(id)` et `apply_solved(id)`. Événements idempotents. `solved` monotone en mode campagne. Retourner un état de puzzle résolu n'est possible qu'en relecture sandbox. La jonction P03/P04 déclenche N05 une fois, quel que soit l'ordre.
+**Progression** : DAG de `design/puzzles.json`, `can_enter(id)` et `apply_solved(id)`. Événements idempotents. `solved` monotone en mode campagne. Un puzzle résolu est inspectable en lecture seule ; aucune relecture sandbox en V1. La jonction P03/P04 déclenche N05 une fois, quel que soit l'ordre.
 
 **PuzzleController** : convertit gestes/focus en commandes, enregistre historique local borné à 100 actions stables, appelle validateur pur sur Vérifier. Émet résultat `{valid, violations:[{rule_id, evidence_id, params}], resolved_state}`. Ne contient pas les textes de diagnostic ; ceux-ci sont indexés par clé.
 
@@ -56,7 +56,7 @@ Le dépôt de conception contient `design/`, pas encore cette structure runtime.
 - Chronologie : séquence de dégâts monotones sur observations réellement présentes.
 - Routes : suivre le couple de ports, voisins, détection de boucle par `(r,c,entry)` ; ne pas confondre sortie et case. Comparer destinations réelles à destinations attendues.
 - Masks : rotation entière des bitmaps, union booléenne ; pas de comparaison de captures raster.
-- Cargo : entiers, unicité/complétude, gabarits, voisinage, somme des moments nulle. Pas de flottants de moteur physique.
+- Cargo : entiers, unicité/complétude, gabarits, somme des moments nulle. Pas de flottants de moteur physique.
 - Sequence : pièce aux attaches compatibles, six cartes distinctes correctes, fenêtres et antériorités ; diagnostic chronologique première violation. Une « mauvaise » hypothèse est expliquée par la fonction qu'elle ne remplit pas.
 
 **SceneRouter** : pile de routes `{view_id, parent, subview, focus_id}` ; les overlays ne détruisent pas le puzzle. Seuls IDs stables persistés, jamais chemins arbitraires provenant d'une sauvegarde.
@@ -70,7 +70,7 @@ Le dépôt de conception contient `design/`, pas encore cette structure runtime.
 ```json
 {
   "schema_version": 1,
-  "content_version": "1.0",
+  "content_version": "1.1",
   "generation": 42,
   "campaign_id": "local-random-id",
   "saved_at_utc": "ISO8601-for-diagnostics-only",
@@ -87,10 +87,10 @@ Le dépôt de conception contient `design/`, pas encore cette structure runtime.
     "p03": {"bits": [0,1,0,1,0,1]},
     "p04": {"turns": [1,2,3]},
     "p05": {"slots": [null,null,null,null,null,null]},
-    "p06": {"assignments": {}, "bits": [1,0,1,1,0,0,1,0,1]},
+    "p06": {"water_level": 0, "fragments": {"arcade": null, "ramp": null}, "routes": {"school": [], "infirmary": [], "archives": []}},
     "p07": {"donor": null, "slots": [null,null,null,null,null,null]}
   },
-  "narrative": {"active_scene": null, "segment": 0},
+  "narrative": {"active_scene": null, "segment": 0, "pending": [], "acknowledged": ["n00", "n01"]},
   "settings": {"text_scale": 1.0, "music": 0.7, "sfx": 0.8, "vibration": true, "reduced_motion": false, "high_contrast": false, "locale": "fr"}
 }
 ```
@@ -101,10 +101,10 @@ Le document ci-dessus est illustratif d'une partie après P01 ; la génération 
 
 Deux slots `user://campaign_a.json` / `campaign_b.json`. Chaque slot est une enveloppe `{generation,payload_utf8,sha256}` où `payload_utf8` est **la chaîne JSON exacte** dont les octets UTF-8 sont hashés. Ne pas réencoder un dictionnaire et comparer une empreinte dépendante de l'ordre des clés.
 
-1. Au chargement, lire les deux slots indépendamment, vérifier parsing/enveloppe, hash, schéma, enums, tailles, plages et invariants de progression. Choisir la plus grande génération valide. Si un fichier invalide existe, conserver une copie diagnostique avant toute réécriture et informer si une récupération est nécessaire.
+1. Au chargement, lire les deux slots indépendamment, vérifier parsing/enveloppe, hash, égalité stricte génération enveloppe/payload, schéma, enums, tailles, plages et invariants de progression. Choisir la plus grande génération valide. Si un fichier invalide existe, conserver une copie diagnostique avant toute réécriture et informer si une récupération est nécessaire.
 2. Pour sauver, sérialiser un snapshot stable, génération valide+1 ; écrire dans le slot **le plus ancien/invalide**, jamais dans le seul slot valide le plus récent. Écriture dans `.tmp` du slot concerné, flush et fermer ; relire, vérifier le hash et le schéma ; remplacer uniquement le slot choisi. Conserver l'autre génération intacte. Ne pas supposer que le renommage garantit la persistance après coupure électrique ; les deux fichiers couvrent les écritures interrompues ordinaires, à tester sur appareils.
 3. Une écriture échouée ne marque pas le snapshot « sauvegardé ». Garder dirty state en mémoire, notifier et proposer de réessayer. Pas de boucle infinie d'IO.
-4. Au lancement sans fichiers : nouvelle partie. Si deux fichiers existent mais sont invalides : aucun effacement silencieux ; écran de récupération, copie brute de diagnostic dans stockage app, nouvelle partie confirmée. Export diagnostic via feuille de partage native seulement si implémenté et demandé ; sinon conserver les copies et proposer assistance, sans fausse promesse d'export disponible.
+4. Au lancement sans fichiers : nouvelle partie. Si deux fichiers existent mais sont invalides : aucun effacement silencieux ; écran de récupération, copie brute de diagnostic dans stockage app, nouvelle partie confirmée. Aucun export diagnostic natif en V1 ; conserver les copies internes et proposer réessayer ou nouvelle partie confirmée.
 5. Nouvelle partie confirmée : garder le dernier snapshot valide dans `campaign_restart_backup.json`, puis créer les slots de la nouvelle campagne. Une seule sauvegarde de reprise, pas un cloud.
 6. Réglages changés en accueil sans campagne : `settings.json` distinct avec écriture temporaire et fallback. Lorsqu'une campagne existe, préférer ces réglages globaux à la copie de diagnostic du snapshot.
 7. Migrateur versionné explicite ; version inconnue plus récente → « Partie issue d'une version plus récente » et aucune écriture destructive. Une modification du puzzle invalide un brouillon incompatible mais conserve résolutions, preuves et fin ; la migration doit être documentée et testée.
@@ -122,3 +122,13 @@ Textures : maximum 2048² par atlas utile, fonds 1080×1920 si nécessaire ; gar
 En production : validation JSON et `python3 tools/verify_design.py`, tests GDScript headless pour validateurs, boot headless, puis APK debug installé sur un vrai appareil. Un export réussi ne vaut pas test tactile. AAB signé seulement au lot release ; clés hors Git et sauvegardées par le producteur selon son dispositif existant. Le studio termine tous les éléments accessibles avant de signaler un éventuel accès manquant.
 
 Ne pas installer un SDK ou moteur par une commande distante non inspectée. Sources officielles, version explicite et checksum lorsque disponible. Conserver licences Godot et fontes. Vérifier API cible, exigences de test du compte, déclarations de données, classification et assets store aux sources officielles Google au moment de publication ; le dossier n'invente pas leurs valeurs futures.
+
+## Contrats complémentaires audit1.1
+
+FloodMapRules : graphe bidirectionnel de `p06`, arête accessible si eau < clearance ; filtre marches pour infirmerie ; fragments uniques dans leurs destinations compatibles. Valider les chemins réellement saisis, continuité/origine/destination et absence de répétition ; accepter toutes variantes légales. Le DFS du vérificateur est un oracle de test, pas un solveur affiché au joueur. Modifier eau/fragment conserve le brouillon de route devenu invalide et le signale.
+
+EvidenceRegistry : utiliser `design/evidence.json` ; `available_evidence` dérivé des prérequis, `seen_evidence` ne sert qu'aux badges « nouveau ». Toute résolution applique atomiquement : état final, solved, preuves disponibles, événements narratifs uniques dans pending. Acquitter un segment met à jour segment/acknowledged ; après fermeture reprendre le premier non acquitté. Les événements N03 et N04 sont propres aux branches, N05 exige les deux. Une scène jamais lue ne bloque pas l'attribution de preuves. `completed=true` uniquement après acquittement de N11 ; une campagne p07 résolu mais incomplete reprend la conclusion.
+
+Le JSON illustratif de sauvegarde est un exemple partiel, les valeurs initiales viennent exclusivement de design/puzzles.json. `seen_scenes` est un cache dérivé de narrative.acknowledged, jamais une seconde autorité. Schema1/content1.1 est la première version produite : aucun utilisateur1.0 à migrer. Versions futures inconnues : lecture protégée, ne pas réinitialiser. Les migrations ne seront écrites qu'avec un cas réel documenté.
+
+Échanges P05/P01/P02/P07 atomiques : vérifier les deux destinations avant mutation ; revenir au plateau toujours possible. Historique d'annulation en mémoire ; ne pas promettre sa persistance après arrêt. Remise à zéro locale ne touche ni preuves ni autres puzzles ; désactivée si résolu.

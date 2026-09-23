@@ -1,10 +1,10 @@
-# Bible narrative et script intégral — français v1
+# Bible narrative et script intégral — français — conception 1.1
 
 ## Voix et mise en scène
 
 Nelle : précise, directe, sensible par ce qu'elle fait ; jamais un commentaire après chaque clic. Jo : phrases courtes, incertitude assumée. Aline : concrète, pas de grande maxime répétée. Pas de narration omnisciente. Les textes ci-dessous sont le texte de production ; les noms entre crochets sont des IDs, pas du texte affiché. Les didascalies ne s'affichent pas. Les labels système et indices sont dans SCREENS_UX et PUZZLES.
 
-L'histoire est racontée dans une après-midi continue. Les photographies décrivent six moments d'une crue passée ; les « niveaux 0–5 » de la frise sont des repères relatifs de la maquette, pas six minutes historiques. La résolution ne modifie pas le passé. Le joueur restaure une explication.
+L'histoire est racontée dans une après-midi continue. Les photographies décrivent cinq moments d'une crue passée ; les « niveaux 0–5 » de la frise sont des repères relatifs de la maquette, pas six minutes historiques. La résolution ne modifie pas le passé. Le joueur restaure une explication.
 
 ## Scènes obligatoires
 
@@ -12,9 +12,9 @@ L'histoire est racontée dans une après-midi continue. Les photographies décri
 
 Image : établi fermé, poussière claire, carton « Exposition — Orme-sur-Rive ». Jo hors champ, silhouette dans le reflet uniquement.
 
-- [n00_jo] Jo : « J'ai rassemblé ce qui restait de la crue. Les photos, la maquette… et ce cartel provisoire. »
+- [n00_jo] Jo : « Ta mère a confié sa maquette et ses photos à l’exposition. Il reste à rendre le passage compréhensible dans le cartel. »
 - [n00_cartel] Cartel : « L'atelier d'Aline. Démonté pendant la crue. Les raisons de ce geste et le parcours de l'évacuation restent incertains. »
-- [n00_nelle] Nelle : « Sa signature est dessous. Je vais d'abord remettre tout ça à plat. »
+- [n00_nelle] Nelle : « Elle m’a raconté le sauvetage. Je voudrais qu’on puisse le comprendre en regardant la maquette. »
 
 Le joueur ouvre les attaches. Sous le couvercle : « Une rive n'est pas un mur. Plan d'entraide — Aline ». L'inscription ne contient aucune solution.
 
@@ -31,14 +31,14 @@ Objectif : « Remettre les cinq photographies dans l'ordre. »
 
 La frise reçoit les cinq clichés. Le joueur peut comparer le premier et le dernier sans animation automatique de zoom.
 
-- [n02_nelle] « La livraison est arrivée avant le démontage. Et le groupe passe après. Ce n'est pas l'ordre suggéré par le cartel. »
+- [n02_nelle] « La livraison est arrivée avant le démontage. Et le groupe passe après. Le cartel ne permettait pas de voir cet enchaînement. »
 - [n02_jo] « Alors gardons le cartel au crayon. Les feuillets de service sont dans la maquette. »
 
 Deux tâches visibles : « Retrouver les livraisons » et « Comprendre la silhouette ». Aucun ordre imposé.
 
 ### N03 — après P03 seulement
 
-- [n03_nelle] « Les trois trajets aboutissent. Ce plan organisait une livraison, pas une fuite avec les affaires de l'atelier. »
+- [n03_nelle] « Les trois trajets aboutissent. Ce plan permet de répartir les secours entre les trois lieux. »
 
 Si P04 non résolu : objectif « Examiner la silhouette près de la fenêtre ». Sinon aller N05.
 
@@ -59,9 +59,9 @@ Transition joueur vers P05. La pluie extérieure décroît. Aucun ajout de preuv
 
 ### N06 — après P05 (20 s)
 
-La barge stable révèle une vue de détail du chargement réel sur F4. Les objets sont montrés en alternance avec leurs miniatures.
+La barge stable est comparée à F4 : les familles d’objets correspondent, mais leur disposition exacte reste cachée par les rebords. Aucune des quatre solutions n’est présentée comme le chargement historiquement certain.
 
-- [n06_nelle] « Pharmacie, vivres, outils… et sa petite presse. Elle avait marqué toutes les places. »
+- [n06_nelle] « Pharmacie, vivres, outils… et sa petite presse. Ce chargement pouvait rester stable. »
 - [n06_note] Étiquette de la presse : « Pour le poids. La laisser sur la barge jusqu'au dernier passage. — A. »
 - [n06_nelle_2] « Même l'atelier travaillait au sauvetage. »
 
@@ -72,7 +72,7 @@ Le feuillet central se déplie. Trois origines, trois refuges, un emplacement de
 Les trajectoires fonctionnent dans le schéma jusqu'au clocher ; un agrandissement montre le raccord manquant vers le quai haut. Ce raccord n'est pas l'une des liaisons validées par P06 : il se situe après le port « clocher », voir PUZZLES.
 
 - [n07_nelle] « Le groupe pouvait atteindre le clocher. Mais il manque encore trois travées jusqu'au quai. »
-- [n07_nelle_2] « Ces traces sous le plancher… ce sont les mêmes attaches que sur la photographie. »
+- [n07_nelle_2] « La photographie montre aussi la largeur du passage et ses attaches. Comparons les pièces. »
 
 Objectif : « Trouver ce qui pouvait franchir l'interruption. » Montrer les trois pièces manipulables avec leur gabarit, sans désigner la bonne.
 
@@ -88,15 +88,15 @@ Six vues papier : livraison à l'atelier ; escalier relevé ; plancher descendu 
 
 - [n09_nelle] « L'atelier a perdu son plancher. L'école a gagné une sortie. »
 
-L'annexe auparavant coincée dans le repli terminal est maintenant à plat, accessible. Aucun verrou électronique, clé ou combinaison.
+Nelle rassemble les preuves déjà disponibles. Aucun document essentiel n'apparaît par magie après la résolution.
 
-### N10 — annexe et correction (interaction, pas cinématique)
+### N10 — témoignage et correction (interaction, pas cinématique)
 
-Témoignage d'Aline [evidence_statement], 59 mots :
+Témoignage d'Aline [evidence_statement], disponible dès N01 puis repris ici :
 
-« J'ai déposé le plancher après la livraison des outils. La barge le portait ; les étais l'empêchaient de tourner. Nous avons fait passer le groupe du clocher au quai haut. L'atelier n'était plus réparable après cela. Je le savais avant de desserrer les attaches. Les enfants ne pouvaient pas attendre qu'on trouve un autre chemin. — Aline »
+« Nous avons rejoint le quai haut depuis le clocher. La barge est restée amarrée jusqu’au dernier passage. L’atelier n’a pas été reconstruit. J’ai conservé la maquette et les photographies pour expliquer l’opération. — Aline »
 
-Sur le rapport [evidence_report] : « Rapport provisoire. Annexe du témoignage annoncée, non jointe au tirage. » Jo : « Elle avait bien témoigné. La feuille était restée avec la maquette. »
+Sur le rapport [evidence_report] : « Rapport provisoire. Reconstitution du passage à compléter avec les photographies et la maquette. » Jo : « Le témoignage disait où ils étaient passés. On peut maintenant montrer comment. »
 
 Le joueur fait glisser l'onglet « Ajouter les preuves » vers le cartel (une action, aucun puzzle supplémentaire). Le texte final apparaît :
 
@@ -121,31 +121,31 @@ Boutons : « Explorer la maquette », « Générique », « Accueil ».
 | ID | Source / disponibilité | Contenu visible exact ou direction d'image | Usage |
 |---|---|---|---|
 | evidence_map | P01 | Panorama : Atelier, École, Clocher, Quai haut ; berges et deux voies | Orientation du récit, pas de distances numériques déduites de perspective |
-| evidence_report | N00, consultable carnet | Cartel initial + mention rapport provisoire/annexe non jointe | Ambiguïté initiale, pas une accusation pénale |
-| evidence_photo_f4 | P02 dès ouverture | Auvent intact, vitre intacte ; caisse d'outils livrée au premier plan | Premier cliché, opération livraison |
+| evidence_report | N00, consultable carnet | Cartel initial + mention de reconstitution à compléter | Ambiguïté initiale, pas une accusation pénale |
+| evidence_photo_f4 | P02 dès ouverture | Auvent intact, vitre intacte ; caisses en cours de livraison au premier plan ; la presse reste dans la barge | Premier cliché, opération livraison |
 | evidence_photo_f1 | P02 | Auvent déchiré, vitre intacte, enseigne fixée ; personnes relevant l'escalier au fond | Deuxième cliché |
 | evidence_photo_f5 | P02 | Vitre brisée, enseigne fixée, cheminée complète ; bâche masquant l'objet descendu de l'atelier | Troisième cliché, démontage encore ambigu |
 | evidence_photo_f2 | P02 | Enseigne tombée, cheminée complète ; ponton visible, bras qui posent les étais | Quatrième cliché, détail pour P04 |
-| evidence_photo_f3 | P02 | Cheminée ébréchée ; enfants au premier plan du quai, ponton au fond | Dernier cliché, tout le monde sauvé |
-| evidence_photo_note | P02 | « Même crue, même heure. Aucune réparation entre ces cinq prises. » | Autorise raisonnement irréversible, sans dates à décoder |
+| evidence_photo_f3 | P02 | Cheminée ébréchée ; enfants au premier plan du quai, ponton au fond | Dernier cliché, tout le monde sauvé ; échelle de crue clairement au repère 4 |
+| evidence_photo_note | P02 | « Même crue, même montée des eaux. Aucune réparation entre ces cinq prises. » | Autorise raisonnement irréversible, sans dates à décoder |
 | evidence_delivery | P03 | Trois pictos liés : pharmacie→infirmerie ; vivres→réfectoire ; outils→atelier | Trois couples explicites, pas une énigme de vocabulaire |
 | evidence_projection | P04 | Agrandissement recadré F2, contour exact de la silhouette à reproduire | Cible des calques ; ancrage et sens haut visibles |
-| evidence_cargo | P05 | Schéma centralité, écart médicament/teinture, unité de masse et niveau | Règles complètes de chargement |
-| evidence_press | Après P05 | « Pour le poids. La laisser sur la barge jusqu'au dernier passage. — A. » | Préparation P07 et justification de la charge |
-| evidence_refuges | P06 | École : groupe accompagné→clocher ; infirmerie : accès large→halle ; archives : charges sèches→grenier | Choix de destination, pictos + texte |
+| evidence_cargo | P05 | Schéma centralité, unité de masse, distances et équilibre | Règles complètes de chargement |
+| evidence_press | Dès P05, après jonction P03/P04 | « Pour le poids. La laisser sur la barge jusqu'au dernier passage. — A. » | Préparation P07 et justification de la charge |
+| evidence_refuges | P06 | École→clocher ; brancard sans marches→halle haute ; archives→grenier ; plan avec seuils de fermeture et deux fragments | Choix de destination, pictos + texte |
 | evidence_tide | P07 | Six cases 0–5 avec accès, seuils et gestes permis, voir PUZZLES | Planning sans horloge réelle |
-| evidence_statement | Après P07 | Témoignage intégral ci-dessus | Confirme intention et coût |
+| evidence_statement | N01, avant P02 | Témoignage intégral ci-dessus | Confirme intention et coût |
 | evidence_cartel_final | Conclusion | Texte ci-dessus | Résolution publique |
 
 ## Objets et provenance
 
-La boîte contient dès l'origine toute la maquette, mais la structure pliée expose progressivement ses feuillets. Les lés se trouvent dans le cadre du panorama, les cinq photos dans une pochette d'archives, les calques dans le rabat transparent de cette pochette, les charges dans le berceau de barge, les cartes d'opérations dans l'ultime volet. Aline avait fabriqué un outil d'exercice avant la crue, puis annoté les opérations réelles ; elle n'a pas conçu de jeu secret pour Nelle.
+La boîte contient dès l'origine toute la maquette, mais la structure pliée expose progressivement ses feuillets. Les lés se trouvent dans le cadre du panorama, les cinq photos dans une pochette d'archives, les calques figurant les trois zones relevées de F2 dans le rabat transparent de cette pochette, les charges dans le berceau de barge, les six cartes d’opérations et le carnet de chantier dans l’ultime volet. Aline avait fabriqué un outil d'exercice avant la crue, puis annoté les opérations réelles. Elle participe volontairement à l’exposition ; Nelle n’enquête pas sur un secret qu’un simple appel résoudrait. Son travail consiste à retrouver et montrer la disposition matérielle compatible avec les preuves.
 
 Le logiciel valide des reconstructions pour organiser le récit. Nelle reconnaît les bonnes correspondances en les comparant aux pièces ; aucun personnage ne connaît une réponse inexplicablement. Le commentaire d'erreur reste descriptif et limité à ce que le modèle montre.
 
 ## Continuité obligatoire
 
-- Dans F4, le matériel est déjà livré. L'action A de la finale couvre l'arrivée qui précède immédiatement ce cliché.
+- Dans F4, la livraison du matériel est en cours. La photographie ne permet pas de distinguer les six positions du chargement. L'action A de la finale couvre l'arrivée qui précède immédiatement ce cliché.
 - F1 montre l'escalier relevé, pas détruit. Ne pas le confondre avec les quatre indices de dégâts.
 - La cheminée ébréchée est un repère loin du groupe, sans chute animée sur les habitants.
 - La presse est de petit format à main ; ses six unités sont relatives aux autres miniatures, pas six kilogrammes revendiqués.
@@ -157,3 +157,15 @@ Le logiciel valide des reconstructions pour organiser le récit. Nelle reconnaî
 ### Continuité de la barge entre P05 et P07
 
 P05 reconstitue le chargement de transport **avant** livraison, sur un modèle de balance pédagogique. P07 représente une phase ultérieure : les caisses ont été déchargées à la rampe de l'atelier au niveau 0 ; les équipes du plan de service les ont réparties. La petite presse est déplacée dans le puits central de ballast, visible dans les tableaux finaux, et la barge est amarrée. Les six berceaux du chargement ne sont donc pas les emplacements de la scène du ponton. Les étais et amarres assurent ensuite le support. Cette remise en configuration est incluse dans la carte « Livrer les outils » et montrée sans nouvelle énigme. Ne pas réappliquer l'équation des six charges de P05 à la barge utilisée comme appui.
+
+## Registre supplémentaire des faits visibles
+
+- Dès N01, le témoignage ci-dessus est lisible dans le carnet, sans nommer le plancher. La fin ne dépend d’aucune nouvelle preuve.
+- Avant P06, F3 s’inspecte en détail : hauteur 4 ; toutes les liaisons à seuil 6 et les refuges restent au sec jusqu’au repère 5 inclus. Le trait bas Infirmerie–Halle ferme au repère 4.
+- Le document P06 porte : « Deux liaisons bâties ; les autres blancs sont des bras d’eau. Les trajets peuvent partager un passage. » Il indique les trois destinations et l’interdiction des marches pour le brancard.
+- Avant P07, le détail de F2 montre un tablier plat, deux unités de large et des attaches appariées ; la coupe du raccord exige trois travées. Le carnet de chantier donne les six fenêtres de la frise de PUZZLES.
+- La Halle est la **Halle haute**, de plain-pied sur une berge haute ; aucun blessé n’est laissé dans un refuge appelé à être noyé.
+- Le plancher devient une passerelle supportée par la barge et ses guides. Les quatre pieds du masque P04 représentent des appuis de structure, pas quatre piles construites dans la rivière.
+
+## Continuité du lieu présent
+La restauration se déroule dans une salle municipale, pas dans l’atelier détruit. Le fonds contient la maquette et des objets conservés. Aucun plan présent ne montre l’ancien bâtiment miraculeusement intact. Les prises de vue de la crue sont des archives ; la maquette pédagogique est une reconstitution.

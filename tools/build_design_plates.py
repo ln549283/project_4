@@ -41,7 +41,28 @@ def routes(name):
  y=820
  for i,route in enumerate(p['routes']):s.append(txt(40,y+i*30,route['start_label']+' → '+route['end_label'],20))
  save(name+'_solution.svg',s)
-for name in ['p03','p06']:routes(name)
+for name in ['p03']:routes(name)
+
+p=D['p06'];s=begin('P06 — carte de crue : eau 4 / arcade J–K / rampe K–L',1200,1450)
+def point(n):
+ x,y=p['nodes'][n]['xy'];return x+110,y+130
+for e in p['edges']:
+ a,b=e['ends'];x,y=point(a);xx,yy=point(b)
+ points=[(x,y)]+[(vx+110,vy+130) for vx,vy in e.get('via',[])]+[(xx,yy)]
+ for (ax,ay),(bx,by) in zip(points,points[1:]):s.append(line(ax,ay,bx,by,'#b66a59' if e['clearance']==4 else ACC,4))
+ lx,ly={'kh':(950,600),'ih':(570,178),'lh':(940,780)}.get(e['id'],((x+xx)/2,(y+yy)/2-10))
+ s.append(txt(lx,ly,e['id']+(' / marches' if e['stairs'] else '')+' / seuil '+str(e['clearance']),14))
+for key,g in p['gaps'].items():
+ x,y=point(g['ends'][0]);xx,yy=point(g['ends'][1]);chosen=key in ('jk','kl')
+ s.append(line(x,y,xx,yy,'#a86546' if chosen else '#c4b9a4',9 if chosen else 2))
+ s.append(txt((x+xx)/2,(y+yy)/2+20,key+' / '+str(g['span'])+' travées',15))
+for n,v in p['nodes'].items():
+ x,y=point(n);s.append(f'<circle cx="{x}" cy="{y}" r="24" fill="{BG}" stroke="{INK}"/>');s.append(txt(x,y+6,n,18,'middle'));s.append(txt(x,y-35,v['label'],18,'middle'))
+s.append(txt(50,1230,'Un croisement sans nœud n’est jamais une connexion (saut graphique en art final).',19))
+s.append(txt(50,1270,'École S–J–K–C / Brancard I–J–K–L–H / Archives A–J–K–L–G ou A–J–K–H–L–G',18))
+s.append(txt(50,1310,'Les deux fragments représentent de la maçonnerie sur une carte ; pas des planches.',19))
+save('p06_solution.svg',s)
+
 s=begin('P01 — signatures de raccord')
 for i,k in enumerate(D['p01']['solution']):
  x=60+i*220;s.append(rect(x,180,210,420,'#fffaf0'));s.append(txt(x+105,220,k,26,'middle'))
@@ -73,16 +94,16 @@ save('p04_masks.svg',s)
 s=begin('P05 — exemple accepté et bras de levier')
 p=D['p05'];sol=p['example_solution'];w=170
 for i,k in enumerate(sol):
- x=70+i*w;s.append(rect(x,260,155,230,'#fffaf0'));s.append(txt(x+78,300,p['labels'][k],17,'middle'));s.append(txt(x+78,360,p['weights'][k],42,'middle'));s.append(txt(x+78,450,'position '+str(p['positions'][i]),17,'middle'))
-s.append(line(65,510,1110,510,ACC,6));s.append('<path d="M 590 510 L 560 565 L 620 565 Z" fill="#a86546"/>')
-s.extend([txt(60,650,'Presse et lanterne : deux emplacements centraux, sans arceau bas.',23),txt(60,695,'Médicaments et teintures : pas de voisinage immédiat.',23),txt(60,740,'Équilibre : -6 -8 -6 +1 +10 +9 = 0. Équation réservée au studio.',23),txt(60,800,'Quatre solutions acceptées : ne pas verrouiller ce seul arrangement.',23)])
+ x=600+p['positions'][i]*150-65;s.append(rect(x,260,130,230,'#fffaf0'));s.append(txt(x+65,300,p['labels'][k],17,'middle'));s.append(txt(x+65,360,p['weights'][k],42,'middle'));s.append(txt(x+65,450,'position '+str(p['positions'][i]),17,'middle'))
+s.append(line(65,510,1110,510,ACC,6));s.append('<path d="M 600 510 L 570 565 L 630 565 Z" fill="#a86546"/>')
+s.extend([txt(60,650,'Presse et lanterne : deux emplacements centraux, sans arceau bas.',23),txt(60,695,'Intervalle central double : distances -3, -2, -1, +1, +2, +3.',23),txt(60,740,'Équilibre : -6 -8 -6 +1 +10 +9 = 0. Équation réservée au studio.',23),txt(60,800,'Quatre solutions acceptées : ne pas verrouiller ce seul arrangement.',23)])
 save('p05_balance.svg',s)
 s=begin('P07 — frise de reconstitution et fenêtres')
 actions=['Livrer les outils','Relever l’escalier','Déposer le plancher','Étayer le passage','Faire passer le groupe','Détacher la barge']
 windows=['Rampe accessible au niveau 0 seulement','Axe accessible au plus tard à 1','Barge à hauteur à partir de 2 ; outils nécessaires','Appuis utilisables à partir de 3 ; plancher posé','Passage avant 5 ; escalier et étais présents','Après le groupe ; conserver le support jusque-là']
 for i,(a,b) in enumerate(zip(actions,windows)):
  y=140+i*105;s.append(rect(50,y,1100,90,'#fffaf0'));s.append(txt(85,y+54,i,30));s.append(txt(145,y+38,a,24));s.append(txt(145,y+70,b,18))
-s.append(txt(60,850,'Pièce : plancher = 3 travées, toiture = 2, porte = 1 ; interruption = 3.',22))
+s.append(txt(60,850,'Tous : portée 3. Plancher seul plat, largeur 2 et attaches appariées.',22))
 save('p07_timeline.svg',s)
 s=begin('UX — rectangles fonctionnels à 360 × 640 dp',1300,920)
 for i,(title,kind) in enumerate([('P03 Routes','routes'),('P05 Barge','barge'),('P07 Frise','timeline')]):
@@ -93,9 +114,9 @@ for i,(title,kind) in enumerate([('P03 Routes','routes'),('P05 Barge','barge'),(
   for r in range(2):
    for c in range(3):s.append(rect(x+48+c*88,y+220+r*88,88,88,'#d6ded7'))
  elif kind=='barge':
-  for j in range(6):s.append(rect(x+18+j*54,y+220,48,92,'#d6ded7'))
+  for j in range(6):s.append(rect(x+20+(j%3)*108,y+220+(j//3)*64,100,56,'#d6ded7'))
  else:
-  for j in range(6):s.append(rect(x+26,y+160+j*48,308,44,'#d6ded7'))
+  for j in range(6):s.append(rect(x+26,y+150+j*56,308,48,'#d6ded7'))
 s.append(txt(50,845,'Surfaces schématiques. Minimum tactile 48 dp. Les textes agrandis font refluer la mise en page.',22))
 save('ux_layouts.svg',s)
 print('Generated',len(list(OUT.glob('*.svg'))),'SVG engineering plates')

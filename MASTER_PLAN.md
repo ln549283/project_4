@@ -1,176 +1,134 @@
-# LES RIVES PLIÉES — MASTER PLAN
+# Les Rives pliées — MASTER PLAN
 
-Version de conception : 1.0 · 22 septembre 2026 · propriétaire produit : Nibylo Games.
-Dépôt : `ln549283/project_4` · branche de référence : `main`.
+Conception **1.1 verrouillée — audit du 23 septembre 2026**. Dépôt `ln549283/project_4`, branche `main`.
 
-## 0. État exact et reprise
+## État exact et prochaine tâche
 
-**CONCEPTION TERMINÉE ; PRODUCTION NON COMMENCÉE.** Ce dépôt contient le contrat de conception, les données des énigmes et leur vérificateur, pas encore un jeu jouable. Les solutions combinatoires ont été vérifiées ; l'intérêt tactile, la lisibilité et la durée restent à valider sur une version jouable avec des joueurs novices. Ne pas présenter ces contrôles comme des playtests.
+**Dossier de conception corrigé ; aucun jeu, aucune fonctionnalité runtime, aucun asset final produit.** Les règles sont vérifiées par énumération et le parcours relu en posture novice. Cela ne constitue ni un playtest ni une validation commerciale. Passage autorisé à la construction contrôlée ; lancement commercial bloqué jusqu'aux validations de PRODUCTION_PLAN et QA. La durée 60–90 minutes reste un objectif non démontré, avec un risque sérieux de partie plus courte.
 
-**Prochaine tâche précise :** suivre `docs/PRODUCTION.md`, lot PROD-01 : créer le projet Godot 4.6.2 Standard/GDScript, renderer Compatibility, viewport portrait 1080×1920 ; implémenter le magasin d'état, la sauvegarde à deux générations et le contrôleur de panneaux de P03 à partir de `design/puzzles.json`. Obtenir une scène P03 manipulable avec les trois parcours, annulation et reprise après fermeture. Cette étape interne doit être immédiatement suivie de la production de l'ensemble du jeu ; elle n'est pas le livrable final demandé.
+**Première tâche : T01 de [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md)** : installer et verrouiller Godot 4.6.2 Standard avec ses templates correspondants, créer le projet portrait Compatibility et importer les trois contrats `puzzles.json`, `evidence.json`, `hints_fr.json` avec validation des identifiants au lancement. Livrer un boot local vérifiable et un test refusant un contrat invalide. Ne pas fabriquer les illustrations finales avant le parcours complet et son test novice T12.
 
-Ordre de lecture à chaque nouvelle session : ce fichier → `docs/PRODUCTION.md` → document du lot concerné → `docs/QA.md`. Avant de modifier : vérifier le HEAD distant, les changements locaux et les nouvelles consignes. À la fin : mettre à jour état, journal, tâche suivante et tests réellement effectués, puis commit/push. Aucun choix de concept n'est laissé au producteur.
+Reprise : lire ce master, PRODUCTION_PLAN, ASSET_BIBLE, puis le contrat du lot. Vérifier HEAD distant et changements locaux. En fin de session, consigner tâche terminée, vérifications réellement exécutées, limites et prochaine tâche ; commit/push. Aucun choix de concept à soumettre au producteur.
 
-## 1. Vision et décision
+## Vision et invariants
 
-**Promesse : « Dépliez une ville. Retrouvez le chemin de ceux qu'elle a sauvés. »**
+**« Dépliez une ville. Retrouvez le chemin de ceux qu'elle a sauvés. »** Jeu tactile de déduction environnementale premium, Android, français, hors ligne, prix choisi 3,49 €, sans compte, publicité, achat intégré ou télémétrie. Sessions naturelles de 5–15 minutes ; première partie visée 60–90 minutes. Architecture localisable, aucune traduction promise en V1.
 
-Un jeu tactile de déduction environnementale, composé comme un livre animé haut de gamme. Dans un ancien atelier de cartonnage, Nelle restaure une maquette de prévention des crues construite par sa mère Aline. Un rapport accuse Aline d'avoir démonté son atelier au mauvais moment, aggravant les dégâts. Les images, les objets et les chemins reconstitués montrent progressivement l'inverse : son plancher est devenu la passerelle qui a permis l'évacuation de l'école.
+Sept étapes P01–P07, prise en main P00 et conclusion complète unique. P01 est l'apprentissage ; P04 une respiration active ; P07 une synthèse. P02, P03, P05 et P06 portent l'essentiel de la déduction. Ne pas compter le nombre de permutations comme mesure d'intérêt.
 
-Le joueur ne lit pas simplement cette histoire : il raccorde les trajets, remet les images en ordre, superpose des ombres, équilibre une cargaison et rejoue l'opération. L'atelier initialement traité comme un lieu à préserver devient la matière du sauvetage final. Aline est vivante ; pas de mort surprise, pas de surnaturel, pas de téléphone trouvé, pas de boucle temporelle.
+Invariants : aucune connaissance obscure ; toute preuve disponible avant usage et conservée ; trois indices maximum par énigme, dernier indice méthodologique sans solution ; pas de chrono réel, mort punitive, consommable ou pixel hunting ; gestes réalisables par toucher puis toucher ; toutes les solutions conformes admises ; couleur et son jamais seuls porteurs d'information ; aucune narration obligatoire supérieure à 65 mots par panneau. Les scènes narratives sont interruptibles et relisibles. Pas de carte ajoutée pour allonger artificiellement la durée.
 
-Titre retenu : **Les Rives pliées**. Identifiant interne durable : `folded_shores`. Le titre commercial devra faire l'objet d'une vérification de disponibilité avant publication ; aucune disponibilité juridique n'est affirmée par ce dossier.
+## Autorité documentaire
 
-Produit : achat unique, prix de lancement choisi **3,49 €**, Android d'abord, intégralement hors ligne, sans publicité, compte, collecte comportementale ni achat intégré. Français intégral en v1 ; architecture localisable, traduction anglaise après validation française et avant toute fiche annonçant cette langue. Pas de backend. Durée cible d'une première découverte : **60–90 minutes**, budget de conception central 70 minutes ; pas une durée mesurée. Sessions naturelles de 5–15 minutes.
-
-## 2. Règles immuables
-
-1. Sept énigmes P01–P07, une prise en main P00, une fin unique complète. Ne pas ajouter de niveaux pour gonfler la durée.
-2. L'essentiel du temps doit être consacré à observer et manipuler. Aucun pavé obligatoire de plus de 65 mots ; aucune cinématique non interactive de plus de 35 secondes.
-3. Tout renseignement nécessaire existe à l'écran ou dans un document consultable et épinglable. Pas de culture générale, calcul mental obligatoire, code caché hors jeu ou pixel hunting.
-4. Trois indices **maximum par énigme**, textuels, accessibles gratuitement, persistants. Le troisième précise une méthode sans donner la combinaison ni la séquence complète.
-5. Aucun chrono réel, aucune mort punitive, aucune ressource consommable, aucun échec qui détruit une sauvegarde. La crue finale est un simulateur à étapes, commandé par le joueur.
-6. Toutes les solutions satisfaisant les règles sont acceptées, notamment les quatre chargements de P05. Jamais de solution secrète plus restrictive que les règles visibles.
-7. La couleur, le son, le maintien tactile et les gestes rapides ne portent jamais seuls une information. Toutes les manipulations ont une alternative toucher/sélectionner.
-8. La maquette est un schéma pédagogique, pas un système surnaturel ni une simulation d'ingénierie. Les chemins imprimés sont des trajets possibles ; retourner un volet choisit une organisation, cela ne déplace pas réellement les maisons de la ville.
-9. Le rapport contesté, le rôle du plancher et la responsabilité d'Aline doivent être prouvés par plusieurs éléments indépendants. Une maquette réussie ne prouve pas seule ce qui s'est passé.
-10. L'histoire personnelle se résout : Nelle corrige le cartel avec les preuves, contacte sa mère, lui remet la maquette restaurée. Aucune fin réservée à un épisode suivant.
-11. Un seul langage visuel : carton découpé, encre, tissu et cuivre patiné. Aucun rendu glossy de jeu casual, aucune banque disparate d'icônes.
-12. Réduire animations décoratives et vues secondaires en cas de dépassement, jamais supprimer les indices, l'épilogue, la robustesse des sauvegardes ou la vérification des puzzles.
-
-## 3. Documents et autorité
-
-| Fichier | Contenu normatif |
+| Document | Autorité |
 |---|---|
-| `MASTER_PLAN.md` | Vision, périmètre, état, progression, contrats résumés, reprise |
-| `docs/PUZZLES.md` | Règles exactes, solutions expliquées, trois indices, erreurs, walkthrough novice |
-| `design/hints_fr.json` | Les 24 aides françaises (3 par étape P00–P07) |
-| `design/puzzles.json` | Données numériques et topologiques canoniques ; consommées par le vérificateur puis le jeu |
-| `docs/NARRATIVE.md` | Histoire complète, scènes, tous les textes narratifs et pièces à conviction |
-| `docs/SCREENS_UX.md` | Inventaire complet, navigation, interactions, états, accessibilité |
-| `docs/ART_AUDIO.md` | DA, composition, animation, son et pipeline |
-| `design/assets.csv` | Assets individuels, dimensions, usage, état, production et acceptation |
-| `docs/TECHNICAL.md` | Moteur, modules, sauvegarde, build, conventions |
-| `docs/QA.md` | Cas de test, contrôles réalisés, risques et critères de sortie |
-| `docs/PRODUCTION.md` | Lots ordonnés, critères, journal et prochain travail |
-| `docs/DECISIONS.md` | Alternatives écartées, autocritique, décisions et règles de changement |
-| `tools/verify_design.py` | Vérification exécutable, hors code du jeu |
+| Ce master | Vision, périmètre V1, état et reprise |
+| [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md) | Tâches, dépendances et critères de livraison |
+| [ASSET_BIBLE.md](ASSET_BIBLE.md) | Direction artistique, formats, catégories et inventaire exhaustif |
+| [docs/PUZZLES.md](docs/PUZZLES.md) | Toutes les règles, solutions, manipulations, erreurs et 21 indices |
+| [design/puzzles.json](design/puzzles.json) | Données numériques/topologie canoniques |
+| [design/evidence.json](design/evidence.json) | Acquisition et disponibilité des preuves |
+| [design/hints_fr.json](design/hints_fr.json) | Texte des 21 indices P01–P07 ; P00 sans indice |
+| [docs/NARRATIVE.md](docs/NARRATIVE.md) | Scénario complet, dialogues, pièces à conviction |
+| [docs/SCREENS_UX.md](docs/SCREENS_UX.md) | Écrans, navigation, interactions/accessibilité |
+| [docs/TECHNICAL.md](docs/TECHNICAL.md) | Modules, sauvegarde, conventions/build |
+| [docs/ART_AUDIO.md](docs/ART_AUDIO.md) | Son et animations |
+| [design/assets.csv](design/assets.csv) | Manifest lisible machine, mêmes entrées que la bible |
+| [docs/AUDIT.md](docs/AUDIT.md) et [docs/WALKTHROUGH.md](docs/WALKTHROUGH.md) | Faiblesses, corrections, simulation novice et limites |
+| [docs/QA.md](docs/QA.md) | Gates de qualité, contrôles réels et contrôles à faire |
+| [docs/DECISIONS.md](docs/DECISIONS.md) | Décisions verrouillées et procédure de changement |
 
-Le master est la source de vérité du périmètre. Les annexes font partie de son contrat, sans variante optionnelle à choisir. Pour un détail numérique, `puzzles.json` prévaut ; toute modification exige mise à jour synchronisée du texte et du vérificateur. Aucun écart connu à la livraison de conception.
+Les annexes forment le contrat détaillé du master. Toute modification numérique synchronise JSON, texte, planches et tests. Ne jamais appliquer une ancienne version 1.0 à côté de la 1.1. Les mentions historiques dans AUDIT/DECISIONS ne sont pas des fonctionnalités à réaliser.
 
-## 4. Univers, personnages et récit complet
+## Univers, personnages, histoire complète
 
-Ville fictive : **Orme-sur-Rive**, petite commune fluviale sans pays ni époque précisément datés. Présent au printemps, douze ans après une crue d'automne. Technologie visible : photographie argentique, éclairage domestique, téléphone fixe hors champ. Pas de faux folklore ni de reconstitution historique revendiquée.
+Orme-sur-Rive, commune fluviale fictive sans date historique revendiquée. Douze ans après une crue d'automne, Nelle, restauratrice de papier de 29 ans, prépare au printemps une exposition dans **la salle municipale de restauration**. Ce n'est pas l'ancien atelier, qui n'a pas été reconstruit. Aline, sa mère cartonniste, vit ailleurs et a volontairement fourni sa maquette, ses photographies et son témoignage. Jo conserve ce fonds. Le sauvetage et la survie des habitants sont connus dès l'ouverture ; le problème est d'expliquer matériellement son déroulement.
 
-- **Nelle**, 29 ans, restauratrice de papier. Partie adolescente, elle revient pour rendre présentable la maquette destinée à l'exposition municipale. Habituée à conserver les objets, elle doit accepter qu'on puisse sauver leur fonction en les transformant.
-- **Aline**, sa mère, ancienne cartonniste et bénévole de la crue. Vivante, installée ailleurs après fermeture de son atelier. Elle a donné un témoignage jamais joint au rapport préliminaire. Elle ne gardait pas volontairement une énigme pour sa fille.
-- **Jo**, ancien agent de bibliothèque et gardien du petit fonds d'archives. Il a réuni la maquette, les photos et les objets sans connaître leur articulation. Il aide à cadrer, jamais à résoudre.
-- **Les habitants**, silhouettes : infirmière, deux accompagnateurs et groupe d'enfants. Aucun enfant individualisé mis en danger à l'écran ; la catastrophe est passée et leur survie est confirmée tôt.
+Le cartel provisoire juxtapose atelier démonté et évacuation mal documentée. Il n'accuse personne : pas de complot, procès, témoignage caché ou mère qui refuse de parler. Nelle ouvre le coffret, répare le panorama, puis classe cinq photographies par les transformations irréversibles du paysage. Elle reconstitue les livraisons et identifie une structure construite dans un contrejour. Elle stabilise une cargaison possible avant déchargement ; la petite presse est ensuite gardée comme ballast central, les amarres et guides assurant le maintien de la barge.
 
-Début : fermeture de cartons d'exposition. Cartel provisoire : « Atelier démonté pendant la crue. L'évacuation de l'école reste mal documentée. » Nelle reconnaît la signature maternelle sous la maquette. Elle demande à finir la restauration avant de figer ce récit.
+Le grand plan confronte niveau d'eau, passages noyés, marches et fragments de maçonnerie : trois groupes atteignent les refuges. Le groupe de l'école arrive au clocher, pas encore au quai haut. La dernière interruption correspond au plancher de l'atelier, identifié par profil, largeur et attaches. Nelle le déplace dans la maquette puis reconstitue six phases de l'opération. Le témoignage déjà accessible accompagne les photographies ; la réussite du modèle ne prouve pas seule l'histoire.
 
-Premier mouvement : réparer le panorama et classer les cinq photos montre que le démontage a lieu **après** la mise à l'abri du matériel de secours et **avant** le passage du groupe. Le rapport associe des faits, il ne démontre pas de faute ; aucun méchant qui falsifie arbitrairement les preuves.
+Nelle remplace le cartel par un récit factuel, appelle Aline (« J'ai compris le plancher. » / « Il était fait pour porter du monde. ») et lui présente la maquette exposée. L'atelier n'est pas magiquement restauré. Fin unique résolue, générique, exploration des preuves et scènes terminées en lecture seule, ou nouvelle partie confirmée.
 
-Deuxième mouvement : les trajets de service et les silhouettes montrent que ce qui semblait être une façade effondrée était une passerelle préparée. Le chargement de la barge contient pharmacie, nourriture, outils et presse d'atelier, pas un butin. La presse servait de contrepoids ; elle a été sauvée avec le reste, elle n'a pas une masse réaliste de grande presse industrielle.
+## Déroulé et rythme
 
-Troisième mouvement : déployer le quartier entier permet de relier les trois groupes aux bons refuges tout en identifiant l'unique interruption entre clocher et quai haut. Le négatif du plancher démonté correspond exactement à cette interruption. Le joueur retire lui-même ce plancher de la maquette et l'emploie comme passerelle, puis reconstruit l'ordre des opérations.
+Budgets ci-dessous : hypothèses de conception, non des mesures. Leur somme **42–70 minutes** expose un écart avec la cible commerciale 60–90 ; ce risque est bloquant pour une promesse de durée. Pas de texte ou d'attente ajouté pour le masquer. T12 mesure le parcours complet avant la fabrication massive des assets.
 
-Fin : la reconstitution correspond aux photos ; le témoignage original d'Aline précise son intention. Nelle remplace le cartel par une formulation factuelle, sans effacer les dégâts matériels. Elle appelle Aline : « J'ai compris le plancher. » Réponse : « Il était fait pour porter du monde. » Épilogue : la maquette exposée s'ouvre du même geste que le début, mais les pièces retirées dessinent désormais une rive accessible. Une petite silhouette maternelle rejoint Nelle. Générique, reprise libre des objets et puzzles isolés, sans nouvel épilogue requis.
+| Séquence | Action, preuve et objectif suivant | Budget hypothétique |
+|---|---|---:|
+| Arrivée + P00 | Cartel, coffret à deux attaches, ouvrir la maquette | 2–3 min |
+| P01 | Cinq lés ; lieux identifiables ; photos, note et témoignage acquis | 2–4 min |
+| R1 | Survie confirmée ; consulter/ordonner les photos | 1–2 min |
+| P02 | Cinq instants par dommages irréversibles | 5–9 min |
+| P03 | Trois livraisons simultanées dans six volets | 5–9 min |
+| P04 | Trois calques ; silhouette des appuis, respiration active | 1–3 min |
+| R2 | Deux preuves réunies ; charger la barge | 1–2 min |
+| P05 | Équilibre, masses/distances et gabarits ; grand plan acquis | 6–10 min |
+| P06 | Eau observée, deux fragments, trois itinéraires | 10–16 min |
+| R3 | Dernière interruption clocher/quai et détail de photo | 1–2 min |
+| P07 | Reconnaître une pièce puis classer six opérations | 5–7 min |
+| Conclusion | Cartel, appel, exposition et générique | 3–3 min |
 
-## 5. Parcours et durée de référence
+Total corrigé : **42–70 min**. P03 et P04 possibles dans les deux ordres ; le rythme exact de cette branche dépend du choix du joueur. Les respirations sont des observations interactives brèves, jamais des attentes obligatoires.
 
-Ces minutes sont un budget, pas un rythme imposé. Navigation instantanée après la première transition ; rien ne ralentit artificiellement les experts.
-
-| Temps central cumulé | Séquence | Action / découverte | Budget |
-|---|---|---|---:|
-| 0–3 | Arrivée + P00 | Deux attaches, déplier la boîte, découvrir le cartel | 3 min |
-| 3–7 | P01 Panorama | Raccorder cinq lés ; reconnaître atelier, école et quai | 4 min |
-| 7–9 | Respiration R1 | Jo confirme les habitants sauvés ; ouvrir les images | 2 min |
-| 9–17 | P02 Avant / après | Ordonner cinq photos par transformations irréversibles | 8 min |
-| 17–26 | P03 Les chemins de service | Six volets, trois trajets simultanés | 9 min |
-| 26–30 | P04 Le contrejour | Reconstituer la silhouette du ponton avec trois calques | 4 min |
-| 30–32 | Respiration R2 | Photo rapprochée, légende contredite, pluie qui cesse | 2 min |
-| 32–42 | P05 La charge utile | Six objets, balance visuelle, quatre dispositions valables | 10 min |
-| 42–55 | P06 Le quartier déplié | Neuf volets, parcours couplés ; préparer l'évacuation | 13 min |
-| 55–57 | Respiration R3 | Retour sur le plancher de l'atelier ; choix d'agir compris | 2 min |
-| 57–66 | P07 Ce qui portait | Pièce transformée + six opérations sur une frise de crue | 9 min |
-| 66–70 | Conclusion | Pièces comparées, cartel rectifié, appel et exposition | 4 min |
-
-P03 et P04 sont réalisables dans les deux ordres (enveloppe 13 min). La difficulté monte surtout avec P03 et P06. P04 constitue une respiration active, pas une énigme artificiellement présentée comme difficile. P07 conclut par synthèse plutôt que par un pic frustrant. Risque principal : experts sous 60 min et novices bloqués sur les cartes ; protocole de durée et remède fixé dans QA.
-
-## 6. Graphe de progression
+## Graphe de progression
 
 ```mermaid
 flowchart TD
-  Start["Arrivée et P00"] --> P01["P01 Panorama"]
-  P01 --> P02["P02 Chronologie"]
-  P02 --> P03["P03 Chemins de service"]
+  P00["P00 Coffret"] --> P01["P01 Panorama"]
+  P01 --> P02["P02 Photos"]
+  P02 --> P03["P03 Service"]
   P02 --> P04["P04 Contrejour"]
-  P03 --> Join["Deux preuves réunies"]
-  P04 --> Join
-  Join --> P05["P05 Chargement"]
-  P05 --> P06["P06 Quartier déplié"]
-  P06 --> P07["P07 Plancher et crue"]
-  P07 --> End["Cartel, appel, épilogue"]
+  P03 --> J["Deux preuves réunies"]
+  P04 --> J
+  J --> P05["P05 Barge"]
+  P05 --> P06["P06 Crue et refuges"]
+  P06 --> P07["P07 Passage et phases"]
+  P07 --> E["Cartel, appel, exposition"]
 ```
 
-Toutes les preuves déjà rencontrées restent disponibles ; aucun chemin sans retour. Déblocage par événements monotones Pxx_SOLVED. P03/P04 ne réinitialisent jamais l'autre. Les vues de bibliothèque, établi et fenêtre sont accessibles dès P02 ; le quartier central ne s'étend qu'après P05. Pas de chapitre sélectionnable pendant une première partie. Après la fin, rejouer une énigme crée un état sandbox distinct de la sauvegarde narrative.
+`solved` est monotone ; P03/P04 ne réinitialisent jamais l'autre. Preuves attribuées sur prérequis, pas sur lecture d'un dialogue. Tous les brouillons restent modifiables avant validation. Chaque vue propose un objectif concret et un accès au prochain travail disponible ; jamais de recherche d'un hotspot caché.
 
-## 7. Contrat de chaque énigme et solutions
+## Toutes les solutions
 
-Détails exhaustifs, données d'entrée visibles et indices dans `docs/PUZZLES.md`.
+| Étape | Contrat résumé et solution | Sortie |
+|---|---|---|
+| P00 | Deux attaches puis languette ; apprentissage, aucune combinaison | P01 |
+| P01 | Cinq raccords à double signature : L3,L1,L5,L2,L4 | Photos et témoignage |
+| P02 | Dommages irréversibles : F4,F1,F5,F2,F3 | P03/P04 |
+| P03 | 2×3 volets, ports/couples dans JSON : faces 1,1,1 / 0,0,0 | Plan de service |
+| P04 | Union exacte de trois masques 7×7 : rotations 0,0,0 depuis 1,2,3 | Structure à quatre appuis |
+| P05 | Six masses 1–6 aux distances −3,−2,−1,+1,+2,+3 ; presse/lanterne centrales ; moment nul | Quatre solutions ci-dessous |
+| P06 | Eau4, arcade J–K, rampe K–L ; école S–J–K–C ; brancard I–J–K–L–H ; archives A–J–K–L–G ou A–J–K–H–L–G | Clocher et dernière interruption |
+| P07A | Tous candidats longueur3 ; seul plancher plat, largeur2 et attaches appariées | Passage |
+| P07B | Livrer, relever l'escalier, déposer le plancher, étayer, faire passer, détacher | Conclusion |
 
-| ID | Écran | Règle et solution de référence | Dépendance / sortie |
-|---|---|---|---|
-| P00 | Table, coffret | Soulever les deux attaches illustrées, puis tirer la languette ; pas de combinaison | Début → maquette ouverte |
-| P01 | Panorama | Chaque raccord paysage doit joindre les deux signatures de bord identiques ; ordre des lés **L3,L1,L5,L2,L4** | P00 → géographie + photos |
-| P02 | Table lumineuse | Déduire les successions des quatre dégâts irréversibles ; ordre **F4,F1,F5,F2,F3** | P01 → contexte P03/P04 |
-| P03 | Plateau de service 2×3 | Chaque volet propose deux courbes non croisées ; connecter les trois couples indiqués. Solution en lecture de ligne **1,1,1 / 0,0,0** | P02 → plan de livraisons |
-| P04 | Fenêtre | Trois calques sur axes fixes ; union opaque égale silhouette témoin. Orientations canoniques **0,0,0**, initiales **1,2,3** quarts de tour | P02 → preuve de la passerelle |
-| P05 | Barge | Six charges, équilibre des moments, deux charges centrales imposées par gabarit, médicaments non voisins des teintures ; **4 solutions**, exemple gauche→droite **médicaments,outils,presse,lanterne,teintures,vivres** | P03+P04 → plan complet + contenu du colis |
-| P06 | Quartier 3×3 | Raccordement de parcours à objectifs illustrés ; solution **0,1,1 / 0,1,1 / 0,0,0** ; couples détaillés dans `puzzles.json` et PUZZLES | P05 → accès au plancher et frise |
-| P07 | Maquette et frise | Retirer le **plancher**, l'installer sur l'interruption ; puis **livrer, lever l'escalier, déposer le plancher, étayer, évacuer, larguer** dans six créneaux | P06 → preuves comparées + fin |
+P05 gauche→droite : médicaments/outils/presse/lanterne/teintures/vivres ; vivres/teintures/lanterne/presse/outils/médicaments ; outils/médicaments/presse/lanterne/vivres/teintures ; teintures/vivres/lanterne/presse/médicaments/outils. Toutes acceptées. Aucune contrainte de voisinage.
 
-Ne pas déduire les solutions des positions initiales. La position canonique est une convention auteur ; aucun numéro 0/1, nom de fichier, identifiant de test ou marque de solution n'apparaît au joueur.
+P06 : S école, I infirmerie, A archives, J place, K terrasse, L cour haute, C clocher, H halle haute, G grenier. Seul raccourci I–H noyé au niveau4. Marches interdites au brancard ; refuges et nœuds toujours secs. Fragments de carte représentant de la maçonnerie, jamais des planches réutilisables en P07. Toutes les arêtes, seuils et variantes sont dans PUZZLES/JSON.
 
-## 8. Écrans et lieux
+## Écrans, objets et production visuelle
 
-Trois vues physiques, pas de promenade 3D : **établi** (maquette, cargaison, objets), **meuble d'archives** (photos, panorama, témoignage), **fenêtre** (projection). Le déplacement s'effectue par trois onglets illustrés et étiquetés. Quinze écrans/vues fonctionnels : accueil, réglages, établi, archives, fenêtre, P01, P02, P03, P04, P05, P06, P07, carnet/preuve, conclusion, générique/relecture. Pause, indices, confirmation et erreur sauvegarde sont des overlays. Inventaire complet avec retour, disponibilité, zones tactiles et états : `docs/SCREENS_UX.md`.
+Un seul espace présent : salle de restauration/établi. Archives et fenêtre sont des vues rapprochées directes, pas trois pièces à explorer. S00 accueil, S01 réglages, S02 établi, S03 archives, S04 fenêtre, S05–S11 P01–P07, S12 carnet, S13 conclusion, S14 générique/exploration. Overlays pause, indices, confirmation, fonctionnement, sauvegarde, image agrandie. SCREENS_UX donne chaque transition et état.
 
-HUD : retour en haut à gauche, titre au centre, menu à droite ; scène ; barre d'objets/contextes ; carnet et indice en bas. Aucun compte à rebours ni pourcentage omniprésent. Lors d'une reprise, objectif concret en une phrase (« Retrouver les chemins vers les refuges ») et dernier lieu, sans spoiler.
+Objets : deux attaches et coffret, cinq lés, cinq photos, trois calques, fiche de livraison, six charges, deux fragments de carte, trois groupes, trois candidats rigides, six cartes d'action, coupe de crue, témoignage et cartel. Pas d'inventaire générique ni de combinaison d'objet sur tout.
 
-## 9. Objets et indices matériels
+DA : carton découpé, papier ivoire, graphite bleu nuit, vert de rivière, cuivre patiné ; précision géométrique sur les preuves. Son matériel doux, deux compositions, trois ambiances, aucune voix enregistrée. ASSET_BIBLE et CSV énumèrent chaque fichier requis, dérivé ou exclu ; tous sont encore à produire. Les SVG de `design/plates` sont des schémas techniques révélant les solutions, pas des assets du jeu.
 
-Objets persistants : cinq lés, cinq photos, trois calques, fiche de livraison, six charges miniatures, plan à neuf volets, plancher amovible, fiche des niveaux de crue, six cartes d'opérations + deux hypothèses rejetables, témoignage original, cartel. Inventaire **contextuel**, jamais une poche d'objets à essayer sur tout. Pas de combinaisons génériques : chaque objet a un emplacement dédié visible. Le carnet contient des copies des preuves ; les originaux restent dans leur scène. Liste exacte, provenance et usages dans NARRATIVE et assets.
+## Architecture, sauvegarde et conventions
 
-Les indices de l'assistant ne sont pas les preuves : les preuves sont toujours accessibles gratuitement sans limite. Les trois aides sont révélées uniquement à la demande, une à la fois ; aucune pénalité ni badge de honte. Le dernier indice ne complète jamais une manipulation à la place du joueur.
+Godot 4.6.2 Standard/GDScript typé, Compatibility 2D, portrait 1080×1920, Android 10+ arm64. Pas de backend. GameState, Progression, SaveService, SceneRouter, AudioService ; validateurs purs distincts, le rendu ne décide pas d'une solution. JSON canoniques importés, clés de traduction séparées, chemins ASCII snake_case, identifiants immuables, coordonnées zéro-indexées.
 
-## 10. DA, son, assets
+Deux générations de sauvegarde validées par schéma/hash et cohérence de génération ; snapshot après geste stable, jamais données Node. Résolution, attribution de preuves et file narrative dans la même transaction. `completed` après conclusion acquittée. Reprise d'animation sur état stable ; fichier plus récent inconnu conservé sans écriture. Aucun export diagnostic/partage système en V1.
 
-Papier ivoire fibreux, graphite bleu nuit, vert de rivière désaturé, cuivre et corail ponctuel. Perspective orthographique presque frontale sur la maquette ; vues puzzle strictement orthographiques pour assurer la précision. Ombres douces fixes, découpes irrégulières hors zones fonctionnelles. Les éléments interactifs ont un bord de papier clair et une languette commune, sans halo permanent.
+Toucher/sélectionner partout, cibles48 dp avec8 dp de séparation ; commandes alternatives pour cartes denses. Texte100/125/150%, mouvement réduit, contraste renforcé, motifs et labels indépendants de la couleur, volumes réglables. Sauvegarde à chaque action stable ; annuler local et remise à zéro du puzzle non résolu avec confirmation. Lecteur d'écran complet non revendiqué avant vérification spécifique.
 
-Décor riche mais lisible : trois fonds, architecture en couches, fenêtres, linge, étiquettes de livraison, outils de restauration. Pas de personnage 3D ni de synchronisation labiale. Animation principale : dépliage de volets, ondulation très légère, mouvement de silhouettes en papier lors des résolutions. Durée standard 180–350 ms ; cinématique centrale 25 s maximum, option mouvement réduit.
+## V1 obligatoire / à ignorer
 
-Son : papier, métal discret, bois, pluie distante, trois ambiances musicales originales de faible densité. Pas de doublage ; appel final écrit avec silhouettes et bruit discret de combiné. Aucun indice auditif exclusif. Tous les assets nécessaires sont énumérés individuellement dans `design/assets.csv`, tous encore **planned** à ce stade. `docs/ART_AUDIO.md` décrit leur fabrication. Les gabarits techniques fournis ne sont pas des illustrations finales.
+Obligatoire : parcours intégral, fin, 21 indices, preuves permanentes, deux ordres de branche, toutes solutions admises, sauvegarde robuste, accessibilité décrite, assets marqués required_v1, mix sans son indispensable, crédits/licences, APK testé puis AAB signé et préparation store. Mesure novice de durée/qualité obligatoire avant déclaration commerciale.
 
-## 11. Architecture et conventions
+À ignorer : replay sandbox par chapitre, trois salles navigables, seconde grille de tuyaux, fausses cartes finales, règle médicaments/teintures, export diagnostic système, cloud, compte, succès, chrono, niveaux bonus, voix enregistrées, langues autres que FR, éclairage dynamique, changement automatique de fréquence, assets ignore_v1. Ne pas les développer par anticipation.
 
-Godot **4.6.2 Standard**, GDScript typé, 2D, renderer Compatibility. Choix explicite pour livraison Android native hors ligne et animation 2D, sans serveur ni wrapper web. Version connue disponible, pas une affirmation de « dernière version ». Versions d'export correspondantes ; API cible de publication à contrôler au lot release.
+## Limites de verrouillage
 
-Architecture : `GameState` (état), `Progression` (événements et portes), `SaveService` (deux générations), `SceneRouter` (vues), `AudioService`, composants `PaperFlap`, `EvidenceCard`, `PuzzleController`, validateurs purs par puzzle. Les données numériques JSON sont importées dans des ressources validées ; les traductions sont des clés, jamais des bouts de phrase concaténés. L'affichage ne décide pas de la solution.
-
-Conventions : IDs immuables `p03`, `evidence_photo_f4`, `cargo_medicine` ; chemins ASCII snake_case, textes français UTF-8 ; coordonnées grille ligne/colonne indexées à zéro, N/E/S/W fixes. Pas de rotation libre du plateau. Tous les assets ont auteur/provenance/licence avant release. Pas de clés de signature dans Git. Architecture de sauvegarde, schéma exact, erreurs et navigation : TECHNICAL.
-
-## 12. Accessibilité et sauvegarde
-
-Portrait, une main possible ; surface logique évaluée aussi à 360×640 dp. Cibles au moins 48×48 dp, zone utile indépendante du trait dessiné ; pas de pincement requis. Texte réglable 100/125/150 %, panneau refluant, zoom détail dédié. Contrastes contrôlés, pictogrammes accompagnés de texte, trois motifs de routes distincts et traçage individuel. Aucun geste temporel ni son obligatoire. Support clavier pour test/desktop. La narration peut être lue dans le carnet. Support lecteur d'écran complet **non revendiqué** tant que non validé sur Android.
-
-Sauvegarde automatique à chaque action stable, changement de scène, aide révélée et résolution. État courant + génération précédente ; fichiers JSON validés par schéma et empreinte. Si dernière écriture interrompue : restaurer la génération précédente valide, annoncer la récupération sans nouvelle partie forcée. Si deux copies invalides : proposer diagnostic/export brut et nouvelle partie confirmée. Détails tests Android mise en veille/fermeture forcée dans QA.
-
-## 13. Évaluation, limites, sortie de conception
-
-Passé : données complètes pour toutes les étapes ; chemins atteignables sans cycle de prérequis ; énumération des solutions des permutations, cartes et calques ; existence et exhaustivité des chargements ; résolution finale cohérente avec l'histoire ; indices non révélateurs ; revue novice décrite par énigme.
-
-Non passé car non produit : playtests humains, confort sur téléphone, qualité des illustrations, son mixé, APK/AAB, performances, stabilité Android et conformité finale de publication. **Ne pas confondre conception prête à construire avec jeu prêt à vendre.**
-
-La production suit le plan fixé. Si un playtest invalide une hypothèse, le studio corrige de manière autonome selon DECISIONS, documente l'écart et revalide. Il ne demande pas au producteur de choisir le concept à nouveau.
+Les décisions créatives actuelles sont fixées. La durée et le confort restent des hypothèses empiriques. Si T12 échoue, suspendre la production coûteuse, consigner les données et réviser de façon ciblée ce dossier ; ne pas réduire silencieusement la promesse à un produit plus court ni remplir avec des mini-jeux. Aucun dossier papier ne peut honnêtement garantir à lui seul 60–90 minutes de plaisir.

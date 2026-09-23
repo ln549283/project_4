@@ -1,0 +1,190 @@
+{
+  "design_version": "1.1",
+  "grant_rule": "Evidence is available as soon as prerequisites hold; inspecting or acknowledging dialogue is never required to grant it.",
+  "items": [
+    {
+      "id": "evidence_report",
+      "requires_solved": [],
+      "where": "N00 et carnet",
+      "content_contract": "Cartel neutre à compléter, pas accusation.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_map",
+      "requires_solved": [
+        "p00"
+      ],
+      "where": "Cadre P01",
+      "content_contract": "Ancres et raccords accessibles avant résolution.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_statement",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "N01 et carnet",
+      "content_contract": "Témoignage connu, sans le nom de la pièce transférée.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_photo_f4",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "Pochette P02 puis carnet",
+      "content_contract": "Matrice p02 ; F3 porte eau4 ; F2 porte profil/largeur/attaches P07.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_photo_f1",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "Pochette P02 puis carnet",
+      "content_contract": "Matrice p02 ; F3 porte eau4 ; F2 porte profil/largeur/attaches P07.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_photo_f5",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "Pochette P02 puis carnet",
+      "content_contract": "Matrice p02 ; F3 porte eau4 ; F2 porte profil/largeur/attaches P07.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_photo_f2",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "Pochette P02 puis carnet",
+      "content_contract": "Matrice p02 ; F3 porte eau4 ; F2 porte profil/largeur/attaches P07.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_photo_f3",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "Pochette P02 puis carnet",
+      "content_contract": "Matrice p02 ; F3 porte eau4 ; F2 porte profil/largeur/attaches P07.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_photo_note",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "P02 fiche visible",
+      "content_contract": "Même crue, même montée des eaux ; aucune réparation.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_delivery",
+      "requires_solved": [
+        "p02"
+      ],
+      "where": "Feuillet P03",
+      "content_contract": "Trois couples et règle des deux courbes.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_projection",
+      "requires_solved": [
+        "p02"
+      ],
+      "where": "Fenêtre P04",
+      "content_contract": "Contour de F2 et trois calques ; pas de contenu révélé artificiellement.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_cargo",
+      "requires_solved": [
+        "p03",
+        "p04"
+      ],
+      "where": "P05 avant chargement",
+      "content_contract": "Six masses, pivot, distances, deux gabarits centraux. Aucune règle de voisinage.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_press",
+      "requires_solved": [
+        "p03",
+        "p04"
+      ],
+      "where": "Étiquette sur presse P05",
+      "content_contract": "Pour le poids. La laisser sur la barge jusqu’au dernier passage.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_refuges",
+      "requires_solved": [
+        "p05"
+      ],
+      "where": "Plan P06 et carnet",
+      "content_contract": "Trois destinations ; brancard sans marches ; seuils ; deux fragments pour quatre blancs.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_tide",
+      "requires_solved": [
+        "p06"
+      ],
+      "where": "P07 carnet de chantier",
+      "content_contract": "Six fenêtres et antériorités ; coupe largeur/portée ; profil et attaches de F2.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_cartel_final",
+      "requires_solved": [
+        "p07"
+      ],
+      "where": "Conclusion",
+      "content_contract": "Correction issue des preuves déjà disponibles.",
+      "permanent": true
+    }
+  ],
+  "required_by_stage": {
+    "p00": [
+      "evidence_report"
+    ],
+    "p01": [
+      "evidence_map"
+    ],
+    "p02": [
+      "evidence_photo_note",
+      "evidence_photo_f4",
+      "evidence_photo_f1",
+      "evidence_photo_f5",
+      "evidence_photo_f2",
+      "evidence_photo_f3"
+    ],
+    "p03": [
+      "evidence_delivery"
+    ],
+    "p04": [
+      "evidence_projection",
+      "evidence_photo_f2"
+    ],
+    "p05": [
+      "evidence_cargo",
+      "evidence_press"
+    ],
+    "p06": [
+      "evidence_refuges",
+      "evidence_photo_f3"
+    ],
+    "p07": [
+      "evidence_tide",
+      "evidence_photo_f2",
+      "evidence_statement"
+    ],
+    "ending": [
+      "evidence_statement",
+      "evidence_cartel_final"
+    ]
+  }
+}

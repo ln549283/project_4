@@ -1,5 +1,5 @@
 {
-  "design_version": "1.0",
+  "design_version": "1.1",
   "checks": "PASS",
   "note": "Combinatorial design checks; not human playtests or Android tests.",
   "puzzles": [
@@ -129,121 +129,6 @@
       ]
     },
     {
-      "puzzle": "p06",
-      "states_examined": 512,
-      "accepted_count": 1,
-      "accepted": [
-        [
-          0,
-          1,
-          1,
-          0,
-          1,
-          1,
-          0,
-          0,
-          0
-        ]
-      ],
-      "paths": [
-        {
-          "route": "school",
-          "visited": [
-            [
-              0,
-              2,
-              "N"
-            ],
-            [
-              0,
-              1,
-              "E"
-            ],
-            [
-              1,
-              1,
-              "N"
-            ],
-            [
-              1,
-              0,
-              "E"
-            ],
-            [
-              0,
-              0,
-              "S"
-            ]
-          ],
-          "end": [
-            0,
-            0,
-            "W"
-          ]
-        },
-        {
-          "route": "infirmary",
-          "visited": [
-            [
-              2,
-              1,
-              "S"
-            ],
-            [
-              2,
-              0,
-              "E"
-            ],
-            [
-              1,
-              0,
-              "S"
-            ]
-          ],
-          "end": [
-            1,
-            0,
-            "W"
-          ]
-        },
-        {
-          "route": "archives",
-          "visited": [
-            [
-              2,
-              2,
-              "S"
-            ],
-            [
-              2,
-              1,
-              "E"
-            ],
-            [
-              1,
-              1,
-              "S"
-            ],
-            [
-              1,
-              2,
-              "W"
-            ],
-            [
-              0,
-              2,
-              "S"
-            ]
-          ],
-          "end": [
-            0,
-            2,
-            "E"
-          ]
-        }
-      ]
-    },
-    {
       "puzzle": "p04",
       "states_examined": 64,
       "accepted_count": 1,
@@ -295,8 +180,59 @@
       ]
     },
     {
+      "puzzle": "p06",
+      "states_examined": 54,
+      "accepted_count": 1,
+      "accepted": [
+        {
+          "water_level": 4,
+          "fragments": {
+            "arcade": "jk",
+            "ramp": "kl"
+          }
+        }
+      ],
+      "accepted_routes": {
+        "school": [
+          [
+            "S",
+            "J",
+            "K",
+            "C"
+          ]
+        ],
+        "infirmary": [
+          [
+            "I",
+            "J",
+            "K",
+            "L",
+            "H"
+          ]
+        ],
+        "archives": [
+          [
+            "A",
+            "J",
+            "K",
+            "H",
+            "L",
+            "G"
+          ],
+          [
+            "A",
+            "J",
+            "K",
+            "L",
+            "G"
+          ]
+        ]
+      },
+      "complete_route_combinations": 2
+    },
+    {
       "puzzle": "p07",
-      "states_examined": 20160,
+      "states_examined": 720,
       "accepted_count": 1,
       "accepted": [
         [
@@ -333,5 +269,15 @@
       "p07",
       "ending"
     ]
-  ]
+  ],
+  "reachable_progression_states": 11,
+  "evidence_availability": "PASS for both branch orders",
+  "hints": 21,
+  "asset_manifest": {
+    "entries": 159,
+    "required_v1": 132,
+    "ignored_v1": 27
+  },
+  "document_links": "PASS",
+  "hint_text_parity": "PASS"
 }
