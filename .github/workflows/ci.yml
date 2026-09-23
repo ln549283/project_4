@@ -14,12 +14,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-
       - name: Verify design contracts
         run: |
           python3 tools/verify_design.py
           git diff --exit-code -- design/verification_report.json
-
       - name: Install pinned Godot 4.6.2 Standard
         shell: bash
         run: |
@@ -33,18 +31,15 @@ jobs:
           chmod +x /tmp/godot/godot
           /tmp/godot/godot --version | tee /tmp/godot-version.txt
           grep -q "4.6.2.stable" /tmp/godot-version.txt
-
       - name: Import project headlessly
         run: /tmp/godot/godot --headless --path . --editor --quit
-
       - name: T01 contract tests
         run: /tmp/godot/godot --headless --path . --script tests/contract_test.gd
-
       - name: T02 rule tests
         run: /tmp/godot/godot --headless --path . --script tests/rules/rules_test.gd
-
       - name: T03 state tests
         run: /tmp/godot/godot --headless --path . --script tests/state/state_test.gd
-
+      - name: T04 save tests
+        run: /tmp/godot/godot --headless --path . --script tests/save/save_test.gd
       - name: Boot main scene
         run: /tmp/godot/godot --headless --path .
