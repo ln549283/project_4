@@ -1,6 +1,7 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
 const RoutesRules = preload("res://src/rules/routes_rules.gd")
+const P03ShutterBoard = preload("res://src/ui/p03_shutter_board.gd")
 var traced_route := ""
 
 func _ready() -> void:
@@ -10,16 +11,14 @@ func _ready() -> void:
 func _rebuild() -> void:
 	clear_page()
 	var box := setup_page("Chemins de service", "Retrouver les livraisons")
-	box.add_child(UiFactory.make_label("Chaque volet relie deux paires de côtés. Le retourner modifie les deux courbes.", Session.font_size_px(18)))
+	box.add_child(UiFactory.make_label("Chaque volet contient deux passages séparés. Retournez les volets pour relier les trois départs à leurs arrivées.", Session.font_size_px(18)))
 	var bits: Array = Session.state.campaign["puzzles"]["p03"]["bits"]
-	for i in range(bits.size()):
-		box.add_child(UiFactory.make_button("Volet %d — face %s" % [i + 1, "B" if int(bits[i]) == 1 else "A"], _flip.bind(i)))
 	var contract: Dictionary = Session.state.puzzles_contract["p03"]
-	for raw_route: Variant in contract["routes"]:
-		var route: Dictionary = raw_route
-		var id := str(route["id"])
-		var label := "%s → %s" % [route["start_label"], route["end_label"]]
-		box.add_child(UiFactory.make_button(("Masquer " if traced_route == id else "Tracer ") + label, _trace.bind(id)))
+	var board := P03ShutterBoard.new()
+	board.configure(bits, contract, Session.state.puzzles_contract["route_tile_pairs"], traced_route)
+	board.shutter_pressed.connect(_flip)
+	board.route_pressed.connect(_trace)
+	box.add_child(board)
 	if not traced_route.is_empty():
 		box.add_child(UiFactory.make_label(_trace_feedback(traced_route), Session.font_size_px(16)))
 	add_common_tools(
