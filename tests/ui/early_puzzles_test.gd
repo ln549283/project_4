@@ -20,6 +20,14 @@ func _init() -> void:
 	_expect(ResourceLoader.exists("res://scenes/puzzles/p02.tscn"), "p02 scene exists")
 	_expect(ResourceLoader.exists("res://src/ui/p01_panorama_board.gd"), "p01 visual greybox exists")
 	_expect(ResourceLoader.exists("res://src/ui/p02_photo_board.gd"), "p02 visual greybox exists")
+	for icon_path in [
+		"res://assets/greybox/p02/awning_0.svg", "res://assets/greybox/p02/awning_1.svg",
+		"res://assets/greybox/p02/pane_0.svg", "res://assets/greybox/p02/pane_1.svg",
+		"res://assets/greybox/p02/sign_0.svg", "res://assets/greybox/p02/sign_1.svg",
+		"res://assets/greybox/p02/chimney_0.svg", "res://assets/greybox/p02/chimney_1.svg",
+		"res://assets/greybox/p02/missing.svg",
+	]:
+		_expect(ResourceLoader.exists(icon_path), "p02 greybox icon exists: " + icon_path)
 	_expect(not state.open_box().get("ok", true), "box refuses while latches closed")
 	_expect(state.toggle_latch(0).get("ok", false), "left latch toggles")
 	_expect(not state.open_box().get("ok", true), "one latch still blocks")
