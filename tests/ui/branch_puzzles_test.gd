@@ -30,6 +30,7 @@ func _init() -> void:
 	_expect_eq(board.bits, p03_contract["initial"], "p03 presentation does not alter initial logic")
 	board.free()
 	_expect(ResourceLoader.exists("res://src/ui/p04_mask_preview.gd"), "p04 visual greybox exists")
+	_expect(ResourceLoader.exists("res://scenes/puzzles/p04.tscn"), "p04 visual scene remains wired")
 	for order in [["p03", "p04"], ["p04", "p03"]]:
 		var state := GameStateScript.new()
 		state.configure(loaded["data"])

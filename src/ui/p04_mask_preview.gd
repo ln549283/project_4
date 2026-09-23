@@ -1,52 +1,96 @@
 class_name P04MaskPreview
-extends Control
+extends VBoxContainer
 
-const BG := Color(0.12, 0.13, 0.15, 1.0)
-const FILLED := Color(0.16, 0.17, 0.19, 1.0)
-const GRID := Color(0.42, 0.44, 0.48, 1.0)
-const TARGET := Color(1.0, 0.82, 0.42, 1.0)
-const EXCESS := Color(0.72, 0.38, 0.34, 1.0)
+const EMPTY_BG := Color(0.12, 0.13, 0.15, 1.0)
+const FILLED_BG := Color(0.82, 0.84, 0.87, 1.0)
+const GRID_BORDER := Color(0.40, 0.42, 0.46, 1.0)
+const TARGET_BORDER := Color(1.0, 0.82, 0.42, 1.0)
+const EXCESS_BG := Color(0.72, 0.38, 0.34, 1.0)
+const MUTED := Color(0.68, 0.70, 0.73, 1.0)
 
 var current: Array = []
 var target: Array = []
 var compare := false
 
-func _ready() -> void:
-	custom_minimum_size = Vector2(0, 520)
+func _init() -> void:
+	custom_minimum_size = Vector2(0, 900)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	add_theme_constant_override("separation", 16)
 
 func configure(new_current: Array, new_target: Array = [], new_compare: bool = false) -> void:
 	current = new_current.duplicate()
 	target = new_target.duplicate()
 	compare = new_compare
-	queue_redraw()
+	_rebuild()
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_RESIZED:
-		queue_redraw()
+func _ready() -> void:
+	if get_child_count() == 0 and not current.is_empty():
+		_rebuild()
 
-func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, size), BG, true)
+func _rebuild() -> void:
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
+
+	var title := Label.new()
+	title.text = "OMBRE ACTUELLE"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 24)
+	title.add_theme_color_override("font_color", MUTED)
+	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(title)
+
 	if current.is_empty():
 		return
-	var n := current.size()
-	var side := minf(size.x - 32.0, size.y - 52.0)
-	var cell := floor(side / float(n))
-	var grid_side := cell * float(n)
-	var origin := Vector2((size.x - grid_side) * 0.5, 24.0)
 
-	for y in range(n):
-		for x in range(n):
-			var rect := Rect2(origin + Vector2(float(x) * cell, float(y) * cell), Vector2(cell, cell))
-			var is_current := str(current[y]).substr(x, 1) == "1"
-			var is_target := compare and not target.is_empty() and str(target[y]).substr(x, 1) == "1"
-			if is_current:
-				draw_rect(rect.grow(-3.0), EXCESS if compare and not is_target else FILLED, true)
-			if is_target:
-				draw_rect(rect.grow(-5.0), TARGET, false, 5.0, true)
-			draw_rect(rect, GRID, false, 1.0)
+	var center := CenterContainer.new()
+	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(center)
 
-	var font := ThemeDB.fallback_font
-	var label := "Ombre actuelle"
+	var grid := GridContainer.new()
+	grid.columns = current.size()
+	grid.add_theme_constant_override("h_separation", 6)
+	grid.add_theme_constant_override("v_separation", 6)
+	grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	center.add_child(grid)
+
+	for y in range(current.size()):
+		for x in range(str(current[y]).length()):
+			grid.add_child(_make_cell(y, x))
+
+	var legend := Label.new()
+	legend.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	legend.add_theme_font_size_override("font_size", 20)
+	legend.add_theme_color_override("font_color", MUTED)
+	legend.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if compare:
-		label += " — contour jaune = cible"
-	draw_string(font, Vector2(0, size.y - 12), label, HORIZONTAL_ALIGNMENT_CENTER, size.x, 22, GRID)
+		legend.text = "Contour jaune = silhouette cible · rouge = ombre en trop"
+	else:
+		legend.text = "Superposition des trois calques visibles"
+	add_child(legend)
+
+func _make_cell(y: int, x: int) -> PanelContainer:
+	var cell := PanelContainer.new()
+	cell.custom_minimum_size = Vector2(112, 112)
+	cell.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	var is_current := str(current[y]).substr(x, 1) == "1"
+	var is_target := compare and not target.is_empty() and str(target[y]).substr(x, 1) == "1"
+
+	var style := StyleBoxFlat.new()
+	style.bg_color = FILLED_BG if is_current else EMPTY_BG
+	style.border_color = GRID_BORDER
+	style.set_border_width_all(2)
+
+	if compare:
+		if is_target:
+			style.border_color = TARGET_BORDER
+			style.set_border_width_all(7)
+		if is_current and not is_target:
+			style.bg_color = EXCESS_BG
+
+	cell.add_theme_stylebox_override("panel", style)
+	return cell
