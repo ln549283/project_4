@@ -70,6 +70,9 @@ func save_campaign(snapshot: Dictionary, fail_phase: String = "") -> Dictionary:
 	payload["content_version"] = CONTENT_VERSION
 	payload["generation"] = generation
 	payload["saved_at_utc"] = Time.get_datetime_string_from_system(true, true)
+	var payload_validation := validate_snapshot(payload)
+	if not payload_validation.get("ok", false):
+		return {"ok": false, "error": "snapshot_validation_failed", "reason": payload_validation.get("error", "state"), "generation": generation}
 	var envelope := make_envelope(payload)
 	var target_path := str(target["path"])
 	var tmp_path := target_path + ".tmp"
@@ -81,7 +84,12 @@ func save_campaign(snapshot: Dictionary, fail_phase: String = "") -> Dictionary:
 
 	var verify_tmp := _read_slot(tmp_path)
 	if verify_tmp.get("status") != "valid" or int(verify_tmp.get("generation", -1)) != generation:
-		return {"ok": false, "error": "tmp_verification_failed", "generation": generation}
+		return {
+			"ok": false,
+			"error": "tmp_verification_failed",
+			"generation": generation,
+			"reason": verify_tmp.get("reason", verify_tmp.get("status", "unknown")),
+		}
 	if fail_phase == "after_tmp_verify":
 		return {"ok": false, "error": "simulated_after_tmp_verify", "generation": generation}
 
