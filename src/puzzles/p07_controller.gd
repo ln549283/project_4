@@ -1,6 +1,8 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const SequenceRules = preload("res://src/rules/sequence_rules.gd")\nconst P07DonorBoard = preload("res://src/ui/p07_donor_board.gd")\nconst P07TimelineBoard = preload("res://src/ui/p07_timeline_board.gd")
+const SequenceRules = preload("res://src/rules/sequence_rules.gd")
+const P07DonorBoard = preload("res://src/ui/p07_donor_board.gd")
+const P07TimelineBoard = preload("res://src/ui/p07_timeline_board.gd")
 const DONOR_NAMES := {"roof": "Toiture", "door": "Porte", "floor": "Plancher"}
 const ACTION_NAMES := {
 	"deliver": "Livrer les outils",

@@ -1,6 +1,7 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const ChronologyRules = preload("res://src/rules/chronology_rules.gd")\nconst P02PhotoBoard = preload("res://src/ui/p02_photo_board.gd")
+const ChronologyRules = preload("res://src/rules/chronology_rules.gd")
+const P02PhotoBoard = preload("res://src/ui/p02_photo_board.gd")
 
 const DETAIL_NAMES := {"awning": "Auvent", "pane": "Vitre", "sign": "Enseigne", "chimney": "Cheminée"}
 const STATE_NAMES := {

@@ -2,7 +2,9 @@ extends SceneTree
 
 const ContractLoader = preload("res://src/core/contract_loader.gd")
 const GameStateScript = preload("res://src/core/game_state.gd")
-const SequenceRules = preload("res://src/rules/sequence_rules.gd")\nconst P07DonorBoard = preload("res://src/ui/p07_donor_board.gd")\nconst P07TimelineBoard = preload("res://src/ui/p07_timeline_board.gd")
+const SequenceRules = preload("res://src/rules/sequence_rules.gd")
+const P07DonorBoard = preload("res://src/ui/p07_donor_board.gd")
+const P07TimelineBoard = preload("res://src/ui/p07_timeline_board.gd")
 
 var failures: Array[String] = []
 

@@ -1,6 +1,7 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const PanoramaRules = preload("res://src/rules/panorama_rules.gd")\nconst P01PanoramaBoard = preload("res://src/ui/p01_panorama_board.gd")
+const PanoramaRules = preload("res://src/rules/panorama_rules.gd")
+const P01PanoramaBoard = preload("res://src/ui/p01_panorama_board.gd")
 
 var selected := -1
 

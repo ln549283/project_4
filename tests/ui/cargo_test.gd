@@ -2,7 +2,8 @@ extends SceneTree
 
 const ContractLoader = preload("res://src/core/contract_loader.gd")
 const GameStateScript = preload("res://src/core/game_state.gd")
-const CargoRules = preload("res://src/rules/cargo_rules.gd")\nconst P05CargoBoard = preload("res://src/ui/p05_cargo_board.gd")
+const CargoRules = preload("res://src/rules/cargo_rules.gd")
+const P05CargoBoard = preload("res://src/ui/p05_cargo_board.gd")
 
 var failures: Array[String] = []
 

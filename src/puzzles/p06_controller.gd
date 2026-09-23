@@ -1,6 +1,7 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")\nconst P06MapBoard = preload("res://src/ui/p06_map_board.gd")
+const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")
+const P06MapBoard = preload("res://src/ui/p06_map_board.gd")
 const GROUP_NAMES := {"school": "École", "infirmary": "Infirmerie / brancard", "archives": "Archives"}
 
 var active_group := "school"

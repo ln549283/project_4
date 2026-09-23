@@ -1,9 +1,11 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const CargoRules = preload("res://src/rules/cargo_rules.gd")\nconst P05CargoBoard = preload("res://src/ui/p05_cargo_board.gd")
+const CargoRules = preload("res://src/rules/cargo_rules.gd")
+const P05CargoBoard = preload("res://src/ui/p05_cargo_board.gd")
 const SLOT_NAMES := ["Gauche extérieur", "Gauche milieu", "Gauche intérieur", "Droite intérieur", "Droite milieu", "Droite extérieur"]
 
-var selected_item := ""\nvar compare_mode := false
+var selected_item := ""
+var compare_mode := false
 
 func _ready() -> void:
 	Session.router.current_view = "s09"

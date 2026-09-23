@@ -1,6 +1,7 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const MasksRules = preload("res://src/rules/masks_rules.gd")\nconst P04MaskPreview = preload("res://src/ui/p04_mask_preview.gd")
+const MasksRules = preload("res://src/rules/masks_rules.gd")
+const P04MaskPreview = preload("res://src/ui/p04_mask_preview.gd")
 var layer_visible := [true, true, true]
 var compare_mode := false
 

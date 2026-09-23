@@ -2,7 +2,8 @@ extends SceneTree
 
 const ContractLoader = preload("res://src/core/contract_loader.gd")
 const GameStateScript = preload("res://src/core/game_state.gd")
-const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")\nconst P06MapBoard = preload("res://src/ui/p06_map_board.gd")
+const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")
+const P06MapBoard = preload("res://src/ui/p06_map_board.gd")
 
 var failures: Array[String] = []
 
