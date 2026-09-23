@@ -31,11 +31,11 @@ func _init() -> void:
 
 func _test_generations(service: RefCounted, state: Node) -> void:
 	var first: Dictionary = service.save_campaign(state.campaign)
-	_expect(first.get("ok", false), "first save")
+	_expect(first.get("ok", false), "first save: %s" % first)
 	_expect_eq(first.get("generation"), 1, "first generation")
 	state.resolve_puzzle("p00")
 	var second: Dictionary = service.save_campaign(state.campaign)
-	_expect(second.get("ok", false), "second save")
+	_expect(second.get("ok", false), "second save: %s" % second)
 	_expect_eq(second.get("generation"), 2, "second generation")
 	var loaded: Dictionary = service.load_campaign()
 	_expect_eq(loaded.get("generation"), 2, "load newest generation")
@@ -57,7 +57,7 @@ func _test_interruptions(service: RefCounted, state: Node) -> void:
 
 func _test_invalid_recovery(service: RefCounted, state: Node) -> void:
 	var good: Dictionary = service.save_campaign(state.campaign)
-	_expect(good.get("ok", false), "good save before corruption")
+	_expect(good.get("ok", false), "good save before corruption: %s" % good)
 	var newest_path := str(good.get("path", ""))
 	var f := FileAccess.open(newest_path, FileAccess.WRITE)
 	f.store_string("{broken")
@@ -97,7 +97,7 @@ func _test_conclusion_resume(service: RefCounted, state: Node) -> void:
 	snapshot["narrative"]["pending"] = ["n11"]
 	snapshot["narrative"]["acknowledged"] = ["n00", "n01", "n02", "n03", "n04", "n05", "n06", "n07", "n08", "n09", "n10"]
 	snapshot["narrative"]["active_scene"] = null
-	_expect(service.save_campaign(snapshot).get("ok", false), "save pending conclusion")
+	var conclusion_save: Dictionary = service.save_campaign(snapshot)\n\t_expect(conclusion_save.get("ok", false), "save pending conclusion: %s" % conclusion_save)
 	var loaded: Dictionary = service.load_campaign()
 	_expect(not bool(loaded["snapshot"]["completed"]), "p07 solved does not imply completed")
 	_expect("n11" in loaded["snapshot"]["narrative"]["pending"], "conclusion resumes at n11")
