@@ -105,7 +105,7 @@ func _load_json(path: String) -> Dictionary:
 
 func _cleanup() -> void:
 	for name in ["campaign_a.json", "campaign_b.json", "campaign_a.json.tmp", "campaign_b.json.tmp"]:
-		var path := ROOT + "/" + name
+		var path: String = ROOT + "/" + name
 		if FileAccess.file_exists(path):
 			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 
