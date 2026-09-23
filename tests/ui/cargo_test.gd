@@ -2,7 +2,7 @@ extends SceneTree
 
 const ContractLoader = preload("res://src/core/contract_loader.gd")
 const GameStateScript = preload("res://src/core/game_state.gd")
-const CargoRules = preload("res://src/rules/cargo_rules.gd")
+const CargoRules = preload("res://src/rules/cargo_rules.gd")\nconst P05CargoBoard = preload("res://src/ui/p05_cargo_board.gd")
 
 var failures: Array[String] = []
 
@@ -14,6 +14,13 @@ func _init() -> void:
 		return
 	_expect(ResourceLoader.exists("res://scenes/puzzles/p05.tscn"), "p05 scene exists")
 	var contract: Dictionary = loaded["data"]["puzzles"]["p05"]
+	var cargo_board := P05CargoBoard.new()
+	cargo_board.size = Vector2(984, 720)
+	cargo_board.configure([null, null, null, null, null, null], contract, "", false)
+	cargo_board._rebuild_geometry()
+	_expect_eq(cargo_board.slot_rects.size(), 6, "p05 greybox exposes six visual berths")
+	_expect_eq(cargo_board.item_rects.size(), 6, "p05 greybox exposes six visual cargo items")
+	cargo_board.free()
 	var known_solutions := [
 		["medicine", "tools", "press", "lantern", "dye", "food"],
 		["food", "dye", "lantern", "press", "tools", "medicine"],
@@ -30,13 +37,17 @@ func _init() -> void:
 	_expect(state.place_cargo("press", -1).get("ok", false), "cargo can always return to tray")
 	_finish()
 
+func _expect_eq(actual: Variant, expected: Variant, message: String) -> void:
+	if actual != expected:
+		failures.append("%s expected=%s actual=%s" % [message, expected, actual])
+
 func _expect(condition: bool, message: String) -> void:
 	if not condition:
 		failures.append(message)
 
 func _finish() -> void:
 	if failures.is_empty():
-		print("T08 CARGO TEST PASS: four solutions and recoverable placements")
+		print("T08 CARGO TEST PASS: visual balance, four solutions and recoverable placements")
 		quit(0)
 	else:
 		for failure in failures:

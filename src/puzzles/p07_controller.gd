@@ -1,6 +1,6 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const SequenceRules = preload("res://src/rules/sequence_rules.gd")
+const SequenceRules = preload("res://src/rules/sequence_rules.gd")\nconst P07DonorBoard = preload("res://src/ui/p07_donor_board.gd")\nconst P07TimelineBoard = preload("res://src/ui/p07_timeline_board.gd")
 const DONOR_NAMES := {"roof": "Toiture", "door": "Porte", "floor": "Plancher"}
 const ACTION_NAMES := {
 	"deliver": "Livrer les outils",
@@ -28,19 +28,12 @@ func _rebuild() -> void:
 func _build_part_a() -> void:
 	var box := setup_page("Ce qui portait — pièce", "Trouver ce qui pouvait franchir l'interruption")
 	var contract: Dictionary = Session.state.puzzles_contract["p07"]
-	box.add_child(UiFactory.make_label("L'interruption fait trois travées. F2 montre un tablier plat, deux unités de large et des attaches appariées.", Session.font_size_px(18)))
-	for donor_id in ["roof", "door", "floor"]:
-		var donor: Dictionary = contract["donors"][donor_id]
-		var selected := Session.state.campaign["puzzles"]["p07"].get("donor") == donor_id
-		var text := "%s%s — portée %d, largeur %d, %s, attaches %s" % [
-			"[Sélectionnée] " if selected else "",
-			DONOR_NAMES[donor_id],
-			int(donor["span"]),
-			int(donor["width"]),
-			"plat" if bool(donor["flat"]) else "profil en V",
-			"appariées" if bool(donor["paired_fasteners"]) else "simples",
-		]
-		box.add_child(UiFactory.make_button(text, _select_donor.bind(donor_id)))
+	box.add_child(UiFactory.make_label("Comparez la portée, la largeur, le profil et les attaches visibles sur F2 avec l'interruption.", Session.font_size_px(18)))
+	var selected_donor: Variant = Session.state.campaign["puzzles"]["p07"].get("donor")
+	var donor_board := P07DonorBoard.new()
+	donor_board.configure(contract["donors"], "" if selected_donor == null else str(selected_donor))
+	donor_board.donor_pressed.connect(_select_donor)
+	box.add_child(donor_board)
 	box.add_child(UiFactory.make_button("Essayer la pièce sélectionnée", _try_donor, true))
 	box.add_child(UiFactory.make_button("Indice", func(): _show_hint("p07")))
 	box.add_child(UiFactory.make_button("Carnet", func(): Session.open_notebook()))
@@ -98,10 +91,10 @@ func _build_part_b() -> void:
 			box.add_child(UiFactory.make_button(ACTION_NAMES[action], _select_action.bind(action)))
 
 	box.add_child(UiFactory.make_label("Frise", Session.font_size_px(18)))
-	for phase in range(6):
-		var occupant: Variant = slots[phase]
-		var text := "Niveau %d — %s" % [phase, "vide" if occupant == null else ACTION_NAMES[str(occupant)]]
-		box.add_child(UiFactory.make_button(text, _phase_pressed.bind(phase)))
+	var timeline := P07TimelineBoard.new()
+	timeline.configure(slots, selected_action)
+	timeline.phase_pressed.connect(_phase_pressed)
+	box.add_child(timeline)
 	if not selected_action.is_empty() and selected_action in slots:
 		box.add_child(UiFactory.make_button("Retourner la carte au bac", _return_selected))
 

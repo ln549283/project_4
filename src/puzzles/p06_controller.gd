@@ -1,6 +1,6 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")
+const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")\nconst P06MapBoard = preload("res://src/ui/p06_map_board.gd")
 const GROUP_NAMES := {"school": "École", "infirmary": "Infirmerie / brancard", "archives": "Archives"}
 
 var active_group := "school"
@@ -30,7 +30,10 @@ func _rebuild() -> void:
 	_build_fragment_controls(box, "ramp")
 
 	box.add_child(UiFactory.make_button("Agrandir / réduire le plan", _toggle_zoom))
-	box.add_child(UiFactory.make_label(_map_text(zoomed), Session.font_size_px(16)))
+	var map_board := P06MapBoard.new()
+	map_board.configure(state, contract, active_group, zoomed)
+	map_board.node_pressed.connect(_node_pressed)
+	box.add_child(map_board)
 
 	box.add_child(UiFactory.make_label("Parcours", Session.font_size_px(18)))
 	for group_id in ["school", "infirmary", "archives"]:
@@ -67,21 +70,6 @@ func _gap_label(gap_id: String) -> String:
 
 func _node_label(node_id: String) -> String:
 	return str(Session.state.puzzles_contract["p06"]["nodes"][node_id]["label"])
-
-func _map_text(show_detail: bool) -> String:
-	var contract: Dictionary = Session.state.puzzles_contract["p06"]
-	var water := int(Session.state.campaign["puzzles"]["p06"]["water_level"])
-	var lines: Array[String] = []
-	for raw_edge: Variant in contract["edges"]:
-		var edge: Dictionary = raw_edge
-		var ends: Array = edge["ends"]
-		var status := "noyée" if water >= int(edge["clearance"]) else "accessible"
-		var stairs := " · marches" if bool(edge["stairs"]) else ""
-		lines.append("%s–%s : seuil %d%s · %s" % [_node_label(str(ends[0])), _node_label(str(ends[1])), int(edge["clearance"]), stairs, status])
-	if show_detail:
-		lines.append("Blancs : " + " · ".join(["J–K (2)", "S–C (2)", "K–L (3)", "A–G (3)"]))
-		lines.append("Extension Clocher→Quai haut : 3 travées, hors graphe P06.")
-	return "\n".join(lines)
 
 func _build_route_controls(box: VBoxContainer) -> void:
 	var contract: Dictionary = Session.state.puzzles_contract["p06"]

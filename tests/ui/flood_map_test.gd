@@ -2,7 +2,7 @@ extends SceneTree
 
 const ContractLoader = preload("res://src/core/contract_loader.gd")
 const GameStateScript = preload("res://src/core/game_state.gd")
-const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")
+const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")\nconst P06MapBoard = preload("res://src/ui/p06_map_board.gd")
 
 var failures: Array[String] = []
 
@@ -14,6 +14,13 @@ func _init() -> void:
 		return
 	_expect(ResourceLoader.exists("res://scenes/puzzles/p06.tscn"), "p06 scene exists")
 	var contract: Dictionary = loaded["data"]["puzzles"]["p06"]
+	var map_board := P06MapBoard.new()
+	map_board.size = Vector2(984, 900)
+	map_board.configure(contract["initial"], contract, "school", false)
+	map_board._rebuild_geometry()
+	_expect_eq(map_board.node_hit_rects.size(), 9, "p06 greybox exposes nine tappable map nodes")
+	_expect_eq(map_board.state, contract["initial"], "p06 visual map preserves initial state")
+	map_board.free()
 	var canonical := {
 		"water_level": 4,
 		"fragments": {"arcade": "jk", "ramp": "kl"},
@@ -48,7 +55,7 @@ func _expect_eq(actual: Variant, expected: Variant, message: String) -> void:
 
 func _finish() -> void:
 	if failures.is_empty():
-		print("T09 FLOOD MAP TEST PASS: two accepted route variants and draft preservation")
+		print("T09 FLOOD MAP TEST PASS: visual map, two accepted route variants and draft preservation")
 		quit(0)
 	else:
 		for failure in failures:

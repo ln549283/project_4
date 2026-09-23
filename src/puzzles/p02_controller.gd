@@ -1,6 +1,6 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const ChronologyRules = preload("res://src/rules/chronology_rules.gd")
+const ChronologyRules = preload("res://src/rules/chronology_rules.gd")\nconst P02PhotoBoard = preload("res://src/ui/p02_photo_board.gd")
 
 const DETAIL_NAMES := {"awning": "Auvent", "pane": "Vitre", "sign": "Enseigne", "chimney": "Cheminée"}
 const STATE_NAMES := {
@@ -25,16 +25,12 @@ func _rebuild() -> void:
 	if compare_mode:
 		box.add_child(UiFactory.make_label("Mode comparaison : choisissez jusqu'à deux photographies.", Session.font_size_px(16)))
 	var order: Array = Session.state.campaign["puzzles"]["p02"]["order"]
-	for i in range(order.size()):
-		var id := str(order[i])
-		var label := "%d. %s" % [i + 1, _photo_summary(id)]
-		if i == selected:
-			label = "[Sélectionnée] " + label
-		if i in compare_indices:
-			label = "[Comparer] " + label
-		box.add_child(UiFactory.make_button(label, _select.bind(i)))
+	var board := P02PhotoBoard.new()
+	board.configure(order, Session.state.puzzles_contract["p02"]["observations"], selected, compare_indices)
+	board.photo_pressed.connect(_select)
+	box.add_child(board)
 	if compare_indices.size() == 2:
-		box.add_child(UiFactory.make_label("Comparaison\n• %s\n• %s" % [_photo_summary(str(order[compare_indices[0]])), _photo_summary(str(order[compare_indices[1]]))], Session.font_size_px(16)))
+		box.add_child(UiFactory.make_label("Les deux clichés sélectionnés sont encadrés en bleu. Comparez les mêmes détails architecturaux.", Session.font_size_px(16)))
 	box.add_child(UiFactory.make_button("Comparer", _toggle_compare))
 	box.add_child(UiFactory.make_button("Agrandir la sélection", _zoom_selected))
 	add_common_tools(

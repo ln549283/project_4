@@ -2,7 +2,7 @@ extends SceneTree
 
 const ContractLoader = preload("res://src/core/contract_loader.gd")
 const GameStateScript = preload("res://src/core/game_state.gd")
-const P03ShutterBoard = preload("res://src/ui/p03_shutter_board.gd")
+const P03ShutterBoard = preload("res://src/ui/p03_shutter_board.gd")\nconst P04MaskPreview = preload("res://src/ui/p04_mask_preview.gd")
 
 var failures: Array[String] = []
 
@@ -28,6 +28,13 @@ func _init() -> void:
 		_expect(route_rect.size.y >= 144.0, "p03 departure keeps minimum touch height")
 	_expect_eq(board.bits, p03_contract["initial"], "p03 presentation does not alter initial logic")
 	board.free()
+	var p04_contract: Dictionary = loaded["data"]["puzzles"]["p04"]
+	var p04_preview := P04MaskPreview.new()
+	p04_preview.size = Vector2(700, 520)
+	p04_preview.configure(p04_contract["masks"][0], p04_contract["target"], true)
+	_expect_eq(p04_preview.current, p04_contract["masks"][0], "p04 visual preview preserves mask data")
+	_expect_eq(p04_preview.target, p04_contract["target"], "p04 visual preview preserves target data")
+	p04_preview.free()
 	for order in [["p03", "p04"], ["p04", "p03"]]:
 		var state := GameStateScript.new()
 		state.configure(loaded["data"])
@@ -51,7 +58,7 @@ func _expect_eq(actual: Variant, expected: Variant, message: String) -> void:
 
 func _finish() -> void:
 	if failures.is_empty():
-		print("T07 BRANCH TEST PASS: independent branches, visual P03 greybox and join")
+		print("T07 BRANCH TEST PASS: independent branches, visual P03/P04 greybox and join")
 		quit(0)
 	else:
 		for failure in failures:

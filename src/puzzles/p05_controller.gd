@@ -1,9 +1,9 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const CargoRules = preload("res://src/rules/cargo_rules.gd")
+const CargoRules = preload("res://src/rules/cargo_rules.gd")\nconst P05CargoBoard = preload("res://src/ui/p05_cargo_board.gd")
 const SLOT_NAMES := ["Gauche extérieur", "Gauche milieu", "Gauche intérieur", "Droite intérieur", "Droite milieu", "Droite extérieur"]
 
-var selected_item := ""
+var selected_item := ""\nvar compare_mode := false
 
 func _ready() -> void:
 	Session.router.current_view = "s09"
@@ -17,23 +17,11 @@ func _rebuild() -> void:
 	var weights: Dictionary = contract["weights"]
 	box.add_child(UiFactory.make_label("Embarquer les six charges. La barge doit rester horizontale.", Session.font_size_px(18)))
 	box.add_child(UiFactory.make_label("Lanterne et presse doivent occuper les deux berceaux centraux : elles sont trop hautes pour les arceaux extérieurs.", Session.font_size_px(16)))
-	var moment := CargoRules.calculate_moment(slots, contract["positions"], weights)
-	var balance_text := "Horizontal" if moment == 0 else ("Penche à droite" if moment > 0 else "Penche à gauche")
-	box.add_child(UiFactory.make_label("Aiguille : %s" % balance_text, Session.font_size_px(18)))
-	if not selected_item.is_empty():
-		box.add_child(UiFactory.make_label("Sélection : %s (masse %d)" % [contract["labels"][selected_item], int(weights[selected_item])], Session.font_size_px(16)))
-
-	box.add_child(UiFactory.make_label("Plateau", Session.font_size_px(18)))
-	for raw_item: Variant in weights.keys():
-		var item := str(raw_item)
-		if item not in slots:
-			box.add_child(UiFactory.make_button("%s — masse %d" % [contract["labels"][item], int(weights[item])], _select_item.bind(item)))
-
-	box.add_child(UiFactory.make_label("Berceaux — distances −3, −2, −1, +1, +2, +3", Session.font_size_px(18)))
-	for i in range(slots.size()):
-		var occupant: Variant = slots[i]
-		var label := "%s (%+d) : %s" % [SLOT_NAMES[i], int(contract["positions"][i]), "vide" if occupant == null else str(contract["labels"][str(occupant)])]
-		box.add_child(UiFactory.make_button(label, _slot_pressed.bind(i)))
+	var board := P05CargoBoard.new()
+	board.configure(slots, contract, selected_item, compare_mode)
+	board.item_pressed.connect(_select_item)
+	board.slot_pressed.connect(_slot_pressed)
+	box.add_child(board)
 	if not selected_item.is_empty() and selected_item in slots:
 		box.add_child(UiFactory.make_button("Retourner la charge sélectionnée au plateau", _return_selected))
 
@@ -84,16 +72,8 @@ func _return_selected() -> void:
 	_rebuild()
 
 func _compare_sides() -> void:
-	var contract: Dictionary = Session.state.puzzles_contract["p05"]
-	var slots: Array = Session.state.campaign["puzzles"]["p05"]["slots"]
-	var parts: Array[String] = []
-	for i in range(slots.size()):
-		var occupant: Variant = slots[i]
-		if occupant != null:
-			var item := str(occupant)
-			var contribution := int(contract["positions"][i]) * int(contract["weights"][item])
-			parts.append("%s : %+d" % [contract["labels"][item], contribution])
-	feedback = "Contributions au pivot : " + ("aucune charge posée" if parts.is_empty() else " · ".join(parts))
+	compare_mode = not compare_mode
+	feedback = "Les distances au pivot sont mises en évidence." if compare_mode else ""
 	_rebuild()
 
 func _undo() -> void:
@@ -112,6 +92,7 @@ func _reset_confirmed() -> void:
 	Session.save_now()
 	history.clear()
 	selected_item = ""
+	compare_mode = false
 	feedback = ""
 	_rebuild()
 

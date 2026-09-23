@@ -1,6 +1,6 @@
 extends "res://src/ui/puzzle_screen_base.gd"
 
-const MasksRules = preload("res://src/rules/masks_rules.gd")
+const MasksRules = preload("res://src/rules/masks_rules.gd")\nconst P04MaskPreview = preload("res://src/ui/p04_mask_preview.gd")
 var layer_visible := [true, true, true]
 var compare_mode := false
 
@@ -26,10 +26,10 @@ func _rebuild() -> void:
 		if layer_visible[i]:
 			masks.append(MasksRules.rotate_mask(contract["masks"][i], int(turns[i])))
 	var union_mask := MasksRules.union_masks(masks)
-	box.add_child(UiFactory.make_label("Ombre actuelle\n" + _mask_text(union_mask), Session.font_size_px(16)))
+	var preview := P04MaskPreview.new()
+	preview.configure(union_mask, contract["target"], compare_mode)
+	box.add_child(preview)
 	box.add_child(UiFactory.make_button("Comparer à la cible", _toggle_compare))
-	if compare_mode:
-		box.add_child(UiFactory.make_label("Contour cible\n" + _mask_text(contract["target"]), Session.font_size_px(16)))
 	add_common_tools(
 		box,
 		"p04",
@@ -38,12 +38,6 @@ func _rebuild() -> void:
 		_undo,
 		"Tournez chacun des trois calques par quarts de tour. Leur union opaque doit reproduire exactement le contour observé."
 	)
-
-func _mask_text(rows: Array) -> String:
-	var lines: Array[String] = []
-	for raw_row: Variant in rows:
-		lines.append(str(raw_row).replace("0", "· ").replace("1", "■ "))
-	return "\n".join(lines)
 
 func _rotate(index: int, delta: int) -> void:
 	history.append((Session.state.campaign["puzzles"]["p04"]["turns"] as Array).duplicate())
