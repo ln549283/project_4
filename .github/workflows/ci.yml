@@ -45,5 +45,7 @@ jobs:
         run: /tmp/godot/godot --headless --path . --script tests/ui/navigation_test.gd
       - name: T06 opening and early puzzle tests
         run: /tmp/godot/godot --headless --path . --script tests/ui/early_puzzles_test.gd
+      - name: T07 branch puzzle tests
+        run: /tmp/godot/godot --headless --path . --script tests/ui/branch_puzzles_test.gd
       - name: Boot main scene
         run: /tmp/godot/godot --headless --path .

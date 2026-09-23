@@ -17,6 +17,8 @@ func _rebuild() -> void:
 	var box := UiFactory.make_page(self, screen_title, Session.current_objective())
 	if view_id == "s02" and "p00" not in Session.state.campaign.get("solved", []):
 		_build_p00(box)
+	elif view_id == "s02" and _needs_branch_choice():
+		_build_branch_choice(box)
 	else:
 		box.add_child(UiFactory.make_button("Continuer le travail", _continue_work, true))
 	if view_id != "s02":
@@ -28,6 +30,17 @@ func _rebuild() -> void:
 	box.add_child(UiFactory.make_button("Carnet", func(): Session.open_notebook(), true))
 	box.add_child(UiFactory.make_button("Réglages", func(): Session.navigate("s01"), true))
 	box.add_child(UiFactory.make_button("Pause", _open_pause, true))
+
+func _needs_branch_choice() -> bool:
+	var solved: Array = Session.state.campaign.get("solved", [])
+	return "p02" in solved and ("p03" not in solved or "p04" not in solved)
+
+func _build_branch_choice(box: VBoxContainer) -> void:
+	var solved: Array = Session.state.campaign.get("solved", [])
+	if "p03" not in solved:
+		box.add_child(UiFactory.make_button("Chemins de service", func(): Session.navigate("s07"), true))
+	if "p04" not in solved:
+		box.add_child(UiFactory.make_button("Contrejour", func(): Session.navigate("s08"), true))
 
 func _build_p00(box: VBoxContainer) -> void:
 	box.add_child(UiFactory.make_label("Prise en main — Soulever les deux attaches, puis ouvrir.", Session.font_size_px(18)))
