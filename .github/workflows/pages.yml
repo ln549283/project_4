@@ -1,0 +1,112 @@
+name: Deploy Web Greybox
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install pinned Godot 4.6.2 Standard and export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          editor_url="https://github.com/godotengine/godot-builds/releases/download/4.6.2-stable/Godot_v4.6.2-stable_linux.x86_64.zip"
+          editor_sha="30e6b6d141f0cd5bebd629ad1d0ef1324e60091bb20662d026b402ba58c59937"
+          templates_url="https://github.com/godotengine/godot-builds/releases/download/4.6.2-stable/Godot_v4.6.2-stable_export_templates.tpz"
+          templates_sha="942366dc4e27e7686a99da4d3cfb1b8ae8d3eb9444f6d8217eef16245b599ef2"
+
+          curl -fL "$editor_url" -o /tmp/godot.zip
+          echo "$editor_sha  /tmp/godot.zip" | sha256sum -c -
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          mv /tmp/godot/Godot_v4.6.2-stable_linux.x86_64 /tmp/godot/godot
+          chmod +x /tmp/godot/godot
+          /tmp/godot/godot --version | tee /tmp/godot-version.txt
+          grep -q "4.6.2.stable" /tmp/godot-version.txt
+
+          curl -fL "$templates_url" -o /tmp/templates.tpz
+          echo "$templates_sha  /tmp/templates.tpz" | sha256sum -c -
+          rm -rf /tmp/export-templates
+          mkdir -p /tmp/export-templates
+          unzip -q /tmp/templates.tpz -d /tmp/export-templates
+
+          template_dir="$HOME/.local/share/godot/export_templates/4.6.2.stable"
+          mkdir -p "$template_dir"
+          cp -a /tmp/export-templates/templates/. "$template_dir/"
+
+          test -f "$template_dir/web_release.zip"
+
+      - name: Import project
+        run: /tmp/godot/godot --headless --path . --editor --quit
+
+      - name: Export Web release
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build/web
+          mkdir -p build/web
+          /tmp/godot/godot --headless --path . --export-release "Web" build/web/index.html
+          touch build/web/.nojekyll
+
+      - name: Verify Pages artifact and /project_4/ hosting
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/verify_web_export.py build/web
+
+          rm -rf /tmp/pages-smoke
+          mkdir -p /tmp/pages-smoke/project_4
+          cp -a build/web/. /tmp/pages-smoke/project_4/
+
+          python3 -m http.server 8765 --directory /tmp/pages-smoke >/tmp/pages-smoke.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+
+          for _ in {1..20}; do
+            if curl -fsS http://127.0.0.1:8765/project_4/ -o /tmp/project_4-index.html; then
+              break
+            fi
+            sleep 0.25
+          done
+
+          curl -fsS http://127.0.0.1:8765/project_4/index.js -o /dev/null
+          curl -fsS http://127.0.0.1:8765/project_4/index.wasm -o /dev/null
+          curl -fsS http://127.0.0.1:8765/project_4/index.pck -o /dev/null
+          cmp build/web/index.html /tmp/project_4-index.html
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
