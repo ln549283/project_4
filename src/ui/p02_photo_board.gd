@@ -19,15 +19,20 @@ var compare_indices: Array = []
 var card_rects: Array[Rect2] = []
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(0, 600)
-	mouse_filter = Control.MOUSE_FILTER_STOP
+	_apply_layout_constraints()
 
 func configure(new_order: Array, new_observations: Dictionary, new_selected: int, new_compare: Array) -> void:
 	order = new_order.duplicate()
 	observations = new_observations
 	selected = new_selected
 	compare_indices = new_compare.duplicate()
+	_apply_layout_constraints()
 	queue_redraw()
+
+func _apply_layout_constraints() -> void:
+	custom_minimum_size = Vector2(0, 600)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
