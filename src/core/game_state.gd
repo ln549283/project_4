@@ -287,3 +287,22 @@ func reset_unsolved_puzzle(puzzle_id: String) -> Dictionary:
 	campaign["puzzles"][puzzle_id] = initial[puzzle_id].duplicate(true)
 	dirty = true
 	return {"ok": true}
+
+func toggle_latch(index: int) -> Dictionary:
+	if "p00" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
+	var latches: Array = campaign["puzzles"]["p00"]["latches"]
+	if index < 0 or index >= latches.size():
+		return {"ok": false, "error": "index_out_of_range"}
+	latches[index] = not bool(latches[index])
+	dirty = true
+	return {"ok": true, "latches": latches.duplicate()}
+
+func open_box() -> Dictionary:
+	if "p00" in campaign.get("solved", []):
+		return {"ok": true, "changed": false}
+	var latches: Array = campaign["puzzles"]["p00"]["latches"]
+	if latches.size() != 2 or not bool(latches[0]) or not bool(latches[1]):
+		return {"ok": false, "error": "latch_closed"}
+	campaign["puzzles"]["p00"]["opened"] = true
+	return resolve_puzzle("p00", {"latches": latches.duplicate(), "opened": true})
