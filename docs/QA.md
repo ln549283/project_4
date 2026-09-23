@@ -2,7 +2,11 @@
 
 ## Contrôles effectués sur le dossier
 
-`python3 tools/verify_design.py` : règles P01..P07,1862 configurations, quatre chargements, une configuration P06 et deux triplets de chemins, deux ordres de branche, preuves disponibles avantchaque étape,21 indices. Rapport généré `design/verification_report.json`. `python3 tools/build_design_plates.py` : huitplanches studio dérivées, inspection de cohérence. AUDIT et WALKTHROUGH documentent revue intégrale et simulation novice. Aucun testAndroid/humain réalisé ; aucun code runtime produit.
+`python3 tools/verify_design.py` : règles P01..P07, 1862 configurations, quatre chargements, une configuration P06 et deux triplets de chemins, deux ordres de branche, preuves disponibles avant chaque étape, 21 indices. Rapport généré `design/verification_report.json`. `python3 tools/build_design_plates.py` : huit planches studio dérivées, inspection de cohérence. AUDIT et WALKTHROUGH documentent revue intégrale et simulation documentaire.
+
+Le greybox runtime T01–T11 est désormais présent. **Greybox CI #20 réussie le 23 septembre 2026 sur `9687fe5`, Godot 4.6.2 Standard** : import headless, contrats valides/invalides, règles P01–P07, état/progression/preuves, sauvegardes, navigation, P00–P07, campagne N00–N11, sauvegarde/rechargement final, parité des contrats runtime et boot. Les erreurs JSON volontairement injectées par le test de corruption T04 apparaissent dans les logs mais le scénario de récupération est validé.
+
+**Aucun test humain T12 ni test sur appareil Android physique n'a encore été réalisé.** La jouabilité automatisée ne valide donc ni la compréhension novice, ni le confort tactile réel, ni la durée 60–90 minutes.
 
 ## Gates de règles et progression
 

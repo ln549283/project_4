@@ -4,11 +4,13 @@ Conception **1.1 verrouillée — audit du 23 septembre 2026**. Dépôt `ln54928
 
 ## État exact et prochaine tâche
 
-**Dossier de conception corrigé ; aucun jeu, aucune fonctionnalité runtime, aucun asset final produit.** Les règles sont vérifiées par énumération et le parcours relu en posture novice. Cela ne constitue ni un playtest ni une validation commerciale. Passage autorisé à la construction contrôlée ; lancement commercial bloqué jusqu'aux validations de PRODUCTION_PLAN et QA. La durée 60–90 minutes reste un objectif non démontré, avec un risque sérieux de partie plus courte.
+**Greybox runtime T01–T11 implémenté et vérifié ; aucune production artistique finale engagée.** Le parcours P00–P07, les deux ordres P03/P04, les 21 indices, les preuves, la sauvegarde à deux générations, la navigation, N00–N11, la conclusion et la reprise d'une campagne terminée disposent d'une implémentation Godot jouable avec placeholders. Cela ne constitue toujours ni un playtest humain, ni une validation Android physique, ni une validation commerciale. La durée 60–90 minutes reste un objectif non démontré.
 
-**Première tâche : T01 de [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md)** : installer et verrouiller Godot 4.6.2 Standard avec ses templates correspondants, créer le projet portrait Compatibility et importer les trois contrats `puzzles.json`, `evidence.json`, `hints_fr.json` avec validation des identifiants au lancement. Livrer un boot local vérifiable et un test refusant un contrat invalide. Ne pas fabriquer les illustrations finales avant le parcours complet et son test novice T12.
+Vérification automatisée du 23 septembre 2026 : **Greybox CI #20 verte sur le commit `9687fe5` avec Godot 4.6.2 Standard verrouillé**. Les contrôles exécutés couvrent `verify_design.py`, contrats valides/invalides, validateurs P01–P07, progression et preuves, deux ordres de branche, sauvegardes interrompues/corrompues/futures, navigation, interactions greybox P00–P07, campagne complète N00–N11 avec sauvegarde/rechargement, parité des contrats runtime et boot headless. Les tests automatiques ne remplacent pas l'observation d'un joueur novice.
 
-Reprise : lire ce master, PRODUCTION_PLAN, ASSET_BIBLE, puis le contrat du lot. Vérifier HEAD distant et changements locaux. En fin de session, consigner tâche terminée, vérifications réellement exécutées, limites et prochaine tâche ; commit/push. Aucun choix de concept à soumettre au producteur.
+**Prochaine tâche : T12 de [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md)**. Exécuter le protocole novice déjà verrouillé dans [docs/QA.md](docs/QA.md) avec 8 nouveaux joueurs, mesurer la durée active réelle et les blocages, puis produire le rapport anonymisé prévu. **Ne pas commencer T13 ni fabriquer les assets finaux tant que le gate T12 n'est pas accepté.** Si T12 échoue, appliquer uniquement les corrections ciblées prévues par le plan et versionner le dossier avant une nouvelle campagne de test.
+
+Reprise : lire ce master, PRODUCTION_PLAN, ASSET_BIBLE et QA ; vérifier HEAD/CI et l'existence d'un rapport T12 valide. En l'absence de données humaines T12, arrêter la production avant T13. En fin de session, consigner vérifications réellement exécutées, limites et prochaine tâche ; commit/push. Aucun choix de concept à soumettre au producteur.
 
 ## Vision et invariants
 
