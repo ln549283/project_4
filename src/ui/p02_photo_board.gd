@@ -1,6 +1,9 @@
 class_name P02PhotoBoard
 extends Control
 
+func _init() -> void:
+	_apply_layout_constraints()
+
 signal photo_pressed(index: int)
 
 const BG := Color(0.12, 0.13, 0.15, 1.0)
@@ -32,6 +35,7 @@ func configure(new_order: Array, new_observations: Dictionary, new_selected: int
 func _apply_layout_constraints() -> void:
 	custom_minimum_size = Vector2(0, 600)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _notification(what: int) -> void:

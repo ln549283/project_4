@@ -26,10 +26,15 @@ func _rebuild() -> void:
 	if compare_mode:
 		box.add_child(UiFactory.make_label("Mode comparaison : choisissez jusqu'à deux photographies.", Session.font_size_px(16)))
 	var order: Array = Session.state.campaign["puzzles"]["p02"]["order"]
+	var photo_frame := PanelContainer.new()
+	photo_frame.custom_minimum_size = Vector2(0, 600)
+	photo_frame.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	photo_frame.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	var board := P02PhotoBoard.new()
 	board.configure(order, Session.state.puzzles_contract["p02"]["observations"], selected, compare_indices)
 	board.photo_pressed.connect(_select)
-	box.add_child(board)
+	photo_frame.add_child(board)
+	box.add_child(photo_frame)
 	if compare_indices.size() == 2:
 		box.add_child(UiFactory.make_label("Les deux clichés sélectionnés sont encadrés en bleu. Comparez les mêmes détails architecturaux.", Session.font_size_px(16)))
 	box.add_child(UiFactory.make_button("Comparer", _toggle_compare))

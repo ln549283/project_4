@@ -14,16 +14,11 @@ def fail(message: str) -> None:
 
 
 root = Path(sys.argv[1] if len(sys.argv) > 1 else "build/web")
-required = ("index.html", "index.js", "index.wasm", "index.pck")
+index = root / "index.html"
+if not index.is_file() or index.stat().st_size == 0:
+    fail("missing or empty index.html at artifact root")
 
-for name in required:
-    path = root / name
-    if not path.is_file():
-        fail(f"missing {name} at artifact root")
-    if path.stat().st_size == 0:
-        fail(f"empty {name}")
-
-html = (root / "index.html").read_text(encoding="utf-8")
+html = index.read_text(encoding="utf-8")
 
 # GitHub project Pages serves this repository at /project_4/. Root-relative
 # asset URLs would escape that prefix and break the game.
@@ -31,8 +26,27 @@ absolute_assets = re.findall(r"""(?:src|href)\s*=\s*["']/(?!/)""", html, flags=r
 if absolute_assets:
     fail("index.html contains root-relative asset URLs incompatible with /project_4/")
 
-# Standard Godot shell must resolve its executable beside index.html.
-if '"executable":"index"' not in html.replace(" ", ""):
-    fail("Godot executable base is not relative 'index'")
+compact = re.sub(r"\s+", "", html)
+match = re.search(r'"executable":"([^"]+)"', compact)
+if not match:
+    fail("Godot executable base not found in index.html")
 
-print("WEB EXPORT CHECK PASS: index.html is at root and assets are subpath-safe")
+asset_base = match.group(1)
+if "/" in asset_base or asset_base.startswith("."):
+    fail(f"Godot executable base is not a safe relative filename: {asset_base}")
+
+for ext in ("js", "wasm", "pck"):
+    path = root / f"{asset_base}.{ext}"
+    if not path.is_file():
+        fail(f"missing {path.name} at artifact root")
+    if path.stat().st_size == 0:
+        fail(f"empty {path.name}")
+
+recorded_base = root / ".asset-base"
+if recorded_base.is_file() and recorded_base.read_text(encoding="utf-8").strip() != asset_base:
+    fail(".asset-base does not match index.html executable")
+
+print(
+    "WEB EXPORT CHECK PASS: index.html is at root, assets are subpath-safe "
+    f"and cache-busted as {asset_base}.*"
+)
