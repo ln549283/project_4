@@ -16,6 +16,7 @@ const ROUTES := {
 	"s07": "res://scenes/puzzles/p03.tscn",
 	"s08": "res://scenes/puzzles/p04.tscn",
 	"s09": "res://scenes/puzzles/p05.tscn",
+	"s10": "res://scenes/puzzles/p06.tscn",
 	"s12": "res://scenes/ui/notebook.tscn",
 	"s14": "res://scenes/credits.tscn",
 }

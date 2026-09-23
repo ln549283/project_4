@@ -44,11 +44,11 @@ static func validate_route(group_id: String, path: Array, water: int, placements
 			return _single("p06_route_repeats_node", "evidence_refuges", {"node": node})
 		seen[node] = true
 
-	var edges := _active_edges(placements, contract)
+	var edges := active_edges(placements, contract)
 	for i in range(path.size() - 1):
 		var a := str(path[i])
 		var b := str(path[i + 1])
-		var edge := _find_edge(a, b, edges)
+		var edge := find_edge(a, b, edges)
 		if edge.is_empty():
 			return _single("p06_missing_link", "evidence_refuges", {"from": a, "to": b})
 		if water >= int(edge.get("clearance", 0)):
@@ -57,7 +57,7 @@ static func validate_route(group_id: String, path: Array, water: int, placements
 			return _single("p06_stairs_forbidden", "evidence_refuges", {"group": group_id, "from": a, "to": b})
 	return {"valid": true, "violations": [], "resolved_state": {"route": path.duplicate()}}
 
-static func _active_edges(placements: Dictionary, contract: Dictionary) -> Array:
+static func active_edges(placements: Dictionary, contract: Dictionary) -> Array:
 	var result: Array = []
 	for raw_edge: Variant in contract.get("edges", []):
 		result.append((raw_edge as Dictionary).duplicate(true))
@@ -77,7 +77,7 @@ static func _active_edges(placements: Dictionary, contract: Dictionary) -> Array
 		})
 	return result
 
-static func _find_edge(a: String, b: String, edges: Array) -> Dictionary:
+static func find_edge(a: String, b: String, edges: Array) -> Dictionary:
 	for raw_edge: Variant in edges:
 		var edge: Dictionary = raw_edge
 		var ends: Array = edge.get("ends", [])
