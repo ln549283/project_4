@@ -97,7 +97,8 @@ func _test_conclusion_resume(service: RefCounted, state: Node) -> void:
 	snapshot["narrative"]["pending"] = ["n11"]
 	snapshot["narrative"]["acknowledged"] = ["n00", "n01", "n02", "n03", "n04", "n05", "n06", "n07", "n08", "n09", "n10"]
 	snapshot["narrative"]["active_scene"] = null
-	var conclusion_save: Dictionary = service.save_campaign(snapshot)\n\t_expect(conclusion_save.get("ok", false), "save pending conclusion: %s" % conclusion_save)
+	var conclusion_save: Dictionary = service.save_campaign(snapshot)
+	_expect(conclusion_save.get("ok", false), "save pending conclusion: %s" % conclusion_save)
 	var loaded: Dictionary = service.load_campaign()
 	_expect(not bool(loaded["snapshot"]["completed"]), "p07 solved does not imply completed")
 	_expect("n11" in loaded["snapshot"]["narrative"]["pending"], "conclusion resumes at n11")
