@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  contracts-and-boot:
+  contracts-and-greybox:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -37,8 +37,14 @@ jobs:
       - name: Import project headlessly
         run: /tmp/godot/godot --headless --path . --editor --quit
 
-      - name: Contract tests
+      - name: T01 contract tests
         run: /tmp/godot/godot --headless --path . --script tests/contract_test.gd
+
+      - name: T02 rule tests
+        run: /tmp/godot/godot --headless --path . --script tests/rules/rules_test.gd
+
+      - name: T03 state tests
+        run: /tmp/godot/godot --headless --path . --script tests/state/state_test.gd
 
       - name: Boot main scene
         run: /tmp/godot/godot --headless --path .
