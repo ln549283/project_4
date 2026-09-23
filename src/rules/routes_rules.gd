@@ -26,7 +26,7 @@ static func validate(bits: Array, contract: Dictionary, tile_pairs: Dictionary) 
 		if trace_result.get("loop", false):
 			violations.append({"rule_id": "p03_route_loop", "evidence_id": "evidence_delivery", "params": {"route": route.get("id", "")}})
 			continue
-		if trace_result.get("end", []) != route.get("end", []):
+		if not _same_endpoint(trace_result.get("end", []), route.get("end", [])):
 			violations.append({
 				"rule_id": "p03_wrong_destination",
 				"evidence_id": "evidence_delivery",
@@ -49,7 +49,8 @@ static func trace(bits: Array, rows: int, cols: int, start: Array, tile_pairs: D
 		seen[key] = true
 		visited.append([r, c, side])
 		var bit := int(bits[r * cols + c])
-		var pair_map := _pair_map(tile_pairs.get(str(bit), []))
+		var raw_pairs: Array = tile_pairs.get(str(bit), tile_pairs.get(bit, []))
+		var pair_map := _pair_map(raw_pairs)
 		if not pair_map.has(side):
 			return {"end": [], "visited": visited, "loop": false}
 		var out_side := str(pair_map[side])
@@ -62,6 +63,11 @@ static func trace(bits: Array, rows: int, cols: int, start: Array, tile_pairs: D
 		c = cc
 		side = str(OPPOSITE[out_side])
 	return {"end": [], "visited": visited, "loop": false}
+
+static func _same_endpoint(actual: Array, expected: Array) -> bool:
+	if actual.size() != 3 or expected.size() != 3:
+		return false
+	return int(actual[0]) == int(expected[0]) and int(actual[1]) == int(expected[1]) and str(actual[2]) == str(expected[2])
 
 static func _pair_map(raw_pairs: Array) -> Dictionary:
 	var result: Dictionary = {}
