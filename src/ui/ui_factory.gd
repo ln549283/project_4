@@ -11,6 +11,7 @@ static func make_button(text: String, callable: Callable, nav: bool = false) -> 
 	button.text = text
 	button.custom_minimum_size = Vector2(0, 168 if nav else 144)
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	button.focus_mode = Control.FOCUS_ALL
 	button.pressed.connect(callable)
 	return button
@@ -32,6 +33,7 @@ static func make_page(root: Control, title: String, objective: String = "") -> V
 	root.add_child(margin)
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	margin.add_child(scroll)
 	var box := VBoxContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
