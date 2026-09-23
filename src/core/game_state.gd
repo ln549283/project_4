@@ -99,6 +99,8 @@ func set_hint_level(puzzle_id: String, level: int) -> Dictionary:
 	return {"ok": true}
 
 func swap_order(puzzle_id: String, a: int, b: int) -> Dictionary:
+	if puzzle_id in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	if puzzle_id not in ["p01", "p02"]:
 		return {"ok": false, "error": "unsupported_swap"}
 	var order: Array = campaign["puzzles"][puzzle_id]["order"]
@@ -114,6 +116,8 @@ func swap_order(puzzle_id: String, a: int, b: int) -> Dictionary:
 	return {"ok": true, "changed": true, "before": before}
 
 func flip_tile(index: int) -> Dictionary:
+	if "p03" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	var bits: Array = campaign["puzzles"]["p03"]["bits"]
 	if index < 0 or index >= bits.size():
 		return {"ok": false, "error": "index_out_of_range"}
@@ -122,6 +126,8 @@ func flip_tile(index: int) -> Dictionary:
 	return {"ok": true}
 
 func rotate_mask(index: int, delta: int) -> Dictionary:
+	if "p04" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	var turns: Array = campaign["puzzles"]["p04"]["turns"]
 	if index < 0 or index >= turns.size():
 		return {"ok": false, "error": "index_out_of_range"}
@@ -130,6 +136,8 @@ func rotate_mask(index: int, delta: int) -> Dictionary:
 	return {"ok": true}
 
 func place_cargo(item: String, slot_index: int) -> Dictionary:
+	if "p05" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	var p05: Dictionary = campaign["puzzles"]["p05"]
 	var slots: Array = p05["slots"]
 	if not puzzles_contract["p05"]["weights"].has(item):
@@ -156,6 +164,8 @@ func place_cargo(item: String, slot_index: int) -> Dictionary:
 	return {"ok": true}
 
 func set_water_level(level: int) -> Dictionary:
+	if "p06" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	if level not in puzzles_contract["p06"]["water_levels"]:
 		return {"ok": false, "error": "invalid_water_level"}
 	campaign["puzzles"]["p06"]["water_level"] = level
@@ -163,6 +173,8 @@ func set_water_level(level: int) -> Dictionary:
 	return {"ok": true}
 
 func place_fragment(fragment_id: String, gap_id: Variant) -> Dictionary:
+	if "p06" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	var fragments: Dictionary = puzzles_contract["p06"]["fragments"]
 	if not fragments.has(fragment_id):
 		return {"ok": false, "error": "unknown_fragment"}
@@ -173,6 +185,8 @@ func place_fragment(fragment_id: String, gap_id: Variant) -> Dictionary:
 	return {"ok": true}
 
 func set_route(group_id: String, route: Array) -> Dictionary:
+	if "p06" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	if not puzzles_contract["p06"]["groups"].has(group_id):
 		return {"ok": false, "error": "unknown_group"}
 	campaign["puzzles"]["p06"]["routes"][group_id] = route.duplicate()
@@ -180,6 +194,8 @@ func set_route(group_id: String, route: Array) -> Dictionary:
 	return {"ok": true}
 
 func set_p07_donor(donor_id: Variant) -> Dictionary:
+	if "p07" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	if donor_id != null and not puzzles_contract["p07"]["donors"].has(str(donor_id)):
 		return {"ok": false, "error": "unknown_donor"}
 	campaign["puzzles"]["p07"]["donor"] = donor_id
@@ -187,6 +203,8 @@ func set_p07_donor(donor_id: Variant) -> Dictionary:
 	return {"ok": true}
 
 func place_p07_action(action: String, slot_index: int) -> Dictionary:
+	if "p07" in campaign.get("solved", []):
+		return {"ok": false, "error": "resolved_puzzle_read_only"}
 	var slots: Array = campaign["puzzles"]["p07"]["slots"]
 	if action not in puzzles_contract["p07"]["actions"]:
 		return {"ok": false, "error": "unknown_action"}

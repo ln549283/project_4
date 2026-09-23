@@ -1,0 +1,755 @@
+{
+  "design_version": "1.1",
+  "coordinate_system": "zero-based row,column; N/E/S/W fixed; rotation clockwise",
+  "progression": {
+    "p00": [],
+    "p01": [
+      "p00"
+    ],
+    "p02": [
+      "p01"
+    ],
+    "p03": [
+      "p02"
+    ],
+    "p04": [
+      "p02"
+    ],
+    "p05": [
+      "p03",
+      "p04"
+    ],
+    "p06": [
+      "p05"
+    ],
+    "p07": [
+      "p06"
+    ],
+    "ending": [
+      "p07"
+    ]
+  },
+  "p01": {
+    "initial": [
+      "L2",
+      "L3",
+      "L4",
+      "L1",
+      "L5"
+    ],
+    "left_anchor": "quai_bas",
+    "right_anchor": "colline",
+    "pieces": {
+      "L3": [
+        "quai_bas",
+        "corde_haute_roseau_bas"
+      ],
+      "L1": [
+        "corde_haute_roseau_bas",
+        "toit_haut_rail_bas"
+      ],
+      "L5": [
+        "toit_haut_rail_bas",
+        "fenetre_haut_escalier_bas"
+      ],
+      "L2": [
+        "fenetre_haut_escalier_bas",
+        "arbre_haut_mur_bas"
+      ],
+      "L4": [
+        "arbre_haut_mur_bas",
+        "colline"
+      ]
+    },
+    "solution": [
+      "L3",
+      "L1",
+      "L5",
+      "L2",
+      "L4"
+    ]
+  },
+  "p02": {
+    "initial": [
+      "F2",
+      "F4",
+      "F3",
+      "F1",
+      "F5"
+    ],
+    "observations": {
+      "F4": {
+        "awning": 0,
+        "pane": 0
+      },
+      "F1": {
+        "awning": 1,
+        "pane": 0,
+        "sign": 0
+      },
+      "F5": {
+        "pane": 1,
+        "sign": 0,
+        "chimney": 0
+      },
+      "F2": {
+        "sign": 1,
+        "chimney": 0
+      },
+      "F3": {
+        "chimney": 1
+      }
+    },
+    "solution": [
+      "F4",
+      "F1",
+      "F5",
+      "F2",
+      "F3"
+    ]
+  },
+  "route_tile_pairs": {
+    "0": [
+      [
+        "N",
+        "E"
+      ],
+      [
+        "S",
+        "W"
+      ]
+    ],
+    "1": [
+      [
+        "N",
+        "W"
+      ],
+      [
+        "S",
+        "E"
+      ]
+    ]
+  },
+  "p03": {
+    "rows": 2,
+    "cols": 3,
+    "initial": [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    "solution": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "routes": [
+      {
+        "id": "medicine",
+        "start": [
+          1,
+          1,
+          "S"
+        ],
+        "end": [
+          0,
+          1,
+          "N"
+        ],
+        "start_label": "Pharmacie",
+        "end_label": "Infirmerie",
+        "pattern": "dots"
+      },
+      {
+        "id": "food",
+        "start": [
+          1,
+          2,
+          "E"
+        ],
+        "end": [
+          0,
+          2,
+          "E"
+        ],
+        "start_label": "Vivres",
+        "end_label": "Réfectoire",
+        "pattern": "dashes"
+      },
+      {
+        "id": "tools",
+        "start": [
+          1,
+          2,
+          "S"
+        ],
+        "end": [
+          0,
+          2,
+          "N"
+        ],
+        "start_label": "Outils",
+        "end_label": "Atelier",
+        "pattern": "double"
+      }
+    ]
+  },
+  "p04": {
+    "size": 7,
+    "initial": [
+      1,
+      2,
+      3
+    ],
+    "solution": [
+      0,
+      0,
+      0
+    ],
+    "masks": [
+      [
+        "0000000",
+        "0000000",
+        "0000000",
+        "1110000",
+        "1010000",
+        "1010000",
+        "0000000"
+      ],
+      [
+        "0000000",
+        "0000000",
+        "0000000",
+        "0011100",
+        "0010100",
+        "0010100",
+        "0000000"
+      ],
+      [
+        "0000000",
+        "0000000",
+        "0000000",
+        "0000111",
+        "0000101",
+        "0000101",
+        "0000000"
+      ]
+    ],
+    "target": [
+      "0000000",
+      "0000000",
+      "0000000",
+      "1111111",
+      "1010101",
+      "1010101",
+      "0000000"
+    ],
+    "render_cell_px": 100
+  },
+  "p05": {
+    "positions": [
+      -3,
+      -2,
+      -1,
+      1,
+      2,
+      3
+    ],
+    "weights": {
+      "lantern": 1,
+      "medicine": 2,
+      "food": 3,
+      "tools": 4,
+      "dye": 5,
+      "press": 6
+    },
+    "labels": {
+      "lantern": "Lanterne",
+      "medicine": "Médicaments",
+      "food": "Vivres",
+      "tools": "Outils",
+      "dye": "Teintures",
+      "press": "Presse"
+    },
+    "central_only": [
+      "lantern",
+      "press"
+    ],
+    "initial_tray": [
+      "dye",
+      "lantern",
+      "tools",
+      "medicine",
+      "press",
+      "food"
+    ],
+    "solution_count": 4,
+    "example_solution": [
+      "medicine",
+      "tools",
+      "press",
+      "lantern",
+      "dye",
+      "food"
+    ],
+    "angle_rule": "clamp(moment * 0.35, -8, 8) degrees; clockwise for positive moment"
+  },
+  "p06": {
+    "mechanic": "flood_map_reconstruction",
+    "water_levels": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "observed_water_level": 4,
+    "initial": {
+      "water_level": 0,
+      "fragments": {
+        "arcade": null,
+        "ramp": null
+      },
+      "routes": {
+        "school": [],
+        "infirmary": [],
+        "archives": []
+      }
+    },
+    "nodes": {
+      "S": {
+        "label": "École",
+        "xy": [
+          100,
+          180
+        ]
+      },
+      "I": {
+        "label": "Infirmerie",
+        "xy": [
+          100,
+          540
+        ]
+      },
+      "A": {
+        "label": "Archives",
+        "xy": [
+          160,
+          940
+        ]
+      },
+      "J": {
+        "label": "Place",
+        "xy": [
+          300,
+          540
+        ]
+      },
+      "K": {
+        "label": "Terrasse",
+        "xy": [
+          460,
+          300
+        ]
+      },
+      "L": {
+        "label": "Cour haute",
+        "xy": [
+          650,
+          540
+        ]
+      },
+      "C": {
+        "label": "Clocher",
+        "xy": [
+          750,
+          140
+        ]
+      },
+      "H": {
+        "label": "Halle haute",
+        "xy": [
+          800,
+          740
+        ]
+      },
+      "G": {
+        "label": "Grenier",
+        "xy": [
+          650,
+          940
+        ]
+      }
+    },
+    "canvas": [
+      900,
+      1080
+    ],
+    "edge_rule": "Passable iff water_level < clearance; stairs forbidden only for infirmary; all edges bidirectional.",
+    "edges": [
+      {
+        "id": "sj",
+        "ends": [
+          "S",
+          "J"
+        ],
+        "clearance": 6,
+        "stairs": false
+      },
+      {
+        "id": "ij",
+        "ends": [
+          "I",
+          "J"
+        ],
+        "clearance": 6,
+        "stairs": false
+      },
+      {
+        "id": "aj",
+        "ends": [
+          "A",
+          "J"
+        ],
+        "clearance": 6,
+        "stairs": true
+      },
+      {
+        "id": "kc",
+        "ends": [
+          "K",
+          "C"
+        ],
+        "clearance": 6,
+        "stairs": true
+      },
+      {
+        "id": "lh",
+        "ends": [
+          "L",
+          "H"
+        ],
+        "clearance": 6,
+        "stairs": false
+      },
+      {
+        "id": "lg",
+        "ends": [
+          "L",
+          "G"
+        ],
+        "clearance": 6,
+        "stairs": true
+      },
+      {
+        "id": "kh",
+        "ends": [
+          "K",
+          "H"
+        ],
+        "clearance": 6,
+        "stairs": true,
+        "via": [
+          [
+            800,
+            300
+          ],
+          [
+            800,
+            600
+          ]
+        ]
+      },
+      {
+        "id": "ih",
+        "ends": [
+          "I",
+          "H"
+        ],
+        "clearance": 4,
+        "stairs": false,
+        "via": [
+          [
+            40,
+            540
+          ],
+          [
+            40,
+            60
+          ],
+          [
+            880,
+            60
+          ],
+          [
+            880,
+            740
+          ]
+        ]
+      }
+    ],
+    "gaps": {
+      "jk": {
+        "ends": [
+          "J",
+          "K"
+        ],
+        "span": 2
+      },
+      "sc": {
+        "ends": [
+          "S",
+          "C"
+        ],
+        "span": 2
+      },
+      "kl": {
+        "ends": [
+          "K",
+          "L"
+        ],
+        "span": 3
+      },
+      "ag": {
+        "ends": [
+          "A",
+          "G"
+        ],
+        "span": 3
+      }
+    },
+    "fragments": {
+      "arcade": {
+        "label": "Fragment à deux arches",
+        "span": 2,
+        "clearance": 6,
+        "stairs": false,
+        "destinations": [
+          "jk",
+          "sc"
+        ]
+      },
+      "ramp": {
+        "label": "Fragment de rampe",
+        "span": 3,
+        "clearance": 6,
+        "stairs": false,
+        "destinations": [
+          "kl",
+          "ag"
+        ]
+      }
+    },
+    "groups": {
+      "school": {
+        "start": "S",
+        "goal": "C",
+        "stairs_allowed": true,
+        "pattern": "dots"
+      },
+      "infirmary": {
+        "start": "I",
+        "goal": "H",
+        "stairs_allowed": false,
+        "pattern": "dashes"
+      },
+      "archives": {
+        "start": "A",
+        "goal": "G",
+        "stairs_allowed": true,
+        "pattern": "double"
+      }
+    },
+    "solution": {
+      "water_level": 4,
+      "fragments": {
+        "arcade": "jk",
+        "ramp": "kl"
+      },
+      "routes": {
+        "school": [
+          "S",
+          "J",
+          "K",
+          "C"
+        ],
+        "infirmary": [
+          "I",
+          "J",
+          "K",
+          "L",
+          "H"
+        ],
+        "archives": [
+          "A",
+          "J",
+          "K",
+          "L",
+          "G"
+        ]
+      }
+    },
+    "accepted_route_variants": {
+      "school": [
+        [
+          "S",
+          "J",
+          "K",
+          "C"
+        ]
+      ],
+      "infirmary": [
+        [
+          "I",
+          "J",
+          "K",
+          "L",
+          "H"
+        ]
+      ],
+      "archives": [
+        [
+          "A",
+          "J",
+          "K",
+          "L",
+          "G"
+        ],
+        [
+          "A",
+          "J",
+          "K",
+          "H",
+          "L",
+          "G"
+        ]
+      ]
+    },
+    "blocked_extension": {
+      "from": "C",
+      "to": "Quai haut",
+      "span": 3,
+      "repaired_in": "p07",
+      "not_a_p06_edge": true
+    },
+    "physical_rule": "Fragments restore printed permanent masonry links, not movable bridges; cannot be carried to P07."
+  },
+  "p07": {
+    "donors": {
+      "roof": {
+        "span": 3,
+        "width": 2,
+        "flat": false,
+        "paired_fasteners": false
+      },
+      "door": {
+        "span": 3,
+        "width": 1,
+        "flat": true,
+        "paired_fasteners": false
+      },
+      "floor": {
+        "span": 3,
+        "width": 2,
+        "flat": true,
+        "paired_fasteners": true
+      }
+    },
+    "gap": 3,
+    "donor_solution": "floor",
+    "slots": 6,
+    "actions": [
+      "deliver",
+      "stairs",
+      "floor",
+      "brace",
+      "evacuate",
+      "release"
+    ],
+    "initial_tray": [
+      "release",
+      "floor",
+      "deliver",
+      "evacuate",
+      "brace",
+      "stairs"
+    ],
+    "windows": {
+      "deliver": [
+        0,
+        0
+      ],
+      "stairs": [
+        0,
+        1
+      ],
+      "floor": [
+        2,
+        5
+      ],
+      "brace": [
+        3,
+        5
+      ],
+      "evacuate": [
+        0,
+        4
+      ],
+      "release": [
+        0,
+        5
+      ]
+    },
+    "before": [
+      [
+        "deliver",
+        "floor"
+      ],
+      [
+        "floor",
+        "brace"
+      ],
+      [
+        "stairs",
+        "evacuate"
+      ],
+      [
+        "brace",
+        "evacuate"
+      ],
+      [
+        "evacuate",
+        "release"
+      ]
+    ],
+    "solution": [
+      "deliver",
+      "stairs",
+      "floor",
+      "brace",
+      "evacuate",
+      "release"
+    ],
+    "requirements": {
+      "span": 3,
+      "min_width": 2,
+      "flat": true,
+      "paired_fasteners": true
+    },
+    "timeline_semantics": "Six observed phases of a reconstruction, not a law requiring one real action per water level."
+  },
+  "p00": {
+    "initial_latches": [
+      false,
+      false
+    ],
+    "tutorial_not_puzzle": true
+  }
+}

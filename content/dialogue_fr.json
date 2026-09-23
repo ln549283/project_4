@@ -1,0 +1,56 @@
+{
+  "design_version": "1.1",
+  "scenes": {
+    "n00": [
+      "Jo : « Ta mère a confié sa maquette et ses photos à l’exposition. Il reste à rendre le passage compréhensible dans le cartel. »",
+      "Cartel : « L'atelier d'Aline. Démonté pendant la crue. Les raisons de ce geste et le parcours de l'évacuation restent incertains. »",
+      "Nelle : « Elle m’a raconté le sauvetage. Je voudrais qu’on puisse le comprendre en regardant la maquette. »"
+    ],
+    "n01": [
+      "Nelle : « L'atelier, l'école, le quai haut. Je les avais oubliés si proches. »",
+      "Jo : « Les enfants sont tous sortis. C'est le chemin qu'ils ont pris qui manque au dossier. »"
+    ],
+    "n02": [
+      "Nelle : « La livraison est arrivée avant le démontage. Et le groupe passe après. Le cartel ne permettait pas de voir cet enchaînement. »",
+      "Jo : « Alors gardons le cartel au crayon. Les feuillets de service sont dans la maquette. »"
+    ],
+    "n03": [
+      "Nelle : « Les trois trajets aboutissent. Ce plan permet de répartir les secours entre les trois lieux. »"
+    ],
+    "n04": [
+      "Nelle : « Ce n'est pas un toit qui s'effondre. Les appuis sont réguliers. On avait construit quelque chose pour passer. »"
+    ],
+    "n05": [
+      "Jo : « Cette barge faisait partie du matériel d'exercice. Chaque charge a encore son étiquette. »",
+      "Nelle : « Elle devait arriver sans mettre sa cargaison à l'eau. Voyons ce qu'elle portait. »"
+    ],
+    "n06": [
+      "Nelle : « Pharmacie, vivres, outils… et sa petite presse. Ce chargement pouvait rester stable. »",
+      "Étiquette de la presse : « Pour le poids. La laisser sur la barge jusqu'au dernier passage. — A. »",
+      "Nelle : « Même l'atelier travaillait au sauvetage. »"
+    ],
+    "n07": [
+      "Nelle : « Le groupe pouvait atteindre le clocher. Mais il manque encore trois travées jusqu'au quai. »",
+      "Nelle : « La photographie montre aussi la largeur du passage et ses attaches. Comparons les pièces. »"
+    ],
+    "n08": [
+      "Nelle : « Elle ne l'a pas abandonné. Elle lui a donné une autre place. »"
+    ],
+    "n09": [
+      "Nelle : « L'atelier a perdu son plancher. L'école a gagné une sortie. »"
+    ],
+    "n10": [
+      "Aline : « Nous avons rejoint le quai haut depuis le clocher. La barge est restée amarrée jusqu’au dernier passage. L’atelier n’a pas été reconstruit. J’ai conservé la maquette et les photographies pour expliquer l’opération. »",
+      "Rapport provisoire : « Reconstitution du passage à compléter avec les photographies et la maquette. »",
+      "Jo : « Le témoignage disait où ils étaient passés. On peut maintenant montrer comment. »",
+      "Cartel corrigé : « Pendant la crue, Aline a démonté le plancher de son atelier pour établir une passerelle entre le clocher et le quai haut. Les photographies, la maquette et son témoignage documentent ce passage. L'école a été évacuée. L'atelier n'a pas été reconstruit. »"
+    ],
+    "n11": [
+      "Nelle : « Maman ? J'ai compris le plancher. »",
+      "Aline : « Il était fait pour porter du monde. »",
+      "Nelle : « Viens voir. Cette fois, on a laissé le passage ouvert. »",
+      "Quelques semaines plus tard — l'exposition présente la maquette et son nouveau cartel.",
+      "Les Rives pliées\nCe que l'on transforme peut aussi rester."
+    ]
+  }
+}

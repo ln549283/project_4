@@ -53,5 +53,11 @@ jobs:
         run: /tmp/godot/godot --headless --path . --script tests/ui/flood_map_test.gd
       - name: T10 passage greybox tests
         run: /tmp/godot/godot --headless --path . --script tests/ui/passage_test.gd
+      - name: T11 end-to-end greybox tests
+        run: /tmp/godot/godot --headless --path . --script tests/integration/full_campaign_test.gd
+      - name: Runtime content parity
+        run: |
+          cmp design/puzzles.json content/puzzles.json
+          cmp design/hints_fr.json content/hints_fr.json
       - name: Boot main scene
         run: /tmp/godot/godot --headless --path .

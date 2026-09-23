@@ -18,6 +18,7 @@ const ROUTES := {
 	"s09": "res://scenes/puzzles/p05.tscn",
 	"s10": "res://scenes/puzzles/p06.tscn",
 	"s11": "res://scenes/puzzles/p07.tscn",
+	"s13": "res://scenes/ending.tscn",
 	"s12": "res://scenes/ui/notebook.tscn",
 	"s14": "res://scenes/credits.tscn",
 }
@@ -41,7 +42,9 @@ var campaign_started := false
 var view_state := {
 	"pinned_evidence": null,
 	"compare_evidence": [],
+	"exploration_mode": false,
 }
+var evidence_texts: Dictionary = {}
 
 func _ready() -> void:
 	initialize()
@@ -59,6 +62,7 @@ func initialize() -> Dictionary:
 	save_service = SaveServiceClass.new(loaded["data"]["puzzles"])
 	router = SceneRouterClass.new(ROUTES)
 	settings = save_service.load_settings(DEFAULT_SETTINGS).get("settings", DEFAULT_SETTINGS.duplicate(true))
+	evidence_texts = _load_json_dictionary("res://content/evidence_fr.json")
 	var campaign_load: Dictionary = save_service.load_campaign()
 	load_status = str(campaign_load.get("status", "new"))
 	match load_status:
@@ -129,6 +133,8 @@ func navigate(view_id: String, push_history: bool = true) -> Dictionary:
 		state.dirty = true
 		save_now()
 	var error := get_tree().change_scene_to_file(route_result["path"])
+	if error == OK:
+		get_tree().process_frame.connect(present_pending_narrative, CONNECT_ONE_SHOT)
 	return {"ok": error == OK, "error_code": error, "view_id": view_id}
 
 func go_back() -> Dictionary:
@@ -140,6 +146,8 @@ func go_back() -> Dictionary:
 		state.dirty = true
 		save_now()
 	var error := get_tree().change_scene_to_file(result["path"])
+	if error == OK:
+		get_tree().process_frame.connect(present_pending_narrative, CONNECT_ONE_SHOT)
 	return {"ok": error == OK, "error_code": error}
 
 func open_notebook() -> Dictionary:
@@ -189,10 +197,47 @@ func toggle_setting(key: String) -> void:
 
 func evidence_item(evidence_id: String) -> Dictionary:
 	for raw_item: Variant in state.evidence_contract.get("items", []):
-		var item: Dictionary = raw_item
+		var item: Dictionary = (raw_item as Dictionary).duplicate(true)
 		if str(item.get("id", "")) == evidence_id:
+			if evidence_texts.has(evidence_id):
+				item["body"] = str(evidence_texts[evidence_id])
 			return item
 	return {}
+
+func present_pending_narrative() -> void:
+	if not campaign_started or get_tree().current_scene == null:
+		return
+	if router.current_view in ["s00", "s01", "s12", "s14"]:
+		return
+	if get_tree().current_scene.get_node_or_null("NarrativeOverlay") != null:
+		return
+	var scene_id: Variant = state.begin_next_narrative()
+	if scene_id == null:
+		return
+	save_now()
+	var overlay := preload("res://scenes/ui/narrative.tscn").instantiate()
+	overlay.name = "NarrativeOverlay"
+	overlay.configure(str(scene_id))
+	get_tree().current_scene.add_child(overlay)
+
+func on_narrative_acknowledged(scene_id: String) -> void:
+	save_now()
+	if get_tree().current_scene != null and get_tree().current_scene.has_method("on_narrative_closed"):
+		get_tree().current_scene.call_deferred("on_narrative_closed")
+	if scene_id == "n10":
+		state.queue_narrative("n11")
+		save_now()
+	if scene_id == "n11":
+		view_state["exploration_mode"] = true
+		navigate("s14", false)
+		return
+	call_deferred("present_pending_narrative")
+
+func _load_json_dictionary(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
+		return {}
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	return parsed if typeof(parsed) == TYPE_DICTIONARY else {}
 
 func pin_evidence(evidence_id: String) -> void:
 	if evidence_id in state.available_evidence():

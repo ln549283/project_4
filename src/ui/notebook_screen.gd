@@ -20,7 +20,7 @@ func _ready() -> void:
 func _open_evidence(evidence_id: String) -> void:
 	var item := Session.evidence_item(evidence_id)
 	var overlay := preload("res://scenes/ui/evidence_detail.tscn").instantiate()
-	overlay.configure(evidence_id, str(item.get("content_contract", "")))
+	overlay.configure(evidence_id, str(item.get("body", item.get("content_contract", ""))))
 	get_tree().current_scene.add_child(overlay)
 
 func _back() -> void:

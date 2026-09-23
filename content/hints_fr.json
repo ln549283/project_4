@@ -1,0 +1,37 @@
+{
+  "p01": [
+    "Le paysage continue d'un morceau au suivant.",
+    "Compare deux détails à chaque couture, pas seulement la ligne de la berge.",
+    "Commence par une extrémité fixe du cadre, puis suis ses deux lignes vers le morceau voisin."
+  ],
+  "p02": [
+    "Les photographies ne montrent pas toutes les mêmes détails.",
+    "Un objet cassé ne redevient pas intact pendant cette série. Compare les détails présents sur deux images.",
+    "Forme d'abord de petites paires “avant / après”, puis relie celles qui partagent une photographie."
+  ],
+  "p03": [
+    "Un volet modifie deux passages en même temps.",
+    "Pars aussi des destinations : certains trajets ont moins de détours possibles que d'autres.",
+    "Garde un trajet déjà correct sous les yeux, puis observe quelle autre courbe de ses volets sert aux trajets restants."
+  ],
+  "p04": [
+    "Ce qui compte est l'ombre commune, pas l'image de chaque calque isolé.",
+    "Masque temporairement les autres calques pour comprendre quels appuis appartiennent à chacun.",
+    "Cherche d'abord à former un tablier continu, puis compare le nombre et la place de ses appuis."
+  ],
+  "p05": [
+    "Le poids n'est pas le seul facteur : sa distance au milieu compte aussi.",
+    "Installe d'abord les deux objets que les arceaux obligent à rester au centre. Observe de quel côté ils font pencher la barge.",
+    "Si un côté descend trop, rapproche une charge lourde du milieu ou éloigne une charge de l'autre côté. Change une paire à la fois pour comprendre son effet."
+  ],
+  "p06": [
+    "Commence par retrouver la hauteur de l'eau sur la dernière photographie. Tous les traits du plan ne seront plus des passages.",
+    "Le groupe avec le brancard ne peut pas emprunter les marches. Cherche son trajet avant de placer les deux fragments.",
+    "Un passage restauré peut servir à plusieurs groupes. Compare le coût des raccourcis isolés avec un détour partagé, puis vérifie chaque trajet en entier."
+  ],
+  "p07": [
+    "La longueur seule ne suffit pas. Compare aussi la largeur, le profil et les attaches visibles sur la photographie.",
+    "Pour la frise, distingue les gestes qui ont une dernière occasion de ceux qui doivent attendre une certaine hauteur d'eau.",
+    "Place d'abord les opérations dont la fenêtre est la plus courte. Puis vérifie que chaque support existe avant qu'on l'utilise, et reste en place jusqu'au dernier passage."
+  ]
+}
