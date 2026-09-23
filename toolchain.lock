@@ -1,0 +1,17 @@
+# Toolchain verrouillée — conception 1.1
+# Source officielle: https://github.com/godotengine/godot-builds/releases/tag/4.6.2-stable
+godot_version = "4.6.2-stable"
+godot_flavor = "standard"
+renderer = "gl_compatibility"
+
+linux_x86_64_archive = "Godot_v4.6.2-stable_linux.x86_64.zip"
+linux_x86_64_url = "https://github.com/godotengine/godot-builds/releases/download/4.6.2-stable/Godot_v4.6.2-stable_linux.x86_64.zip"
+linux_x86_64_sha256 = "30e6b6d141f0cd5bebd629ad1d0ef1324e60091bb20662d026b402ba58c59937"
+
+export_templates_archive = "Godot_v4.6.2-stable_export_templates.tpz"
+export_templates_url = "https://github.com/godotengine/godot-builds/releases/download/4.6.2-stable/Godot_v4.6.2-stable_export_templates.tpz"
+export_templates_sha256 = "942366dc4e27e7686a99da4d3cfb1b8ae8d3eb9444f6d8217eef16245b599ef2"
+
+android_min_api = 29
+android_arch = "arm64-v8a"
+java_major = 17
