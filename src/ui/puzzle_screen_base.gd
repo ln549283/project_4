@@ -10,8 +10,8 @@ func setup_page(title: String, objective: String) -> VBoxContainer:
 	UiFactory.apply_root_theme(self, Session.font_size_px())
 	return UiFactory.make_page(self, title, objective)
 
-func add_common_tools(box: VBoxContainer, puzzle_id: String, verify_action: Callable, reset_action: Callable, undo_action: Callable, functioning_text: String) -> void:
-	box.add_child(UiFactory.make_button("Vérifier", verify_action, true))
+func add_common_tools(box: VBoxContainer, puzzle_id: String, verify_action: Callable, reset_action: Callable, undo_action: Callable, functioning_text: String, verify_label: String = "Vérifier") -> void:
+	box.add_child(UiFactory.make_button(verify_label, verify_action, true))
 	box.add_child(UiFactory.make_button("Annuler", undo_action))
 	box.add_child(UiFactory.make_button("Replacer", reset_action))
 	box.add_child(UiFactory.make_button("Fonctionnement", func(): _show_functioning(functioning_text)))

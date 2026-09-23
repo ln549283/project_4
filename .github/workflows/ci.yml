@@ -51,5 +51,7 @@ jobs:
         run: /tmp/godot/godot --headless --path . --script tests/ui/cargo_test.gd
       - name: T09 flood map greybox tests
         run: /tmp/godot/godot --headless --path . --script tests/ui/flood_map_test.gd
+      - name: T10 passage greybox tests
+        run: /tmp/godot/godot --headless --path . --script tests/ui/passage_test.gd
       - name: Boot main scene
         run: /tmp/godot/godot --headless --path .
