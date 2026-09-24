@@ -148,6 +148,7 @@ func _draw() -> void:
  if arrived:halo(target,60,Color(1,.75,.4,.18))
  draw_arc(target,17,-PI/2,PI/2,28,PAPER if arrived else BRASS,3,true)
  draw_line(target+Vector2(-5,-14),target+Vector2(-5,14),BRASS,3,true)
+ draw_string(ThemeDB.fallback_font,Vector2(36,516),"QUAI",HORIZONTAL_ALIGNMENT_LEFT,-1,27,PAPER if arrived else BRASS)
  for i in range(6):
   var pos:=cell(contract.mirrors[i])
   var lift: float=lifts[i]

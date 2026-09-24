@@ -3,6 +3,7 @@ var scene: Control
 var output: String="res://build/slice-captures"
 func _init() -> void:call_deferred("run")
 func run() -> void:
+ if "--tall" in OS.get_cmdline_user_args():output+="/tall"
  DirAccess.make_dir_recursive_absolute(output)
  scene=load("res://scenes/slice/lantern.tscn").instantiate()
  scene.capture_mode=true
