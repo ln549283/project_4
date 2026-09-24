@@ -112,19 +112,12 @@ func set_enabled(value: bool) -> void:
 func _draw() -> void:
  if border==null:return
  draw_style_box(border,Rect2(0,0,888,888))
- # Physical frame: inset brass edge, a dark engraved groove, fine grain.
- draw_rect(Rect2(22,22,844,844),Color("4c5140"),false,1.0,true)
- draw_rect(Rect2(29,29,830,830),Color("091c22"),false,3.0,true)
- for i in range(52):
-  var y:=42.0+i*15.5
-  draw_line(Vector2(38,y),Vector2(850,y+sin(i*.7)*3),Color(.46,.64,.56,.024),1,true)
+ draw_texture_rect(preload("res://assets/slice/lantern/board.webp"),Rect2(0,0,888,888),false)
  for x in range(7):
   draw_line(Vector2(72+x*124,72),Vector2(72+x*124,816),Color(.64,.68,.5,.08),1,true)
   draw_line(Vector2(72,72+x*124),Vector2(816,72+x*124),Color(.64,.68,.5,.08),1,true)
  for x in range(6):
   for y in range(6):draw_circle(cell([x,y]),2,Color(.64,.68,.5,.23))
- for pos in [Vector2(16,16),Vector2(872,16),Vector2(16,872),Vector2(872,872)]:
-  draw_circle(pos,4,BRASS.darkened(.3));draw_line(pos-Vector2(2,2),pos+Vector2(2,2),Color("1b2727"),1,true)
  var points: Array=trace.path
  for mark in contract.marks:
   var pos:=cell(mark)

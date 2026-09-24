@@ -47,6 +47,7 @@ func _ready() -> void:
   hints=int(Session.state.campaign.hints.p13)
   finished="p13" in Session.state.campaign.solved
  else:_load_local()
+ var matte:=ColorRect.new();matte.color=INK;matte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);matte.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(matte)
  canvas=Control.new()
  canvas.name="Stage"
  canvas.size=Vector2(1080,1920)
@@ -82,19 +83,19 @@ func _ready() -> void:
  var eyebrow:=_label("LES RIVES PLIÉES",Rect2(220,66,640,44),27,GOLD)
  eyebrow.add_theme_constant_override("outline_size",2);hud.add_child(eyebrow)
  hud.add_child(_label("La lanterne du quai",Rect2(140,138,800,100),61,CREAM,true))
- subtitle=_label("Une lumière pour retrouver la rive.",Rect2(130,251,820,70),30,CREAM)
+ subtitle=_label("Une lumière pour retrouver la rive.",Rect2(130,251,820,70),36,CREAM)
  hud.add_child(subtitle)
  sound_button=_button("Son",Rect2(898,28,152,144),toggle_sound,false)
  hud.add_child(sound_button)
  counter=_label("◇  ◇  ◇",Rect2(330,612,420,58),42,GOLD)
  hud.add_child(counter)
- status=_label("Reliez les trois repères, puis le quai.",Rect2(120,685,840,66),32,CREAM)
+ status=_label("Reliez les trois repères, puis le quai.",Rect2(120,685,840,66),36,CREAM)
  hud.add_child(status)
  hud.add_child(_button("Annuler",Rect2(70,1690,280,144),undo,false))
  hud.add_child(_button("Carnet",Rect2(400,1690,280,144),show_notebook,false))
  motion_button=_button("Mouvement",Rect2(730,1690,280,144),toggle_motion,false)
  hud.add_child(motion_button)
- hud.add_child(_label("TOUCHER POUR TOURNER · MAINTENIR POUR EXAMINER",Rect2(70,1840,940,38),20,Color("b8b7a8")))
+ hud.add_child(_label("TOUCHER · TOURNER   /   MAINTENIR · EXAMINER",Rect2(70,1840,940,38),27,Color("b8b7a8")))
  _refresh_controls()
  if finished:
   begun=true;reveal=1;board.set_enabled(false);_show_ending()
@@ -121,14 +122,14 @@ func _label(text: String,rect: Rect2,px: int,color: Color=CREAM,serif: bool=fals
  return label
 func _button(text: String,rect: Rect2,callback: Callable,filled: bool=true) -> Button:
  var b:=Button.new();b.text=text;b.position=rect.position;b.size=rect.size;b.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
- b.add_theme_font_size_override("font_size",32 if text!="‹" else 62)
+ b.add_theme_font_size_override("font_size",42 if text!="‹" else 62)
  for key in ["normal","hover","pressed","focus"]:
   var style:=StyleBoxFlat.new()
-  style.bg_color=Color("d7b777") if filled else Color(.035,.09,.105,.7)
+  style.bg_color=Color("d7b777") if filled else Color(.035,.09,.105,.0)
   if key=="pressed":style.bg_color=style.bg_color.darkened(.18)
   if key=="hover":style.bg_color=style.bg_color.lightened(.1)
   style.set_corner_radius_all(12)
-  style.set_border_width_all(2 if key=="focus" else 1)
+  style.set_border_width_all(2 if key=="focus" else (1 if filled else 0))
   style.border_color=CREAM if key=="focus" else Color(.71,.6,.4,.45)
   b.add_theme_stylebox_override(key,style)
  b.add_theme_color_override("font_color",INK if filled else CREAM)
@@ -139,9 +140,15 @@ func _button(text: String,rect: Rect2,callback: Callable,filled: bool=true) -> B
 func _new_modal() -> Control:
  if modal_tween!=null and modal_tween.is_valid():modal_tween.kill()
  if modal!=null:modal.queue_free()
+ hud.visible=false
+ board.visible=false
  modal=Control.new();modal.size=Vector2(1080,1920);canvas.add_child(modal)
- var shade:=ColorRect.new();shade.color=Color(.01,.025,.035,.76);shade.size=modal.size
+ var shade:=ColorRect.new();shade.color=Color(.01,.025,.035,.78);shade.size=modal.size
  modal.add_child(shade)
+ modal.add_child(_button("‹",Rect2(30,28,148,144),func():
+  if begun and not finished:_close_modal()
+  else:leave()
+ ,false))
  modal.modulate.a=0
  modal_tween=create_tween();modal_tween.tween_property(modal,"modulate:a",1.0,.08 if reduced else .28)
  board.set_enabled(false)
@@ -152,13 +159,15 @@ func _close_modal() -> void:
  var old: Control=modal;modal=null
  old.mouse_filter=Control.MOUSE_FILTER_IGNORE
  old.queue_free()
+ hud.visible=true
+ board.visible=true
  board.set_enabled(begun and not finished)
 func _show_intro() -> void:
  var m:=_new_modal()
  m.add_child(_label("ÉTUDE DE LUMIÈRE",Rect2(130,500,820,60),27,GOLD))
  m.add_child(_label("La nuit n’efface\npas les chemins.",Rect2(120,600,840,230),68,CREAM,true))
- m.add_child(_label("Dans l’atelier, les notes d’Aline révèlent comment la lumière guidait les secours jusqu’au quai.",Rect2(180,880,720,220),38))
- m.add_child(_label("Faites pivoter les six miroirs.\nTraversez les trois repères ◇,\npuis rejoignez l’ouverture à gauche.",Rect2(170,1140,740,200),34,Color("d0c8b3")))
+ m.add_child(_label("Dans l’atelier, les notes d’Aline révèlent comment la lumière guidait les secours jusqu’au quai.",Rect2(180,880,720,220),44))
+ m.add_child(_label("Touchez pour tourner un miroir.\nMaintenez pour l’examiner.\nReliez les trois repères ◇ au quai.",Rect2(170,1140,740,200),42,Color("d0c8b3")))
  m.add_child(_button("Entrer dans l’atelier",Rect2(230,1460,620,144),begin))
 func begin() -> void:
  begun=true
@@ -212,7 +221,8 @@ func _refresh_status() -> void:
  var ray: Dictionary=Rules.light_trace(contract,puzzle)
  var count: int=int(ray.marks)
  counter.text=" ".join(["◆" if count>0 else "◇","◆" if count>1 else "◇","◆" if count>2 else "◇"])
- status.text="%d / 3 repères éclairés · rejoignez le quai"%count
+ status.text="%d / 3 repères · rejoignez le quai"%count
+ if save_error:status.text="Sauvegarde indisponible · gardez le jeu ouvert."
  if count>prior_marks and begun:audio.play_cue("mark")
  prior_marks=count
 func inspect_mirror(index: int) -> void:
@@ -222,8 +232,14 @@ func inspect_mirror(index: int) -> void:
  var sprite:=TextureRect.new();sprite.texture=preload("res://assets/slice/lantern/mirror.webp");sprite.position=Vector2(280,480);sprite.size=Vector2(520,520);sprite.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;sprite.mouse_filter=Control.MOUSE_FILTER_IGNORE
  sprite.pivot_offset=Vector2(260,260);sprite.rotation=-PI/4 if int(puzzle.turns[index])==0 else PI/4
  m.add_child(sprite)
+ if not reduced:
+  sprite.position=board.position+board.cell(contract.mirrors[index])-Vector2(260,260)
+  sprite.scale=Vector2.ONE*.26
+  var lift:=create_tween().set_parallel(true)
+  lift.tween_property(sprite,"position",Vector2(280,480),.38).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+  lift.tween_property(sprite,"scale",Vector2.ONE,.38).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
  m.add_child(_label("Un quart de tour",Rect2(150,1080,780,100),62,CREAM,true))
- m.add_child(_label("Le laiton pivote, le reflet change.\nChaque miroir dévie la lumière\nà angle droit.",Rect2(150,1220,780,190),38))
+ m.add_child(_label("Le laiton pivote, le reflet change.\nChaque miroir dévie la lumière\nà angle droit.",Rect2(150,1220,780,190),44))
  m.add_child(_button("Reposer le miroir",Rect2(230,1520,620,144),_close_modal))
 func show_notebook() -> void:
  if modal!=null or finished:return
@@ -232,7 +248,7 @@ func _notebook_page() -> void:
  var m:=_new_modal()
  m.add_child(_label("LE CARNET D’ALINE",Rect2(130,400,820,60),28,GOLD))
  m.add_child(_label("Suivre la lumière",Rect2(120,510,840,110),62,CREAM,true))
- m.add_child(_label("« Trois repères, puis la rive.\nCe n’est pas la distance qui compte,\nmais ce que la lumière traverse. »",Rect2(140,675,800,240),38))
+ m.add_child(_label("« Trois repères, puis la rive.\nCe n’est pas la distance qui compte,\nmais ce que la lumière traverse. »",Rect2(140,675,800,240),44))
  var hint_text: String="Observez le trajet depuis la lanterne.\nUn toucher fait pivoter un miroir."
  if hints>0:hint_text=str(contract.hints[mini(hints,3)-1])
  m.add_child(_label(hint_text,Rect2(160,1000,760,240),36,Color("d9caab")))
@@ -246,7 +262,7 @@ func _show_ending() -> void:
  var m:=_new_modal()
  m.add_child(_label("LE QUAI RETROUVÉ",Rect2(130,520,820,60),27,GOLD))
  m.add_child(_label("Quelqu’un avait\npréparé le chemin.",Rect2(110,640,860,230),65,CREAM,true))
- m.add_child(_label("La lumière rejoint la rive.\nAline avait pensé à ceux qui\narriveraient après la tombée de la nuit.",Rect2(160,960,760,220),38))
+ m.add_child(_label("La lumière rejoint la rive.\nAline avait pensé à ceux qui\narriveraient après la tombée de la nuit.",Rect2(160,960,760,220),44))
  m.add_child(_label("Les pièces du passage prennent sens.\nIl reste à reconstituer le sauvetage.",Rect2(160,1220,760,160),33,Color("d3c7ab")))
  m.add_child(_button("Continuer" if campaign_mode else "Quitter l’atelier",Rect2(230,1460,620,144),leave))
  if not campaign_mode:m.add_child(_button("Rejouer cette séquence",Rect2(230,1640,620,144),replay,false))
@@ -284,6 +300,7 @@ func _load_local() -> void:
   hints=clampi(int(config.get_value("slice","hints",0)),0,3)
 func leave() -> void:
  if not is_inside_tree():return
+ if campaign_mode and finished:Session.state.acknowledge_narrative("n_p13")
  _persist()
  board.set_enabled(false)
  if reduced:

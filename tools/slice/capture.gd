@@ -26,6 +26,9 @@ func run() -> void:
  await shot("05-light-arrives")
  await create_timer(1.8).timeout
  await shot("06-conclusion")
+ scene.queue_free()
+ await process_frame
+ await process_frame
  quit()
 func shot(name: String) -> void:
  await RenderingServer.frame_post_draw

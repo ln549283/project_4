@@ -14,6 +14,7 @@ Le bouton Calme/Mouvement applique le mouvement réduit : pas de parallaxe/refle
 ## Assets livrés
 `assets/slice/lantern/` :
 - `atelier.webp` : illustration de fond 1024×1536, compression de l'image originale générée ; eau et lueur animées dans le shader, sans déformation de toute l'image.
+- `board.webp` : plateau de bois bleu patiné et laiton, sans règles peintes dans la texture ; repères et grille discrets dessinés par le moteur.
 - `mirror.webp` : instrument isolé avec alpha, 512×512 ; six instances réutilisées, inspection agrandie.
 - `title.ttf` : DejaVu Serif, licence incluse dans FONT_LICENSE.txt.
 - `river_theme.ogg` : composition originale déterministe de 64 secondes, notes espacées, résonances douces. Source reproductible `tools/slice/generate_audio.py`.
