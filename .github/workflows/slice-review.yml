@@ -21,6 +21,8 @@ jobs:
         run: |
           /tmp/godot/godot --headless --path . --editor --quit
           python3 tools/run_godot_tests.py /tmp/godot/godot
+      - name: Install video encoder
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
       - name: Capture real Godot rendering
         run: |
           mkdir -p build/slice-captures
