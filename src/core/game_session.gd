@@ -26,7 +26,7 @@ const ROUTES := {
 	"p10": "res://scenes/puzzles/p10.tscn",
 	"p11": "res://scenes/puzzles/p11.tscn",
 	"p12": "res://scenes/puzzles/p12.tscn",
-	"p13": "res://scenes/puzzles/p13.tscn",
+	"p13": "res://scenes/slice/lantern_campaign.tscn",
 	"p14": "res://scenes/puzzles/p14.tscn",
 	"p15": "res://scenes/puzzles/p15.tscn",
 	"p16": "res://scenes/puzzles/p16.tscn",
