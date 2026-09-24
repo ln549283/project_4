@@ -9,6 +9,7 @@ const GOLD=Color("d8b777")
 @export var campaign_mode := false
 var canvas: Control
 var background: TextureRect
+var veils: Array[TextureRect]=[]
 var board: Control
 var audio: Node
 var hud: Control
@@ -114,11 +115,18 @@ func _fit() -> void:
   var art_scale:=maxf(size.x/1024.0,size.y/1536.0)
   background.size=Vector2(1024,1536)*art_scale
   background.position=Vector2.ZERO
+ for i in range(veils.size()):
+  var height: float=(360.0 if i==0 else 280.0)*factor
+  veils[i].position=Vector2(0,0 if i==0 else size.y-height)
+  veils[i].size=Vector2(size.x,height)
 func _veil(rect: Rect2,top: Color,bottom: Color) -> void:
  var gradient:=Gradient.new();gradient.colors=PackedColorArray([top,bottom])
  var tex:=GradientTexture2D.new();tex.gradient=gradient;tex.fill_from=Vector2(0,0);tex.fill_to=Vector2(0,1)
  var view:=TextureRect.new();view.texture=tex;view.position=rect.position;view.size=rect.size;view.mouse_filter=Control.MOUSE_FILTER_IGNORE
- canvas.add_child(view)
+ add_child(view)
+ move_child(view,canvas.get_index())
+ veils.append(view)
+ _fit()
 func _label(text: String,rect: Rect2,px: int,color: Color=CREAM,serif: bool=false) -> Label:
  var label:=Label.new();label.text=text;label.position=rect.position;label.size=rect.size
  label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
