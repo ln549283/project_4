@@ -80,4 +80,10 @@ static func make_page(root: Control, title: String, objective: String = "") -> V
 		backdrop.name = "RoomBackdrop"
 		backdrop.z_index = -1
 		root.add_child(backdrop)
+	if root.is_inside_tree() and not root.has_meta("page_entered"):
+		root.set_meta("page_entered", true)
+		var session := root.get_node_or_null("/root/Session")
+		if session != null and not bool(session.settings.reduced_motion):
+			margin.modulate.a = 0.0
+			root.create_tween().tween_property(margin, "modulate:a", 1.0, 0.3)
 	return box

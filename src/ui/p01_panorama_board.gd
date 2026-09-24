@@ -12,14 +12,21 @@ const BORDER := Color(0.60, 0.62, 0.66, 1.0)
 const SELECTED := Color(1.0, 0.82, 0.42, 1.0)
 const FIXED := Color(0.34, 0.36, 0.40, 1.0)
 
+var session: Node
+var previous_order: Array = []
+var movement := 1.0
 var order: Array = []
 var contract: Dictionary = {}
 var selected := -1
 var piece_rects: Array[Rect2] = []
 
 func _ready() -> void:
+	session = get_node_or_null("/root/Session")
 	custom_minimum_size = Vector2(0, 800)
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	if not previous_order.is_empty() and session != null and not bool(session.settings.reduced_motion):
+		movement = 0.0
+		create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).tween_method(func(value: float): movement = value; queue_redraw(), 0.0, 1.0, 0.32)
 
 func configure(new_order: Array, new_contract: Dictionary, new_selected: int) -> void:
 	order = new_order.duplicate()
@@ -39,9 +46,10 @@ func _gui_input(event: InputEvent) -> void:
 			accept_event()
 
 func _handle_tap(position: Vector2) -> void:
+	if movement < 1.0: return
 	for i in range(piece_rects.size()):
 		if piece_rects[i].has_point(position):
-			if Session.presentation_audio != null: Session.presentation_audio.touch()
+			if session != null and session.presentation_audio != null: session.presentation_audio.touch()
 			piece_pressed.emit(i)
 			return
 
@@ -65,6 +73,10 @@ func _draw() -> void:
 	for i in range(order.size()):
 		var id := str(order[i])
 		var rect := piece_rects[i]
+		if not previous_order.is_empty():
+			var old_index := previous_order.find(id)
+			if old_index >= 0: rect.position = piece_rects[old_index].position.lerp(rect.position,movement)
+		if i == selected: rect.position.y -= 10
 		draw_rect(Rect2(rect.position+Vector2(0,7),rect.size), Color(0,0,0,0.45))
 		var source := Rect2(ART_ORDER.find(id)*LANDSCAPE.get_width()/5.0,0,LANDSCAPE.get_width()/5.0,LANDSCAPE.get_height())
 		draw_texture_rect_region(LANDSCAPE,rect,source)
