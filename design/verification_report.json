@@ -1,5 +1,294 @@
 {
-  "design_version": "1.1",
+  "expansion": {
+    "p08": {
+      "count": 1,
+      "examined": 720,
+      "solution": {
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    "p09": {
+      "examined": 223,
+      "moves": [
+        [
+          1,
+          1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          8,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          7,
+          -1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "minimum_moves": 21,
+      "solution": {
+        "positions": [
+          4,
+          0,
+          0,
+          2,
+          1,
+          0,
+          3,
+          2,
+          0,
+          4
+        ]
+      }
+    },
+    "p10": {
+      "count": 4,
+      "examined": 865,
+      "solution": {
+        "placements": [
+          [
+            3,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            3,
+            0
+          ]
+        ]
+      }
+    },
+    "p11": {
+      "count": 2,
+      "examined": 24,
+      "solution": {
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    "p12": {
+      "examined": 16,
+      "minimum_moves": 7,
+      "moves": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "solution": {
+        "volumes": [
+          4,
+          4,
+          0
+        ]
+      }
+    },
+    "p13": {
+      "count": 1,
+      "examined": 64,
+      "solution": {
+        "turns": [
+          1,
+          1,
+          0,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    "p14": {
+      "count": 1,
+      "examined": 256,
+      "solution": {
+        "turns": [
+          0,
+          1,
+          1,
+          0
+        ]
+      }
+    },
+    "p15": {
+      "count": 2,
+      "solution": {
+        "chosen": [
+          3,
+          5,
+          8
+        ]
+      }
+    },
+    "p16": {
+      "examined": 22,
+      "minimum_moves": 5,
+      "moves": [
+        [
+          0,
+          1
+        ],
+        [
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "solution": {
+        "bank": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "boat": 1
+      }
+    },
+    "p17": {
+      "count": 1,
+      "examined": 125,
+      "solution": {
+        "offsets": [
+          0,
+          2,
+          1,
+          3
+        ]
+      }
+    }
+  },
+  "design_version": "1.2",
   "checks": "PASS",
   "note": "Combinatorial design checks; not human playtests or Android tests.",
   "puzzles": [
@@ -250,32 +539,52 @@
     [
       "p00",
       "p01",
+      "p08",
+      "p09",
       "p02",
       "p03",
       "p04",
+      "p10",
       "p05",
+      "p11",
+      "p12",
+      "p17",
       "p06",
+      "p16",
+      "p14",
+      "p15",
+      "p13",
       "p07",
       "ending"
     ],
     [
       "p00",
       "p01",
+      "p08",
+      "p09",
       "p02",
       "p04",
       "p03",
+      "p10",
       "p05",
+      "p11",
+      "p12",
+      "p17",
       "p06",
+      "p16",
+      "p14",
+      "p15",
+      "p13",
       "p07",
       "ending"
     ]
   ],
-  "reachable_progression_states": 11,
+  "reachable_progression_states": 21,
   "evidence_availability": "PASS for both branch orders",
-  "hints": 21,
+  "hints": 51,
   "asset_manifest": {
-    "entries": 159,
-    "required_v1": 132,
+    "entries": 169,
+    "required_v1": 142,
     "ignored_v1": 27
   },
   "document_links": "PASS",

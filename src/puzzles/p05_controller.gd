@@ -65,7 +65,7 @@ func _return_selected() -> void:
 		return
 	var slots: Array = Session.state.campaign["puzzles"]["p05"]["slots"]
 	history.append(slots.duplicate())
-	var result := Session.state.place_cargo(selected_item, -1)
+	var result: Dictionary = Session.state.place_cargo(selected_item, -1)
 	if result.get("ok", false):
 		Session.save_now()
 	else:

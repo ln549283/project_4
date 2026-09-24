@@ -4,10 +4,10 @@ extends RefCounted
 const PUZZLES_PATH := "res://design/puzzles.json"
 const EVIDENCE_PATH := "res://design/evidence.json"
 const HINTS_PATH := "res://design/hints_fr.json"
-const DESIGN_VERSION := "1.1"
-const STAGES := ["p00", "p01", "p02", "p03", "p04", "p05", "p06", "p07", "ending"]
-const PUZZLES := ["p00", "p01", "p02", "p03", "p04", "p05", "p06", "p07"]
-const HINT_STAGES := ["p01", "p02", "p03", "p04", "p05", "p06", "p07"]
+const DESIGN_VERSION := "1.2"
+const STAGES := ["p00", "p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "ending"]
+const PUZZLES := ["p00", "p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17"]
+const HINT_STAGES := ["p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17"]
 
 static func load_and_validate() -> Dictionary:
 	var errors: Array[String] = []
@@ -29,6 +29,7 @@ static func validate_contracts(puzzles: Dictionary, evidence: Dictionary, hints:
 	_validate_versions(puzzles, evidence, errors)
 	_validate_progression(puzzles, errors)
 	_validate_puzzle_sections(puzzles, errors)
+	_validate_expansion(puzzles, errors)
 	_validate_evidence(evidence, errors)
 	_validate_hints(hints, errors)
 	return {"ok": errors.is_empty(), "errors": errors}
@@ -177,5 +178,16 @@ static func _validate_hints(hints: Dictionary, errors: Array[String]) -> void:
 	for stage: Variant in hints.keys():
 		if str(stage) not in HINT_STAGES:
 			errors.append("hints.unknown_stage:%s" % str(stage))
-	if total != 21:
-		errors.append("hints.expected_21_got_%d" % total)
+	if total != 51:
+		errors.append("hints.expected_51_got_%d" % total)
+
+static func _validate_expansion(puzzles: Dictionary, errors: Array[String]) -> void:
+	var rules = preload("res://src/rules/expansion_rules.gd")
+	for i in range(8,18):
+		var id := "p%02d" % i
+		var p: Dictionary = puzzles.get(id,{})
+		if not p.has("kind") or not p.get("initial") is Dictionary or not p.get("solution") is Dictionary:
+			errors.append("expansion_contract_shape:"+id)
+			continue
+		if not rules.valid_state(p,p.initial) or not rules.validate(p,p.solution).valid:
+			errors.append("expansion_invalid_state_or_solution:"+id)

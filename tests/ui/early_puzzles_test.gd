@@ -38,6 +38,7 @@ func _init() -> void:
 	_expect(state.resolve_puzzle("p01").get("ok", false), "p01 progression resolves")
 	for evidence_id in ["evidence_photo_note", "evidence_photo_f4", "evidence_photo_f1", "evidence_photo_f5", "evidence_photo_f2", "evidence_photo_f3"]:
 		_expect(evidence_id in state.available_evidence(), "p02 evidence available: " + evidence_id)
+	preload("res://tests/campaign_fixture.gd").solve_added(state,["p08","p09"])
 	_expect(state.resolve_puzzle("p02").get("ok", false), "p02 progression resolves")
 	_expect(state.can_enter("p03"), "p03 unlocked")
 	_expect(state.can_enter("p04"), "p04 unlocked")

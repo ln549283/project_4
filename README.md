@@ -1,10 +1,7 @@
-# Les Rives pliées
+# Les Rives pliées — campagne 1.2
 
-Jeu d'énigme narratif premium Android — **conception 1.1 auditée, production non commencée**.
+17 énigmes + prise en main P00, jouables en greybox. Dix ajouts intégrés au rythme de la campagne ; assets finaux et mesure novice encore à faire.
 
-- [MASTER_PLAN.md](MASTER_PLAN.md) : état exact et source de vérité.
-- [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md) : tâches ordonnées, première tâcheT01.
-- [ASSET_BIBLE.md](ASSET_BIBLE.md) : direction artistique et inventaire exhaustif.
-- [Audit critique](docs/AUDIT.md) et [simulation novice](docs/WALKTHROUGH.md).
+Lire [MASTER_PLAN.md](MASTER_PLAN.md), [docs/EXPANSION_1_2.md](docs/EXPANSION_1_2.md), [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md) et [ASSET_BIBLE.md](ASSET_BIBLE.md).
 
-Vérification du dossier : `python3 tools/verify_design.py` puis `python3 tools/build_design_plates.py`. Ces scripts ne sont pas le jeu et ne remplacent pas des playtests. Objectif60–90 minutes non mesuré ; validation novice obligatoire avant production artistique massive et commercialisation.
+Vérification : `python3 tools/verify_design.py`, `python3 tools/verify_expansion.py`, puis `python3 tools/run_godot_tests.py /chemin/vers/godot`. Godot 4.6.2 Standard.

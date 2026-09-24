@@ -153,7 +153,7 @@ func _set_water(level: int) -> void:
 
 func _place_fragment(fragment_id: String, gap_id: Variant) -> void:
 	history.append(_snapshot())
-	var result := Session.state.place_fragment(fragment_id, gap_id)
+	var result: Dictionary = Session.state.place_fragment(fragment_id, gap_id)
 	if result.get("ok", false):
 		Session.save_now()
 		feedback = ""

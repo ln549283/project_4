@@ -126,7 +126,7 @@ func _phase_pressed(phase: int) -> void:
 			_rebuild()
 		return
 	history.append(_snapshot())
-	var result := Session.state.place_p07_action(selected_action, phase)
+	var result: Dictionary = Session.state.place_p07_action(selected_action, phase)
 	if result.get("ok", false):
 		Session.save_now()
 		feedback = ""
@@ -140,7 +140,7 @@ func _return_selected() -> void:
 	if selected_action.is_empty():
 		return
 	history.append(_snapshot())
-	var result := Session.state.place_p07_action(selected_action, -1)
+	var result: Dictionary = Session.state.place_p07_action(selected_action, -1)
 	if result.get("ok", false):
 		Session.save_now()
 	else:

@@ -1,3 +1,5 @@
+> **Version active : 1.2.** Les paragraphes 1.1 ci-dessous décrivent la base conservée ; l’extension en fin de document et [EXPANSION_1_2.md](EXPANSION_1_2.md) définissent les ajouts et prennent priorité sur les anciens nombres et prérequis.
+
 # Bible narrative et script intégral — français — conception 1.1
 
 ## Voix et mise en scène
@@ -169,3 +171,19 @@ P05 reconstitue le chargement de transport **avant** livraison, sur un modèle d
 
 ## Continuité du lieu présent
 La restauration se déroule dans une salle municipale, pas dans l’atelier détruit. Le fonds contient la maquette et des objets conservés. Aucun plan présent ne montre l’ancien bâtiment miraculeusement intact. Les prises de vue de la crue sont des archives ; la maquette pédagogique est une reconstitution.
+
+
+## Extension narrative 1.2
+
+Les dix textes `n_p08` à `n_p17` de `content/dialogue_fr.json` sont acquis et joués à la résolution correspondante, une fois, dans l'ordre de campagne. Ils sont courts et interruptibles. Les feuillets proviennent du fonds fourni dès l'ouverture par Aline. Le récit final, la mère vivante, la survie connue et le transfert du plancher restent inchangés. Les nouveaux exercices expliquent les préparatifs ; ils ne retardent pas artificiellement une réponse qu'un personnage refuserait de donner.
+
+- **n_p08 :** Les façades retrouvent leur place. Sous le socle, un tiroir contient les notes de restauration.
+- **n_p09 :** Le tiroir s'ouvre. Les notes confirment que les photographies montrent la même crue, sans réparation entre les prises.
+- **n_p10 :** Le coffre protège les lots. Il reste à équilibrer leur poids sur la barge.
+- **n_p11 :** Les amarres sont indépendantes. La barge peut rester stable tout en accompagnant la montée de l'eau.
+- **n_p12 :** Les deux réserves sont égales. Les secours ne reposaient pas seulement sur des chemins : il fallait aussi préparer l'accueil.
+- **n_p13 :** Le balisage rejoint le quai. Toutes les pièces du passage sont maintenant compréhensibles ; reste à reconstituer l'opération.
+- **n_p14 :** L'escalier se replie sans rompre ses attaches. La coupe du passage peut accueillir la structure mobile.
+- **n_p15 :** La coupe tient avec trois étais. Ce test explique la nécessité des appuis ; il ne révèle pas encore quelle pièce de l'atelier formait le tablier.
+- **n_p16 :** La halle dispose des réserves et des secouristes. Le groupe de l'école attend encore le passage du clocher au quai.
+- **n_p17 :** Les relevés partagent maintenant la même référence. Le niveau observé sur la photographie peut être comparé aux accès du quartier.

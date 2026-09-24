@@ -1,3 +1,5 @@
+> **Version active : 1.2.** Les paragraphes 1.1 ci-dessous décrivent la base conservée ; l’extension en fin de document et [EXPANSION_1_2.md](EXPANSION_1_2.md) définissent les ajouts et prennent priorité sur les anciens nombres et prérequis.
+
 # Son et animation — conception 1.1
 
 Direction artistique, formats et inventaire exhaustif : [../ASSET_BIBLE.md](../ASSET_BIBLE.md). Ce document définit uniquement le comportement animé et sonore ; aucune seconde liste de production.
@@ -31,3 +33,8 @@ Bus Master/Music/SFX/Ambience, musique et effets réglables séparément ; le r�
 ## Supports commerciaux
 
 Icône : maisonpapier/plancherpasserelle sur eau graphite, lisible48 px sans texte. Featuregraphique1024×500 depuis artfinal, titre àgauche, marge48 px ; captures réelles panorama/routes/barge/plancher. Description : « Dépliez une ville de papier et reconstituez un sauvetage. Observez, reliez et transformez les pièces d'une maquette dans une aventure d'énigmes sans publicité, jouable hors ligne. » Ne promettre durée/langues qu'après validation.
+
+
+## Extension 1.2 — Gestes et rythme
+
+Les dix ajouts réutilisent les matières papier/bois/eau, sans nouvelle scène géographique ni troisième musique imposée. Prévoir glissement sec pour P09, pose étouffée P10/P15, frottement de corde P11, versement P12 et passage doux P16, sans information exclusivement sonore. Réutiliser les SFX existants tant que la production sonore finale n'a pas commencé ; ne pas déclarer ces bruitages finalisés. Aucune transition ne retarde l'entrée joueur. Une réussite courte ferme chaque exercice ; les pauses plus longues restent aux changements d'acte.

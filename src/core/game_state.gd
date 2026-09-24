@@ -56,7 +56,7 @@ func _initial_hints() -> Dictionary:
 
 func _initial_puzzles() -> Dictionary:
 	var p06_initial: Dictionary = puzzles_contract.get("p06", {}).get("initial", {}).duplicate(true)
-	return {
+	var initial := {
 		"p00": {
 			"latches": puzzles_contract.get("p00", {}).get("initial_latches", [false, false]).duplicate(),
 			"opened": false,
@@ -70,8 +70,13 @@ func _initial_puzzles() -> Dictionary:
 		"p07": {"donor": null, "slots": [null, null, null, null, null, null], "part_a_solved": false},
 	}
 
+	for i in range(8,18):
+		var id := "p%02d" % i
+		initial[id] = puzzles_contract[id].initial.duplicate(true)
+	return initial
+
 func can_enter(stage_id: String) -> bool:
-	return progression != null and progression.can_enter(stage_id, campaign.get("solved", []))
+	return stage_id in campaign.get("solved", []) or (progression != null and progression.can_enter(stage_id, campaign.get("solved", [])))
 
 func available_evidence() -> Array:
 	if evidence_registry == null:
@@ -230,6 +235,9 @@ func resolve_puzzle(puzzle_id: String, resolved_state: Dictionary = {}) -> Dicti
 		return {"ok": false, "error": "unknown_stage"}
 	if puzzle_id == "ending":
 		return {"ok": false, "error": "ending_is_narrative"}
+	if puzzle_id in ["p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17"]:
+		if not preload("res://src/rules/expansion_rules.gd").validate(puzzles_contract[puzzle_id],campaign.puzzles[puzzle_id]).valid:
+			return {"ok":false,"error":"invalid_solution"}
 	var applied: Dictionary = progression.apply_solved(puzzle_id, campaign.get("solved", []))
 	if not applied.get("ok", false):
 		return applied
@@ -283,6 +291,8 @@ func acknowledge_narrative(scene_id: String) -> Dictionary:
 	return {"ok": true, "changed": true}
 
 func _queue_resolution_narrative(puzzle_id: String) -> void:
+	if puzzle_id in ["p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17"]:
+		queue_narrative("n_"+puzzle_id)
 	var scene_by_puzzle := {
 		"p01": "n01",
 		"p02": "n02",

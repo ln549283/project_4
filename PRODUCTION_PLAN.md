@@ -1,11 +1,19 @@
-# Plan de production — conception 1.1
+# Plan de production — conception 1.2
 
-État : **aucune tâche d'implémentation commencée**. Le dossier spécifie le jeu complet ; le travail intermédiaire jouable est un outil interne, jamais le livrable commercial. Ordre imposé ci-dessous. Les tâches T01–T11 utilisent des formes temporaires fidèles aux données ; les illustrations finales attendent le gate T12. Aucune décision créative n'est déléguée au prochain développeur : appliquer MASTER, PUZZLES, NARRATIVE, SCREENS_UX et ASSET_BIBLE.
+État : **T01–T11 déjà implémentés ; extension X01–X04 implémentée en greybox**. Le retour producteur de 35–40 minutes a autorisé dix ajouts. La cible 60–90 minutes doit être remesurée. Les tâches historiques ci-dessous décrivent la base 1.1 ; les lots X01–X04 l'étendent sans changer les sept règles existantes. Aucun asset final n'est annoncé.
+
+| Lot ajouté | Livrable | État / contrôle |
+|---|---|---|
+| X01 Conception et rythme | P08–P17, progression, 30 indices, preuves, solutions, bible synchronisée | Spécifié dans EXPANSION_1_2 ; solveurs indépendants |
+| X02 Greybox visuel | Dix plateaux spatiaux, gestes, essais, annuler/replacer, contrôleurs communs | Implémenté ; chargement et interactions testés |
+| X03 Intégration campagne | Nouveaux objectifs, dialogues, fin, 51 indices, migration 1.1 | Implémenté ; campagne et sauvegardes testées |
+| X04 Vérification | Solveurs, parité, CI, erreurs script bloquantes corrigées | Vérification automatisée ; observation humaine à faire |
+| T12 révisé | 17 énigmes complètes avec 8 novices, temps par énigme et pauses séparées | Prochaine tâche ; aucun résultat humain inventé |
 
 | Tâche | Dépendances | Livrable exact | Critère de fin |
 |---|---|---|---|
-| T01 Environnement et contrats | Dossier1.1 | Godot 4.6.2 Standard, templates identiques, toolchain.lock, projet portrait1080×1920 Compatibility ; import des 3 JSON canoniques | Boot local ; identifiants/prérequis/21 aides validés ; contrat invalide refusé explicitement ; aucune clé dans Git |
-| T02 Règles pures | T01 | Sept validateurs, graphe P06 distinct des ports P03 ; importer exemples/contre-exemples du rapport | Résultats identiques à verify_design.py ; quatre cargaisons et deux variantes de route admises ; aucune comparaison pixels |
+| T01 Environnement et contrats | Dossier1.1 | Godot 4.6.2 Standard, templates identiques, toolchain.lock, projet portrait1080×1920 Compatibility ; import des 3 JSON canoniques | Boot local ; identifiants/prérequis/51 aides validés ; contrat invalide refusé explicitement ; aucune clé dans Git |
+| T02 Règles pures | T01 | Sept validateurs historiques et dix validateurs d’extension, graphe P06 distinct des ports P03 ; importer exemples/contre-exemples du rapport | Résultats identiques à verify_design.py ; quatre cargaisons et deux variantes de route admises ; aucune comparaison pixels |
 | T03 État et preuves | T02 | GameState, commandes transactionnelles, DAG, evidence registry, file narrative ; valeurs initiales JSON | Deux ordres P03/P04 ; reprise/résolution idempotente ; preuves accordées sans lecture obligatoire |
 | T04 Sauvegarde | T03 | Deux slots/enveloppes, hash exact, validation génération et états ; settings séparés ; nouvelle partie avec backup | Arrêt à chaque phase écriture, slot invalide, version future, disque refusé, reprise conclusion testés sans reset silencieux |
 | T05 Navigation/accès | T04 | S00–S04,S12,S14, overlays, retourAndroid, carnet/épinglage/comparaison, texte150%, objectifs | Tout accessible au toucher48 dp ; retour conserve sélection et brouillon ; prochaine action visible |
@@ -32,6 +40,10 @@ Mettre à jour docs/PRODUCTION (journal), MASTER (état exact/prochaine tâche),
 
 La colonne scope du manifeste fait foi pour la fabrication : required_v1 obligatoire, ignore_v1 ne pas fabriquer. MASTER énumère les systèmes exclus. Aucun plugin de replay, traduction, export diagnostic ou analytics anticipé. En cas de dérive coût, réduire le décor et les mouvements facultatifs ; ne jamais retirer preuves, indices, fin, sauvegarde ou accessibilité.
 
-## Première tâche à exécuter
+## Première tâche de production historique (déjà exécutée)
 
 **T01 uniquement comme premier lot :** relever HEAD, lire TECHNICAL, installer la version explicite depuis la source officielle, inscrire versions/checksums disponibles dans toolchain.lock, créer le projet et les imports contrôlés ; fournir commande de boot et résultat du test de contrat. Puis poursuivre T02. Ne pas partir d'une scène P03 isolée en oubliant le reste du parcours.
+
+## Prochaine tâche actuelle
+
+T12 sur la campagne 1.2, et non T01. Relever les temps et incompréhensions des dix ajouts, notamment le rangement et les traversées. En cas de fatigue au milieu, alléger une respiration ou déplacer une pause narrative ; ne pas ajouter un onzième puzzle ni ralentir les animations pour atteindre la durée. Après T12, valider une séquence de finition représentative avant généralisation des assets.

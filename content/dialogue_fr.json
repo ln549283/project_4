@@ -1,5 +1,5 @@
 {
-  "design_version": "1.1",
+  "design_version": "1.2",
   "scenes": {
     "n00": [
       "Jo : « Ta mère a confié sa maquette et ses photos à l’exposition. Il reste à rendre le passage compréhensible dans le cartel. »",
@@ -51,6 +51,36 @@
       "Nelle : « Viens voir. Cette fois, on a laissé le passage ouvert. »",
       "Quelques semaines plus tard — l'exposition présente la maquette et son nouveau cartel.",
       "Les Rives pliées\nCe que l'on transforme peut aussi rester."
+    ],
+    "n_p08": [
+      "Les façades retrouvent leur place. Sous le socle, un tiroir contient les notes de restauration."
+    ],
+    "n_p09": [
+      "Le tiroir s'ouvre. Les notes confirment que les photographies montrent la même crue, sans réparation entre les prises."
+    ],
+    "n_p10": [
+      "Le coffre protège les lots. Il reste à équilibrer leur poids sur la barge."
+    ],
+    "n_p11": [
+      "Les amarres sont indépendantes. La barge peut rester stable tout en accompagnant la montée de l'eau."
+    ],
+    "n_p12": [
+      "Les deux réserves sont égales. Les secours ne reposaient pas seulement sur des chemins : il fallait aussi préparer l'accueil."
+    ],
+    "n_p13": [
+      "Le balisage rejoint le quai. Toutes les pièces du passage sont maintenant compréhensibles ; reste à reconstituer l'opération."
+    ],
+    "n_p14": [
+      "L'escalier se replie sans rompre ses attaches. La coupe du passage peut accueillir la structure mobile."
+    ],
+    "n_p15": [
+      "La coupe tient avec trois étais. Ce test explique la nécessité des appuis ; il ne révèle pas encore quelle pièce de l'atelier formait le tablier."
+    ],
+    "n_p16": [
+      "La halle dispose des réserves et des secouristes. Le groupe de l'école attend encore le passage du clocher au quai."
+    ],
+    "n_p17": [
+      "Les relevés partagent maintenant la même référence. Le niveau observé sur la photographie peut être comparé aux accès du quartier."
     ]
   }
 }

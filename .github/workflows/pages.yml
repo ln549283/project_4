@@ -59,6 +59,9 @@ jobs:
       - name: Import project
         run: /tmp/godot/godot --headless --path . --editor --quit
 
+      - name: Verify campaign before publishing
+        run: python3 tools/run_godot_tests.py /tmp/godot/godot
+
       - name: Export Web release
         shell: bash
         run: |

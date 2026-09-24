@@ -53,7 +53,7 @@ func _rebuild() -> void:
 		if slots[i] != null:
 			cargo = str(labels[str(slots[i])]) + "\n" + _mass(int(weights[str(slots[i])]))
 		b.text = "BERCEAU %d\nDistance pivot: %d\n\n%s" % [i + 1, abs(int(positions[i])), cargo]
-		b.pressed.connect(slot_pressed.bind(i))
+		b.pressed.connect(slot_pressed.emit.bind(i))
 		slots_box.add_child(b)
 
 	var tray := Label.new()
@@ -71,7 +71,7 @@ func _rebuild() -> void:
 		var b := Button.new()
 		b.custom_minimum_size = Vector2(0, 120)
 		b.text = "%s\n%s" % [str(labels[id]), _mass(int(weights[id]))]
-		b.pressed.connect(item_pressed.bind(id))
+		b.pressed.connect(item_pressed.emit.bind(id))
 		items.add_child(b)
 
 	var hint := Label.new()

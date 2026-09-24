@@ -33,5 +33,55 @@
     "La longueur seule ne suffit pas. Compare aussi la largeur, le profil et les attaches visibles sur la photographie.",
     "Pour la frise, distingue les gestes qui ont une dernière occasion de ceux qui doivent attendre une certaine hauteur d'eau.",
     "Place d'abord les opérations dont la fenêtre est la plus courte. Puis vérifie que chaque support existe avant qu'on l'utilise, et reste en place jusqu'au dernier passage."
+  ],
+  "p08": [
+    "Les croquis indiquent des positions relatives, pas un ordre de lecture.",
+    "Utilisez la rivière pour distinguer les deux rangées.",
+    "Croisez les voisinages horizontaux avec les deux alignements verticaux."
+  ],
+  "p09": [
+    "Chaque séparateur coulisse uniquement dans sa rainure.",
+    "Il faut libérer toute la rangée de la chemise, pas seulement sa case voisine.",
+    "Déplacez aussi les séparateurs éloignés : ils réservent l'espace dont les autres ont besoin."
+  ],
+  "p10": [
+    "Les cinq lots remplissent exactement le coffre.",
+    "Les pièces peuvent tourner, mais pas se retourner comme dans un miroir.",
+    "Réservez une place aux formes les moins souples avant de remplir les petits vides."
+  ],
+  "p11": [
+    "Les deux taquets fixés au quai ne bougent pas.",
+    "Suivez une corde à la fois jusqu'à son autre extrémité.",
+    "Deux cordes peuvent partager un taquet ; elles ne peuvent pas se couper entre deux taquets."
+  ],
+  "p12": [
+    "Un versement s'arrête quand la source est vide ou la destination pleine.",
+    "Le petit récipient peut servir de mesure intermédiaire, puis être vidé dans un autre.",
+    "Cherchez à garder un reste utile dans le récipient du milieu plutôt qu'à le remplir toujours depuis zéro."
+  ],
+  "p13": [
+    "Un miroir renvoie le rayon à angle droit.",
+    "Les repères doivent tous être traversés, pas seulement la sortie atteinte.",
+    "Partez de la lanterne et vérifiez le trajet jusqu'au premier miroir qui détourne le rayon hors du plateau."
+  ],
+  "p14": [
+    "Chaque charnière change la direction de la partie qui la suit.",
+    "Les montants et les segments déjà posés sont des obstacles.",
+    "Comparez la place libre autour des longs segments avant d'orienter le plus court."
+  ],
+  "p15": [
+    "Les deux culées aux extrémités portent déjà la traverse.",
+    "Une charge lourde doit être au droit d'un étai ou d'une culée.",
+    "Après les charges lourdes, cherchez le vide qui dépasse la portée autorisée."
+  ],
+  "p16": [
+    "Il faut toujours un secouriste à bord pour manœuvrer.",
+    "Le retour consomme une place lui aussi : prévoyez qui ramène la navette.",
+    "Les caisses peuvent attendre seules. Utilisez cette liberté pour répartir les traversées."
+  ],
+  "p17": [
+    "Les graduations locales ne commencent pas toutes à la même hauteur.",
+    "Raccordez les marques identiques entre deux bandes voisines.",
+    "Utilisez la bande fixe comme référence, puis reportez chaque raccord au suivant."
   ]
 }

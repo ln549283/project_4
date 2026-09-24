@@ -1,3 +1,5 @@
+> **Version active : 1.2.** Les paragraphes 1.1 ci-dessous décrivent la base conservée ; l’extension en fin de document et [EXPANSION_1_2.md](EXPANSION_1_2.md) définissent les ajouts et prennent priorité sur les anciens nombres et prérequis.
+
 # Audit critique externe — 23 septembre 2026
 
 ## Avis du Game Director
@@ -46,3 +48,8 @@ Le nombre de lieux et de masters est contenu, mais cinq images fonctionnelles co
 Voir WALKTHROUGH pour parcours intégral, erreurs plausibles, disponibilité des preuves et retour après fermeture. verify_design.py énumère **1862 configurations de puzzles**, contrôle les deux ordres de branche,11 états de progression atteignables et21 indices. P06 distingue configurations de carte et chemins :1carte admise mais2triplets de routes. Ces contrôles prouvent des propriétés du modèle, pas la perception des assets nonproduits, ni l'absence de bugs dans un jeu qui n'existe pas.
 
 Décision verrouillée1.1 : produire selon plan. Gates empiriques nonlevés :60–90 min, difficulté ressentie, confortmobile, plaisir, lisibilité des photos et performance. Si le premier parcours jouable confirme une durée trop courte, la cible du producteur n'est pas satisfaite : bloquer la production coûteuse et réviser de manière motivée ; ne pas annoncer un jeu commercial terminé.
+
+
+## Revue critique 1.2
+
+Les dix ajouts évitent un bloc autonome de mini-jeux après la fin : ils sont intercalés et reliés au même sauvetage. Les plus gros risques sont le caractère familier du partage de volumes, la fatigue spatiale P10/P05 et les commandes de P14. Mesurer ces points en T12. P15 reste court et explicite ; son budget est réduit à 1–2 minutes pour ne pas gonfler la durée. Les solutions multiples P10/P11/P15 sont admises. Les collisions, faux points de corde, changements de prérequis et sauvegardes anciennes ont des contrôles dédiés. Aucune promesse de 90 minutes ne découle automatiquement de 17 énigmes.

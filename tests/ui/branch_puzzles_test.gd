@@ -36,10 +36,12 @@ func _init() -> void:
 		state.configure(loaded["data"])
 		state.new_campaign("t07")
 		for prefix in ["p00", "p01", "p02"]:
+			if prefix == "p02":
+				preload("res://tests/campaign_fixture.gd").solve_added(state,["p08","p09"])
 			_expect(state.resolve_puzzle(prefix).get("ok", false), "resolve prefix " + prefix)
 		for stage: Variant in order:
 			_expect(state.resolve_puzzle(str(stage)).get("ok", false), "resolve branch " + str(stage))
-		_expect(state.can_enter("p05"), "p05 unlocked after either branch order")
+		_expect(state.can_enter("p10"), "packing unlocked after either branch order")
 		_expect("evidence_cargo" in state.available_evidence(), "cargo evidence available at join")
 		_expect_eq(state.campaign["narrative"]["pending"].count("n05"), 1, "n05 queued once")
 	_finish()

@@ -67,7 +67,7 @@ func _rebuild_geometry() -> void:
 	var margin := 10.0
 	var width := (size.x - margin * 2.0 - gap * 2.0) / 3.0
 	for i in range(3):
-		var id := ["roof", "door", "floor"][i]
+		var id: String = ["roof", "door", "floor"][i]
 		donor_rects[id] = Rect2(Vector2(margin + float(i) * (width + gap), 230), Vector2(width, 300))
 
 func _draw_reference(rect: Rect2) -> void:

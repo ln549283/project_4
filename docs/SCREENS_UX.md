@@ -1,3 +1,5 @@
+> **Version active : 1.2.** Les paragraphes 1.1 ci-dessous décrivent la base conservée ; l’extension en fin de document et [EXPANSION_1_2.md](EXPANSION_1_2.md) définissent les ajouts et prennent priorité sur les anciens nombres et prérequis.
+
 # Écrans, navigation, interactions et accessibilité
 
 ## Cadre commun
@@ -92,3 +94,10 @@ Objectifs persistants, bouton « Continuer le travail » ouvrant la vue concern�
 O02 contient exactement trois indices par P01–P07, compteur 0–3, révélation par toucher et confirmation textuelle de demande ; pas de quatrième aide ni auto-solution. P00 possède seulement instruction gestuelle visible. O05 : réessayer sauvegarde, récupération explicite, nouvelle partie confirmée si nécessaire ; aucun bouton export diagnostic fictif.
 
 Frise P07 : rangées 48 dp +8 dp d'espacement, scroll vertical si nécessaire ; plateau six cartes dans tiroir séparé. L'ouverture du tiroir conserve le niveau sélectionné. Aucun bouton masqué à texte 150%. Ces minima priment sur les rectangles schématiques des planches studio.
+
+
+## Vues additionnelles 1.2
+
+Dix routes `p08`–`p17` vers `scenes/puzzles/pXX.tscn`. Titres et objectifs dans les contrats. Navigation de l'établi selon `campaign_order` et les prérequis, pas le numéro d'ID. Chaque plateau expose son état spatial ; aucun input de solution textuel. Réussite → sauvegarde → établi → texte bref → objectif suivant. Les puzzles résolus sont consultables depuis l'exploration finale. Pour une campagne 1.1 migrée, le bouton Établi donne accès aux nouveaux ateliers.
+
+Le contrôleur commun préserve le défilement pendant les gestes, propose Annuler/Replacer/Fonctionnement/Indice/Carnet/Retour, et interdit la mutation des étapes résolues. P09 : sélection puis flèches ; P10 : lot, rotation, ancrage ; P11 : échange de taquets ; P12 : source puis destination ; P13 : miroir puis Allumer ; P14 : orientation des segments ; P15 : choix des appuis ; P16 : équipage puis Traverser ; P17 : déplacements verticaux. Critères à recontrôler sur appareil : absence de glissement involontaire, lisibilité à 150 %, cibles et absence de défilement horizontal.

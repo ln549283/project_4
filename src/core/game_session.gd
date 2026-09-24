@@ -21,7 +21,19 @@ const ROUTES := {
 	"s13": "res://scenes/ending.tscn",
 	"s12": "res://scenes/ui/notebook.tscn",
 	"s14": "res://scenes/credits.tscn",
+	"p08": "res://scenes/puzzles/p08.tscn",
+	"p09": "res://scenes/puzzles/p09.tscn",
+	"p10": "res://scenes/puzzles/p10.tscn",
+	"p11": "res://scenes/puzzles/p11.tscn",
+	"p12": "res://scenes/puzzles/p12.tscn",
+	"p13": "res://scenes/puzzles/p13.tscn",
+	"p14": "res://scenes/puzzles/p14.tscn",
+	"p15": "res://scenes/puzzles/p15.tscn",
+	"p16": "res://scenes/puzzles/p16.tscn",
+	"p17": "res://scenes/puzzles/p17.tscn",
+
 }
+const STAGE_VIEWS := {"p00":"s02","p01":"s05","p02":"s06","p03":"s07","p04":"s08","p05":"s09","p06":"s10","p07":"s11","p08":"p08","p09":"p09","p10":"p10","p11":"p11","p12":"p12","p13":"p13","p14":"p14","p15":"p15","p16":"p16","p17":"p17","ending":"s13"}
 const DEFAULT_SETTINGS := {
 	"text_scale": 1.0,
 	"music": 0.7,
@@ -70,6 +82,8 @@ func initialize() -> Dictionary:
 			state.campaign = (campaign_load["snapshot"] as Dictionary).duplicate(true)
 			state.dirty = false
 			campaign_started = true
+			if not state.campaign.get("legacy_solved",[]).is_empty():
+				recovery_message = "Votre progression précédente est conservée. Dix nouveaux ateliers sont disponibles depuis l’établi."
 			if load_status == "recovered":
 				recovery_message = "La dernière sauvegarde était incomplète. La précédente a été récupérée."
 		"new":
@@ -125,6 +139,9 @@ func save_settings_now() -> Dictionary:
 	return save_service.save_settings(settings)
 
 func navigate(view_id: String, push_history: bool = true) -> Dictionary:
+	for stage: String in STAGE_VIEWS:
+		if STAGE_VIEWS[stage] == view_id and stage != "p00" and not state.can_enter(stage):
+			return {"ok":false,"error":"stage_locked"}
 	var route_result: Dictionary = router.push(view_id) if push_history else router.replace(view_id)
 	if not route_result.get("ok", false):
 		return route_result
@@ -156,29 +173,22 @@ func open_notebook() -> Dictionary:
 func close_notebook() -> Dictionary:
 	return go_back()
 
+func next_stage() -> String:
+	for raw_id: Variant in state.puzzles_contract.campaign_order:
+		var id := str(raw_id)
+		if id not in state.campaign.solved and state.can_enter(id):
+			return id
+	return "ending"
+
+func objective_view() -> String:
+	return str(STAGE_VIEWS.get(next_stage(),"s02"))
+
 func current_objective() -> String:
-	var solved: Array = state.campaign.get("solved", [])
-	if "p00" not in solved:
-		return "Ouvrir le coffret"
-	if "p01" not in solved:
-		return "Raccorder le panorama"
-	if "p02" not in solved:
-		return "Retrouver l'ordre des photographies"
-	if "p03" not in solved and "p04" not in solved:
-		return "Choisir : chemins de service ou contrejour"
-	if "p03" not in solved:
-		return "Retrouver les chemins de service"
-	if "p04" not in solved:
-		return "Comprendre la silhouette"
-	if "p05" not in solved:
-		return "Stabiliser la cargaison"
-	if "p06" not in solved:
-		return "Retrouver les chemins vers les refuges"
-	if "p07" not in solved:
-		return "Expliquer le passage vers le quai"
-	if not bool(state.campaign.get("completed", false)):
-		return "Ajouter les preuves au cartel"
-	return "Explorer la maquette"
+	var stage := next_stage()
+	var names := {"p00":"Ouvrir le coffret","p01":"Raccorder le panorama","p02":"Retrouver l'ordre des photographies","p03":"Retrouver les chemins de service","p04":"Comprendre la silhouette","p05":"Stabiliser la cargaison","p06":"Retrouver les chemins vers les refuges","p07":"Expliquer le passage vers le quai","ending":"Ajouter les preuves au cartel"}
+	if state.puzzles_contract.get(stage,{}).has("goal"):
+		return str(state.puzzles_contract[stage].goal)
+	return str(names.get(stage,"Explorer la maquette"))
 
 func font_size_px(base_sp: int = 18) -> int:
 	return roundi(float(base_sp * 3) * float(settings.get("text_scale", 1.0)))

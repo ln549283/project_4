@@ -18,6 +18,11 @@ func _ready() -> void:
 			["s11", "Passage"],
 		]:
 			box.add_child(UiFactory.make_button(str(entry[1]), _explore.bind(str(entry[0]))))
+		for i in range(8,18):
+			var id := "p%02d" % i
+			if id in Session.state.campaign.solved:
+				box.add_child(UiFactory.make_button(str(Session.state.puzzles_contract[id].title),_explore.bind(id)))
+	box.add_child(UiFactory.make_button("Établi — suite du travail",func(): Session.navigate("s02",false),true))
 	box.add_child(UiFactory.make_button("Accueil", func(): Session.navigate("s00", false), true))
 
 func _explore(view_id: String) -> void:

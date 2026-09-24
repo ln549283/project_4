@@ -1,3 +1,5 @@
+> **Version active : 1.2.** Les paragraphes 1.1 ci-dessous décrivent la base conservée ; l’extension en fin de document et [EXPANSION_1_2.md](EXPANSION_1_2.md) définissent les ajouts et prennent priorité sur les anciens nombres et prérequis.
+
 # Architecture technique et contrat de production
 
 ## Décision et sources vérifiées le 22 septembre 2026
@@ -132,3 +134,12 @@ EvidenceRegistry : utiliser `design/evidence.json` ; `available_evidence` dériv
 Le JSON illustratif de sauvegarde est un exemple partiel, les valeurs initiales viennent exclusivement de design/puzzles.json. `seen_scenes` est un cache dérivé de narrative.acknowledged, jamais une seconde autorité. Schema1/content1.1 est la première version produite : aucun utilisateur1.0 à migrer. Versions futures inconnues : lecture protégée, ne pas réinitialiser. Les migrations ne seront écrites qu'avec un cas réel documenté.
 
 Échanges P05/P01/P02/P07 atomiques : vérifier les deux destinations avant mutation ; revenir au plateau toujours possible. Historique d'annulation en mémoire ; ne pas promettre sa persistance après arrêt. Remise à zéro locale ne touche ni preuves ni autres puzzles ; désactivée si résolu.
+
+
+## Extension runtime 1.2
+
+`design_version` / `content_version` = 1.2, schéma de sauvegarde conservé à 1. Les 18 états p00–p17 sont explicitement validés. `expansion_rules.gd` traite les dix familles, `expansion_controller.gd` leurs interactions et `expansion_board.gd` leur représentation temporaire. La résolution vérifie les règles, pas une image ni le seul témoin de solution. Les IDs et règles p00–p07 ne changent pas. `campaign_order` pilote objectifs et routes ; les prérequis empêchent l'accès prématuré.
+
+Migration 1.1 : après vérification du hash, contrôler la chaîne historique, remplir les dix états initiaux et indices à zéro, conserver les résolutions historiques dans `legacy_solved` et l'état completed. Reprise à l'établi. Copier les anciennes générations brutes en `.v11_backup` avant remplacement ; refuser l'écriture si ce backup échoue. Les versions inconnues restent protégées. Aucun ajout déclaré résolu par migration.
+
+Les JSON parsés par Godot contiennent des nombres flottants : comparer les indices via conversion entière, notamment les permutations et les volumes. Cette règle est testée après des gestes réels et rechargements, pas seulement sur deux copies du JSON.

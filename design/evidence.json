@@ -1,5 +1,5 @@
 {
-  "design_version": "1.1",
+  "design_version": "1.2",
   "grant_rule": "Evidence is available as soon as prerequisites hold; inspecting or acknowledging dialogue is never required to grant it.",
   "items": [
     {
@@ -145,6 +145,107 @@
       "where": "Conclusion",
       "content_contract": "Correction issue des preuves déjà disponibles.",
       "permanent": true
+    },
+    {
+      "id": "evidence_p08",
+      "title": "Les façades retrouvées",
+      "requires_solved": [
+        "p01"
+      ],
+      "where": "Planche p08 et carnet",
+      "content_contract": "Les bâtiments se sont détachés du socle. Les croquis de Jo montrent leurs voisinages avant la crue. Replacer les six bâtiments en respectant les trois croquis.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p09",
+      "title": "Le tiroir déformé",
+      "requires_solved": [
+        "p08"
+      ],
+      "where": "Planche p09 et carnet",
+      "content_contract": "L'humidité a déplacé les séparateurs du tiroir. Le feuillet est retenu dans sa chemise rigide. Dégager la chemise vers l'ouverture à droite.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p10",
+      "title": "Les caisses au sec",
+      "requires_solved": [
+        "p03",
+        "p04"
+      ],
+      "where": "Planche p10 et carnet",
+      "content_contract": "Les secours étaient rangés dans un coffre étanche. Les cales protégeaient les flacons et les vivres. Remplir le coffre avec les cinq lots, sans chevauchement.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p11",
+      "title": "Les amarres croisées",
+      "requires_solved": [
+        "p05"
+      ],
+      "where": "Planche p11 et carnet",
+      "content_contract": "La barge sera immobilisée sous le passage. Sur le modèle, les cordages doivent rester séparés pour coulisser. Déplacer les quatre taquets libres jusqu'à supprimer tous les croisements.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p12",
+      "title": "L'eau à partager",
+      "requires_solved": [
+        "p11"
+      ],
+      "where": "Planche p12 et carnet",
+      "content_contract": "Une réserve d'eau potable servait aux deux refuges. Trois récipients permettent de reconstituer le partage. Obtenir quatre litres dans chacun des deux grands récipients.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p13",
+      "title": "La lanterne du quai",
+      "requires_solved": [
+        "p15"
+      ],
+      "where": "Planche p13 et carnet",
+      "content_contract": "Un schéma d'Aline décrit un essai de balisage sur la maquette. Les miroirs conduisent la lumière jusqu'au quai. Faire passer le rayon par les trois repères puis atteindre le quai.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p14",
+      "title": "L'escalier articulé",
+      "requires_solved": [
+        "p16"
+      ],
+      "where": "Planche p14 et carnet",
+      "content_contract": "L'escalier de papier est articulé. Repliez-le dans son logement sans traverser les montants. Relier les deux attaches avec les quatre segments, sans collision.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p15",
+      "title": "Les appuis du passage",
+      "requires_solved": [
+        "p14"
+      ],
+      "where": "Planche p15 et carnet",
+      "content_contract": "La coupe du modèle porte les charges et les limites des petites traverses. Les appuis ne doivent pas tomber dans les zones fragiles. Placer exactement trois étais pour soutenir toutes les charges.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p16",
+      "title": "La navette des secours",
+      "requires_solved": [
+        "p06"
+      ],
+      "where": "Planche p16 et carnet",
+      "content_contract": "Avant l'évacuation finale, une petite navette transporte deux secouristes et deux caisses vers la halle. La barge du passage reste distincte. Amener les deux secouristes et les deux caisses sur l'autre rive.",
+      "permanent": true
+    },
+    {
+      "id": "evidence_p17",
+      "title": "Les repères de crue",
+      "requires_solved": [
+        "p12"
+      ],
+      "where": "Planche p17 et carnet",
+      "content_contract": "Quatre bandes de relevé ont glissé dans leur pochette. Leurs raccords conservent la hauteur des marques communes. Aligner les trois paires de marques. La première bande est fixée.",
+      "permanent": true
     }
   ],
   "required_by_stage": {
@@ -185,6 +286,36 @@
     "ending": [
       "evidence_statement",
       "evidence_cartel_final"
+    ],
+    "p08": [
+      "evidence_p08"
+    ],
+    "p09": [
+      "evidence_p09"
+    ],
+    "p10": [
+      "evidence_p10"
+    ],
+    "p11": [
+      "evidence_p11"
+    ],
+    "p12": [
+      "evidence_p12"
+    ],
+    "p13": [
+      "evidence_p13"
+    ],
+    "p14": [
+      "evidence_p14"
+    ],
+    "p15": [
+      "evidence_p15"
+    ],
+    "p16": [
+      "evidence_p16"
+    ],
+    "p17": [
+      "evidence_p17"
     ]
   }
 }

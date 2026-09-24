@@ -36,6 +36,9 @@ func _init() -> void:
 	_expect(state.resolve_puzzle("p01").get("ok", false), "p01 resolve")
 	_ack_all(state)
 
+	preload("res://tests/campaign_fixture.gd").solve_added(state,["p08", "p09"])
+	_ack_all(state)
+
 	state.campaign["puzzles"]["p02"]["order"] = p["p02"]["solution"].duplicate()
 	_expect(ChronologyRules.validate(state.campaign["puzzles"]["p02"]["order"], p["p02"]).get("valid", false), "p02 validator")
 	_expect(state.resolve_puzzle("p02").get("ok", false), "p02 resolve")
@@ -50,16 +53,25 @@ func _init() -> void:
 	_expect(RoutesRules.validate(state.campaign["puzzles"]["p03"]["bits"], p["p03"], p["route_tile_pairs"]).get("valid", false), "p03 validator")
 	_expect(state.resolve_puzzle("p03").get("ok", false), "p03 second branch")
 	_ack_all(state)
-	_expect(state.can_enter("p05"), "join unlocked")
+	_expect(state.can_enter("p10"), "packing join unlocked")
+
+	preload("res://tests/campaign_fixture.gd").solve_added(state,["p10"])
+	_ack_all(state)
 
 	state.campaign["puzzles"]["p05"]["slots"] = p["p05"]["example_solution"].duplicate()
 	_expect(CargoRules.validate(state.campaign["puzzles"]["p05"]["slots"], p["p05"]).get("valid", false), "p05 validator")
 	_expect(state.resolve_puzzle("p05").get("ok", false), "p05 resolve")
 	_ack_all(state)
 
+	preload("res://tests/campaign_fixture.gd").solve_added(state,["p11", "p12", "p17"])
+	_ack_all(state)
+
 	state.campaign["puzzles"]["p06"] = p["p06"]["solution"].duplicate(true)
 	_expect(FloodMapRules.validate(state.campaign["puzzles"]["p06"], p["p06"]).get("valid", false), "p06 validator")
 	_expect(state.resolve_puzzle("p06").get("ok", false), "p06 resolve")
+	_ack_all(state)
+
+	preload("res://tests/campaign_fixture.gd").solve_added(state,["p16", "p14", "p15", "p13"])
 	_ack_all(state)
 
 	state.campaign["puzzles"]["p07"]["donor"] = "floor"
@@ -76,7 +88,7 @@ func _init() -> void:
 	state.queue_narrative("n11")
 	_ack_all(state)
 	_expect(bool(state.campaign["completed"]), "completed only after n11")
-	_expect_eq(state.campaign["solved"], ["p00", "p01", "p02", "p04", "p03", "p05", "p06", "p07"], "full solved path")
+	_expect_eq(state.campaign["solved"], ["p00","p01","p08","p09","p02","p04","p03","p10","p05","p11","p12","p17","p06","p16","p14","p15","p13","p07"], "full solved path")
 
 	var service := SaveServiceClass.new(p, ROOT)
 	_expect(service.save_campaign(state.campaign).get("ok", false), "completed campaign saves")
@@ -119,7 +131,7 @@ func _expect_eq(actual: Variant, expected: Variant, message: String) -> void:
 
 func _finish() -> void:
 	if failures.is_empty():
-		print("T11 FULL CAMPAIGN TEST PASS: P00-P07, narrative N00-N11, save/reload, ending")
+		print("T11 FULL CAMPAIGN TEST PASS: 17 puzzles, complete narrative, save/reload, ending")
 		quit(0)
 	else:
 		for failure in failures:

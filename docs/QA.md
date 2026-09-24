@@ -1,4 +1,4 @@
-# QA — conception 1.1
+# QA — conception 1.2
 
 ## Contrôles effectués sur le dossier
 
@@ -6,7 +6,7 @@
 
 Le greybox runtime T01–T11 est désormais présent. **Greybox CI #20 réussie le 23 septembre 2026 sur `9687fe5`, Godot 4.6.2 Standard** : import headless, contrats valides/invalides, règles P01–P07, état/progression/preuves, sauvegardes, navigation, P00–P07, campagne N00–N11, sauvegarde/rechargement final, parité des contrats runtime et boot. Les erreurs JSON volontairement injectées par le test de corruption T04 apparaissent dans les logs mais le scénario de récupération est validé.
 
-**Aucun test humain T12 ni test sur appareil Android physique n'a encore été réalisé.** La jouabilité automatisée ne valide donc ni la compréhension novice, ni le confort tactile réel, ni la durée 60–90 minutes.
+**Retour producteur : 35–40 minutes pour les énigmes de la base. Aucun rapport T12 complet ni test Android physique de l’extension n’est disponible.** La jouabilité automatisée ne valide donc ni la compréhension novice, ni le confort tactile réel, ni la durée 60–90 minutes.
 
 ## Gates de règles et progression
 
@@ -40,3 +40,13 @@ T18 : 8 autresnovices, assets finaux, mêmes mesures. Aucun critère levé à pa
 Deux téléphones Android physiques : un appareil4GoRAM/minimum produit et un milieudegamme ; tester au moins un ratio20:9 et un16:9/équivalentzone640 dp, puis tablette. Vérifier cibles TECHNICAL froid<5s, retourvue<400 ms, feedback<100 ms, mémoire<250 Mo ; mesurer plutôtque supposer. Campagne hors ligne dès premier lancement, aucune permission dangereuse/Internet requise.
 
 Zérobug bloquant/majeur ouvert ; aucun placeholder/debug ; sources/licences de tousrequired_v1 ; crédits/description exacts ; captures du build livré ; signature hors Git ; AAB et politique Google revérifiée àrelease. Publier un jeu complet uniquement après passage des gates, jamais le buildinterneT12.
+
+## Vérification 1.2
+
+- `python3 tools/verify_expansion.py` : solutions indépendantes, 4 rangements, 2 amarres, 2 appuis ; témoins légaux pour tiroir, partage et navette ; rapports sans données utilisateur.
+- `tests/rules/expansion_test.gd` : refus des états incomplets, mouvements atomiques, ancrages fixes, navette surchargée/sans pilote, volumes après vrais versements, parcours complet avec sauvegarde à chaque étape, preuve disponible avant usage, migration d'une partie 1.1 terminée et backup brut.
+- `tests/ui/expansion_ui_test.gd` : instanciation effective des dix scènes, actions, sauvegarde, annulation, reset, consultation finale sans mutation.
+- Tests historiques conservés, parcours complet étendu et branche inversée maintenus.
+- La commande de CI doit traiter `SCRIPT ERROR` comme un échec même si Godot retourne zéro ; des erreurs historiques auraient sinon été masquées.
+
+T12 doit noter séparément les 17 temps d'énigmes, les pauses, les indices et les tâches jugées répétitives. Ne pas confondre nombre minimal de gestes et durée humaine. Conserver les seuils de compréhension et plaisir ; aucune prétendue nouvelle durée mesurée dans ce lot.

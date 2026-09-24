@@ -1,3 +1,5 @@
+> **Version active : 1.2.** Les paragraphes 1.1 ci-dessous décrivent la base conservée ; l’extension en fin de document et [EXPANSION_1_2.md](EXPANSION_1_2.md) définissent les ajouts et prennent priorité sur les anciens nombres et prérequis.
+
 # Simulation novice intégrale — conception 1.1
 
 Simulation critique sur documents et données, pas un test humain. Le joueur supposé ne connaît aucune combinaison, lit les labels usuels et n'a besoin d'aucune connaissance technique. Les identifiants/solutions ici sont réservés au studio.
@@ -35,3 +37,10 @@ Fermer dans un zoom : revenir au contexte. Fermer entre validation et dialogue :
 ## Ce que cette simulation ne démontre pas
 
 Elle montre une chaîne logique sans information tardive connue. Elle ne démontre pas que le joueur remarque un dommage peint, trouve P06 plaisant, comprend le brasdelevier ou joue60 minutes. T12 puis T18 doivent mesurer cespoints avec personnes novices ; jusqu'alors qualification exacte : conception auditée, non playtestée.
+
+
+## Simulation du parcours étendu 1.2
+
+Après panorama : le socle et les croquis donnent les voisinages P08 ; le tiroir P09 donne un obstacle visible, sans code caché. La frise P02 et les deux branches P03/P04 gardent leurs preuves. Le coffre P10 prépare la cargaison P05 ; les cordes P11 expliquent l'amarrage. Le partage P12 puis les repères P17 constituent une pause matérielle avant le grand plan P06. La navette P16 prépare la halle sans déplacer la barge structurelle. P14/P15/P13 préparent l'assemblage et le balisage. P07 garde les mêmes observations, choix de pièce et ordre d'opérations. Conclusion inchangée.
+
+À chaque entrée, la planche contient ses règles et observations et une preuve permanente est déjà accordée ; aucune lecture de dialogue ne conditionne un outil. Les ratés restent réversibles ; la navette accepte le retour ; le coffre permet de retirer toute pièce ; les volumes peuvent être repris par annulation ou reset ; les étapes terminées ne se redéfont pas. La simulation documentaire ne valide pas le temps ni le plaisir.

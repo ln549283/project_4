@@ -1,4 +1,4 @@
-# ASSET BIBLE — Les Rives pliées — conception 1.1
+# ASSET BIBLE — Les Rives pliées — conception 1.2
 
 **Contrat de fabrication verrouillé. Aucun asset final n'existe encore.** Les planches de design sont des schémas studio, pas des illustrations commerciales. `design/assets.csv` contient exactement les mêmes entrées que les tableaux ci-dessous. required_v1 obligatoire ; ignore_v1 interdit de fabrication pour cette version. Les sources font partie de la livraison même si elles ne sont pas exportées dans le jeu.
 
@@ -246,7 +246,28 @@ Chaque ligne est une livraison ou une exclusion explicite. Les colonnes méthode
 | fragment_ramp | required_v1 | assets/puzzles/p06/ramp.svg | 256x256 SVG | Fragment de carte3 travées |
 | tide_cutaway | required_v1 | assets/puzzles/p07/tide_cutaway.svg | 720x480 SVG | Coupe unique ; eau séparée pilotée par état |
 
-Total : 159 entrées, 132 obligatoires (sources comprises), 27 exclues. Aucun de ces assets n’est annoncé produit.
+Total : 169 entrées, 142 obligatoires (sources comprises), 27 exclues. Aucun de ces assets n’est annoncé produit.
 
 ### Tracés de carte sans ambiguïté
 Les polylignes `p06.edges[].via` sont obligatoires : K–H contourne la cour par la droite, I–H contourne le plan par le haut. Ne pas remplacer ces arêtes par un segment droit qui traverserait le nœud L sans s’y arrêter. Les traits sont schématiques et ne codent aucune distance. Les extrémités restent exclusivement celles de `ends`.
+
+## Extension 1.2 — Dix plateaux intégrés
+
+Les formes de greybox sont dessinées par `src/ui/expansion_board.gd` ; elles sont déjà présentes et ne sont pas des images finales. Pour le rendu final, chaque plateau reçoit une matière et un entourage 1280² RGBA, source calquée, pivot centre ; aucune règle incrustée dans le raster. Les pièces restent séparées et pilotées depuis JSON. Les bâtiments P08 réutilisent les bâtiments existants ; P10 les charges ; P11 les cordes ; P16 les silhouettes et une variante de navette clairement distincte de la barge. Les textes/chiffres sont rendus par moteur.
+
+P09 : dix pièces et leurs rainures, chemise distincte, ouverture à droite ; tailles rigoureusement conservées. P10 : cinq formes de quatre cases, rotation sans miroir. P11 : deux taquets fixes visuellement rivetés ; intersection de cordes lisible. P12 : silhouettes à capacité proportionnelle, niveaux et quantités visibles. P13 : miroirs / et \, rayon et trois repères sans code couleur exclusif. P14 : montants opaques et départ/arrivée distincts. P15 : charges, sol fragile et portée graduée. P17 : marques numérotées et bande fixe. Aucun shader/ombre ne doit inventer un raccord ou masquer une collision.
+
+Hiérarchie : P09/P10 secondaires soignés ; autres plateaux mécaniques. Pas de nouveau lieu ni asset héros imposé par l'extension. La priorité héros reste la maquette, le plancher et les photographies. Les dix skins sont des livrables finaux futurs, pas une condition pour tester le greybox.
+
+| ID | Scope | Fichier | Dimensions/format | Usage |
+|---|---|---|---|---|
+| p08_board_skin | required_v1 | assets/puzzles/p08/board_skin.png | 1280x1280 RGBA | Les façades retrouvées |
+| p09_board_skin | required_v1 | assets/puzzles/p09/board_skin.png | 1280x1280 RGBA | Le tiroir déformé |
+| p10_board_skin | required_v1 | assets/puzzles/p10/board_skin.png | 1280x1280 RGBA | Les caisses au sec |
+| p11_board_skin | required_v1 | assets/puzzles/p11/board_skin.png | 1280x1280 RGBA | Les amarres croisées |
+| p12_board_skin | required_v1 | assets/puzzles/p12/board_skin.png | 1280x1280 RGBA | L'eau à partager |
+| p13_board_skin | required_v1 | assets/puzzles/p13/board_skin.png | 1280x1280 RGBA | La lanterne du quai |
+| p14_board_skin | required_v1 | assets/puzzles/p14/board_skin.png | 1280x1280 RGBA | L'escalier articulé |
+| p15_board_skin | required_v1 | assets/puzzles/p15/board_skin.png | 1280x1280 RGBA | Les appuis du passage |
+| p16_board_skin | required_v1 | assets/puzzles/p16/board_skin.png | 1280x1280 RGBA | La navette des secours |
+| p17_board_skin | required_v1 | assets/puzzles/p17/board_skin.png | 1280x1280 RGBA | Les repères de crue |

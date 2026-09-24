@@ -26,6 +26,7 @@ func _fresh(data: Dictionary) -> Node:
 func _solve_prefix(state: Node) -> void:
 	_expect(state.resolve_puzzle("p00").get("ok", false), "solve p00")
 	_expect(state.resolve_puzzle("p01").get("ok", false), "solve p01")
+	preload("res://tests/campaign_fixture.gd").solve_added(state,["p08","p09"])
 	_expect(state.resolve_puzzle("p02").get("ok", false), "solve p02")
 
 func _test_initial_values(data: Dictionary) -> void:
@@ -45,7 +46,7 @@ func _test_branch_order(data: Dictionary, order: Array) -> void:
 	for puzzle_id: Variant in order:
 		var result: Dictionary = state.resolve_puzzle(str(puzzle_id))
 		_expect(result.get("ok", false), "branch solve %s" % puzzle_id)
-	_expect(state.can_enter("p05"), "p05 unlocked after both branches")
+	_expect(state.can_enter("p10"), "packing unlocked after both branches")
 	_expect("evidence_cargo" in state.available_evidence(), "cargo evidence available after both branches")
 	var pending: Array = state.campaign["narrative"]["pending"]
 	_expect_eq(pending.count("n03"), 1, "n03 queued once")

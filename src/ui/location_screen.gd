@@ -71,24 +71,7 @@ func _continue_work() -> void:
 		Session.navigate(target)
 
 func _objective_view() -> String:
-	var solved: Array = Session.state.campaign.get("solved", [])
-	if "p00" not in solved:
-		return "s02"
-	if "p01" not in solved:
-		return "s05"
-	if "p02" not in solved:
-		return "s06"
-	if "p03" not in solved:
-		return "s07"
-	if "p04" not in solved:
-		return "s08"
-	if "p05" not in solved:
-		return "s09"
-	if "p06" not in solved:
-		return "s10"
-	if "p07" not in solved:
-		return "s11"
-	return "s13"
+	return Session.objective_view()
 
 func _open_pause() -> void:
 	var overlay := preload("res://scenes/ui/pause.tscn").instantiate()

@@ -92,7 +92,7 @@ func _test_disk_refused(service: RefCounted, state: Node) -> void:
 func _test_conclusion_resume(service: RefCounted, state: Node) -> void:
 	_cleanup_slots()
 	var snapshot: Dictionary = state.campaign.duplicate(true)
-	snapshot["solved"] = ["p00", "p01", "p02", "p03", "p04", "p05", "p06", "p07"]
+	snapshot["solved"] = state.puzzles_contract.campaign_order.filter(func(id): return id != "ending")
 	snapshot["completed"] = false
 	snapshot["narrative"]["pending"] = ["n11"]
 	snapshot["narrative"]["acknowledged"] = ["n00", "n01", "n02", "n03", "n04", "n05", "n06", "n07", "n08", "n09", "n10"]

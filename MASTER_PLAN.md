@@ -1,22 +1,22 @@
 # Les Rives pliées — MASTER PLAN
 
-Conception **1.1 verrouillée — audit du 23 septembre 2026**. Dépôt `ln549283/project_4`, branche `main`.
+Conception **1.2 — extension autorisée de dix énigmes**. Dépôt `ln549283/project_4`, branche `main`.
 
 ## État exact et prochaine tâche
 
-**Greybox runtime T01–T11 implémenté et vérifié ; aucune production artistique finale engagée.** Le parcours P00–P07, les deux ordres P03/P04, les 21 indices, les preuves, la sauvegarde à deux générations, la navigation, N00–N11, la conclusion et la reprise d'une campagne terminée disposent d'une implémentation Godot jouable avec placeholders. Cela ne constitue toujours ni un playtest humain, ni une validation Android physique, ni une validation commerciale. La durée 60–90 minutes reste un objectif non démontré.
+**Campagne greybox étendue à 17 énigmes, plus P00.** Dix nouveaux plateaux P08–P17, 30 indices supplémentaires (51 au total), progression intégrée, objectifs, preuves, textes et sauvegardes sont implémentés. Les sept énigmes d'origine conservent leurs règles. Les ajouts ne sont pas des assets finaux.
 
-Vérification automatisée du 23 septembre 2026 : **Greybox CI #22 verte sur le commit `ca780ee` avec Godot 4.6.2 Standard verrouillé**. Les contrôles exécutés couvrent `verify_design.py`, contrats valides/invalides, validateurs P01–P07, progression et preuves, deux ordres de branche, sauvegardes interrompues/corrompues/futures, navigation, interactions greybox P00–P07, campagne complète N00–N11 avec sauvegarde/rechargement, parité des contrats runtime et boot headless. Les tests automatiques ne remplacent pas l'observation d'un joueur novice.
+Retour producteur : les énigmes existantes prennent environ **35–40 minutes**. C'est une observation communiquée, sans protocole ni taille d'échantillon documentés. La durée finale de la version étendue n'est pas encore mesurée. Les vérifications reproductibles sont décrites dans QA et EXPANSION_1_2.
 
-**Prochaine tâche : T12 de [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md)**. Exécuter le protocole novice déjà verrouillé dans [docs/QA.md](docs/QA.md) avec 8 nouveaux joueurs, mesurer la durée active réelle et les blocages, puis produire le rapport anonymisé prévu. **Ne pas commencer T13 ni fabriquer les assets finaux tant que le gate T12 n'est pas accepté.** Si T12 échoue, appliquer uniquement les corrections ciblées prévues par le plan et versionner le dossier avant une nouvelle campagne de test.
+**Prochaine tâche : T12 sur la campagne 1.2**, observation novice de l'ensemble, durée par étape, compréhension visuelle et rythme. Ne pas passer à la production artistique massive avant validation. Le moteur reste Godot ; aucune migration demandée ni effectuée.
 
-Reprise : lire ce master, PRODUCTION_PLAN, ASSET_BIBLE et QA ; vérifier HEAD/CI et l'existence d'un rapport T12 valide. En l'absence de données humaines T12, arrêter la production avant T13. En fin de session, consigner vérifications réellement exécutées, limites et prochaine tâche ; commit/push. Aucun choix de concept à soumettre au producteur.
+Reprise : MASTER, EXPANSION_1_2, PRODUCTION_PLAN, ASSET_BIBLE, contrats JSON. Les IDs sont stables mais leur ordre n'est plus numérique. Les sauvegardes 1.1 sont conservées et migrées ; les dix nouveautés restent à jouer.
 
 ## Vision et invariants
 
 **« Dépliez une ville. Retrouvez le chemin de ceux qu'elle a sauvés. »** Jeu tactile de déduction environnementale premium, Android, français, hors ligne, prix choisi 3,49 €, sans compte, publicité, achat intégré ou télémétrie. Sessions naturelles de 5–15 minutes ; première partie visée 60–90 minutes. Architecture localisable, aucune traduction promise en V1.
 
-Sept étapes P01–P07, prise en main P00 et conclusion complète unique. P01 est l'apprentissage ; P04 une respiration active ; P07 une synthèse. P02, P03, P05 et P06 portent l'essentiel de la déduction. Ne pas compter le nombre de permutations comme mesure d'intérêt.
+Dix-sept énigmes P01–P17, prise en main P00 et conclusion complète unique. P01 est l'apprentissage ; P04 une respiration active ; P07 une synthèse. P02, P03, P05 et P06 portent l'essentiel de la déduction. Ne pas compter le nombre de permutations comme mesure d'intérêt.
 
 Invariants : aucune connaissance obscure ; toute preuve disponible avant usage et conservée ; trois indices maximum par énigme, dernier indice méthodologique sans solution ; pas de chrono réel, mort punitive, consommable ou pixel hunting ; gestes réalisables par toucher puis toucher ; toutes les solutions conformes admises ; couleur et son jamais seuls porteurs d'information ; aucune narration obligatoire supérieure à 65 mots par panneau. Les scènes narratives sont interruptibles et relisibles. Pas de carte ajoutée pour allonger artificiellement la durée.
 
@@ -24,13 +24,14 @@ Invariants : aucune connaissance obscure ; toute preuve disponible avant usage e
 
 | Document | Autorité |
 |---|---|
+| [docs/EXPANSION_1_2.md](docs/EXPANSION_1_2.md) | Dix ajouts, règles, solutions, rythme et migration 1.2 |
 | Ce master | Vision, périmètre V1, état et reprise |
 | [PRODUCTION_PLAN.md](PRODUCTION_PLAN.md) | Tâches, dépendances et critères de livraison |
 | [ASSET_BIBLE.md](ASSET_BIBLE.md) | Direction artistique, formats, catégories et inventaire exhaustif |
-| [docs/PUZZLES.md](docs/PUZZLES.md) | Toutes les règles, solutions, manipulations, erreurs et 21 indices |
+| [docs/PUZZLES.md](docs/PUZZLES.md) | Toutes les règles, solutions, manipulations, erreurs et 51 indices |
 | [design/puzzles.json](design/puzzles.json) | Données numériques/topologie canoniques |
 | [design/evidence.json](design/evidence.json) | Acquisition et disponibilité des preuves |
-| [design/hints_fr.json](design/hints_fr.json) | Texte des 21 indices P01–P07 ; P00 sans indice |
+| [design/hints_fr.json](design/hints_fr.json) | Texte des 51 indices P01–P17 ; P00 sans indice |
 | [docs/NARRATIVE.md](docs/NARRATIVE.md) | Scénario complet, dialogues, pièces à conviction |
 | [docs/SCREENS_UX.md](docs/SCREENS_UX.md) | Écrans, navigation, interactions/accessibilité |
 | [docs/TECHNICAL.md](docs/TECHNICAL.md) | Modules, sauvegarde, conventions/build |
@@ -40,7 +41,7 @@ Invariants : aucune connaissance obscure ; toute preuve disponible avant usage e
 | [docs/QA.md](docs/QA.md) | Gates de qualité, contrôles réels et contrôles à faire |
 | [docs/DECISIONS.md](docs/DECISIONS.md) | Décisions verrouillées et procédure de changement |
 
-Les annexes forment le contrat détaillé du master. Toute modification numérique synchronise JSON, texte, planches et tests. Ne jamais appliquer une ancienne version 1.0 à côté de la 1.1. Les mentions historiques dans AUDIT/DECISIONS ne sont pas des fonctionnalités à réaliser.
+Les annexes forment le contrat détaillé du master. Toute modification numérique synchronise JSON, texte, planches et tests. Ne jamais appliquer une ancienne version 1.0 ou 1.1 à côté de la 1.2. Les mentions historiques dans AUDIT/DECISIONS ne sont pas des fonctionnalités à réaliser.
 
 ## Univers, personnages, histoire complète
 
@@ -54,44 +55,43 @@ Nelle remplace le cartel par un récit factuel, appelle Aline (« J'ai compris l
 
 ## Déroulé et rythme
 
-Budgets ci-dessous : hypothèses de conception, non des mesures. Leur somme **42–70 minutes** expose un écart avec la cible commerciale 60–90 ; ce risque est bloquant pour une promesse de durée. Pas de texte ou d'attente ajouté pour le masquer. T12 mesure le parcours complet avant la fabrication massive des assets.
+## Ordre canonique
 
-| Séquence | Action, preuve et objectif suivant | Budget hypothétique |
-|---|---|---:|
-| Arrivée + P00 | Cartel, coffret à deux attaches, ouvrir la maquette | 2–3 min |
-| P01 | Cinq lés ; lieux identifiables ; photos, note et témoignage acquis | 2–4 min |
-| R1 | Survie confirmée ; consulter/ordonner les photos | 1–2 min |
-| P02 | Cinq instants par dommages irréversibles | 5–9 min |
-| P03 | Trois livraisons simultanées dans six volets | 5–9 min |
-| P04 | Trois calques ; silhouette des appuis, respiration active | 1–3 min |
-| R2 | Deux preuves réunies ; charger la barge | 1–2 min |
-| P05 | Équilibre, masses/distances et gabarits ; grand plan acquis | 6–10 min |
-| P06 | Eau observée, deux fragments, trois itinéraires | 10–16 min |
-| R3 | Dernière interruption clocher/quai et détail de photo | 1–2 min |
-| P07 | Reconnaître une pièce puis classer six opérations | 5–7 min |
-| Conclusion | Cartel, appel, exposition et générique | 3–3 min |
+P00 → P01 → P08 → P09 → P02 → [P03 ∥ P04] → P10 → P05 → P11 → P12 → P17 → P06 → P16 → P14 → P15 → P13 → P07 → conclusion
 
-Total corrigé : **42–70 min**. P03 et P04 possibles dans les deux ordres ; le rythme exact de cette branche dépend du choix du joueur. Les respirations sont des observations interactives brèves, jamais des attentes obligatoires.
+P03 et P04 restent les deux seules étapes interchangeables. Toutes les nouvelles énigmes font partie de la campagne. Aucun puzzle ajouté après l'épilogue. Aucun compteur, temps d'attente ou texte ajouté pour gonfler la durée.
+
+## Courbe de rythme
+
+| Acte | Séquences | Fonction et respiration |
+|---|---|---|
+| I — Retrouver le lieu | P00, P01, P08, P09, P02 | Entrée tactile douce, repérage spatial, obstacle mécanique, première déduction temporelle. N01 et la découverte du tiroir laissent respirer. |
+| II — Préparer les secours | P03/P04, P10, P05, P11 | Branche libre ; contrejour court ; rangement spatial puis balance ; les amarres terminent l'acte par un geste visuel. |
+| III — Accueillir et rejoindre | P12, P17, P06, P16 | Partage de l'eau, calibration courte, grand plan central, planification des navettes. Pas de chronomètre ni conséquence punitive. |
+| IV — Comprendre le passage | P14, P15, P13, P07, conclusion | Pliage, appuis brefs, lumière ; trois gestes concrets préparent la synthèse finale. Aucun nouveau système après P07. |
+
+Les difficultés dominantes ajoutées sont P09/P10/P12/P16. P15 est délibérément court : il ne doit pas être vendu comme une grosse énigme. Les animations narratives restent sautables, les objectifs visibles, les pauses libres et les brouillons sauvegardés après chaque geste stable.
+
+## Durée
+
+Base rapportée : 35–40 minutes d'énigmes. Ajouts : 26–40 minutes estimées, donc 61–80 minutes d'énigmes avant ouverture et conclusion. Cible totale 60–90 minutes à mesurer ; aucune garantie issue d'une addition de budgets.
 
 ## Graphe de progression
 
 ```mermaid
 flowchart TD
-  P00["P00 Coffret"] --> P01["P01 Panorama"]
-  P01 --> P02["P02 Photos"]
-  P02 --> P03["P03 Service"]
-  P02 --> P04["P04 Contrejour"]
-  P03 --> J["Deux preuves réunies"]
-  P04 --> J
-  J --> P05["P05 Barge"]
-  P05 --> P06["P06 Crue et refuges"]
-  P06 --> P07["P07 Passage et phases"]
-  P07 --> E["Cartel, appel, exposition"]
+ A["P00 · P01 · P08 · P09 · P02"] --> B["P03 · Chemins"]
+ A --> C["P04 · Contrejour"]
+ B --> D["P10 · P05 · P11"]
+ C --> D
+ D --> E["P12 · P17 · P06 · P16"]
+ E --> F["P14 · P15 · P13 · P07"]
+ F --> G["Conclusion"]
 ```
 
-`solved` est monotone ; P03/P04 ne réinitialisent jamais l'autre. Preuves attribuées sur prérequis, pas sur lecture d'un dialogue. Tous les brouillons restent modifiables avant validation. Chaque vue propose un objectif concret et un accès au prochain travail disponible ; jamais de recherche d'un hotspot caché.
+Chaque groupe est séquentiel dans l'ordre affiché. Le graphe exact par étape est `design/puzzles.json.progression`. Les preuves sont attribuées sur prérequis, jamais sur lecture obligatoire. Pas de chrono, mort, pénalité ou irréversibilité nouvelle.
 
-## Toutes les solutions
+## Solutions P01–P07 conservées
 
 | Étape | Contrat résumé et solution | Sortie |
 |---|---|---|
@@ -109,9 +109,13 @@ P05 gauche→droite : médicaments/outils/presse/lanterne/teintures/vivres ; viv
 
 P06 : S école, I infirmerie, A archives, J place, K terrasse, L cour haute, C clocher, H halle haute, G grenier. Seul raccourci I–H noyé au niveau4. Marches interdites au brancard ; refuges et nœuds toujours secs. Fragments de carte représentant de la maçonnerie, jamais des planches réutilisables en P07. Toutes les arêtes, seuils et variantes sont dans PUZZLES/JSON.
 
+## Solutions P08–P17
+
+Voir [EXPANSION_1_2.md](docs/EXPANSION_1_2.md) pour les dix règles, solutions exactes, variantes, trente indices et témoins de gestes légaux. `design/expansion_verification.json` consigne les résultats indépendants.
+
 ## Écrans, objets et production visuelle
 
-Un seul espace présent : salle de restauration/établi. Archives et fenêtre sont des vues rapprochées directes, pas trois pièces à explorer. S00 accueil, S01 réglages, S02 établi, S03 archives, S04 fenêtre, S05–S11 P01–P07, S12 carnet, S13 conclusion, S14 générique/exploration. Overlays pause, indices, confirmation, fonctionnement, sauvegarde, image agrandie. SCREENS_UX donne chaque transition et état.
+Un seul espace présent : salle de restauration/établi. Archives et fenêtre sont des vues rapprochées directes, pas trois pièces à explorer. S00 accueil, S01 réglages, S02 établi, S03 archives, S04 fenêtre, S05–S11 P01–P07, S12 carnet, S13 conclusion, S14 générique/exploration. Overlays pause, indices, confirmation, fonctionnement, sauvegarde, image agrandie. Dix vues additionnelles portent les routes p08–p17 et réutilisent le cadre d’établi. SCREENS_UX et EXPANSION_1_2 donnent les transitions et états.
 
 Objets : deux attaches et coffret, cinq lés, cinq photos, trois calques, fiche de livraison, six charges, deux fragments de carte, trois groupes, trois candidats rigides, six cartes d'action, coupe de crue, témoignage et cartel. Pas d'inventaire générique ni de combinaison d'objet sur tout.
 
@@ -127,10 +131,10 @@ Toucher/sélectionner partout, cibles48 dp avec8 dp de séparation ; commandes a
 
 ## V1 obligatoire / à ignorer
 
-Obligatoire : parcours intégral, fin, 21 indices, preuves permanentes, deux ordres de branche, toutes solutions admises, sauvegarde robuste, accessibilité décrite, assets marqués required_v1, mix sans son indispensable, crédits/licences, APK testé puis AAB signé et préparation store. Mesure novice de durée/qualité obligatoire avant déclaration commerciale.
+Obligatoire : parcours intégral, fin, 51 indices, preuves permanentes, deux ordres de branche, toutes solutions admises, sauvegarde robuste, accessibilité décrite, assets marqués required_v1, mix sans son indispensable, crédits/licences, APK testé puis AAB signé et préparation store. Mesure novice de durée/qualité obligatoire avant déclaration commerciale.
 
 À ignorer : replay sandbox par chapitre, trois salles navigables, seconde grille de tuyaux, fausses cartes finales, règle médicaments/teintures, export diagnostic système, cloud, compte, succès, chrono, niveaux bonus, voix enregistrées, langues autres que FR, éclairage dynamique, changement automatique de fréquence, assets ignore_v1. Ne pas les développer par anticipation.
 
 ## Limites de verrouillage
 
-Les décisions créatives actuelles sont fixées. La durée et le confort restent des hypothèses empiriques. Si T12 échoue, suspendre la production coûteuse, consigner les données et réviser de façon ciblée ce dossier ; ne pas réduire silencieusement la promesse à un produit plus court ni remplir avec des mini-jeux. Aucun dossier papier ne peut honnêtement garantir à lui seul 60–90 minutes de plaisir.
+La demande producteur a autorisé l’extension 1.2 ; les dix ajouts sont désormais spécifiés. Les décisions créatives actuelles sont fixées. La durée et le confort restent des hypothèses empiriques. Si T12 échoue, suspendre la production coûteuse, consigner les données et réviser de façon ciblée ce dossier ; ne pas réduire silencieusement la promesse à un produit plus court ni remplir avec des mini-jeux. Aucun dossier papier ne peut honnêtement garantir à lui seul 60–90 minutes de plaisir.

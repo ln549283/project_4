@@ -135,7 +135,7 @@ def main():
             states.add(tuple(sorted(done)));done.add(stage)
         states.add(tuple(sorted(done)))
     hints=json.loads((Path(__file__).resolve().parents[1]/'design/hints_fr.json').read_text())
-    assert set(hints)=={f'p0{i}' for i in range(1,8)} and all(len(v)==3 for v in hints.values())
+    assert set(hints)=={f'p{i:02}' for i in range(1,18)} and all(len(v)==3 for v in hints.values())
     # Document/manifest integrity remains part of the design handoff.
     import csv,re
     root=Path(__file__).resolve().parents[1]
@@ -154,7 +154,11 @@ def main():
         for href in re.findall(r'\]\(([^)]+)\)',doc.read_text()):
             if '://' not in href and not href.startswith('#'):
                 assert (doc.parent/href.split('#')[0]).exists(),(doc,href)
-    result={'design_version' :D['design_version'],'checks':'PASS','note':'Combinatorial design checks; not human playtests or Android tests.','puzzles':report,'progression_orders':orders,'reachable_progression_states':len(states),'evidence_availability':'PASS for both branch orders','hints':21,'asset_manifest':{'entries':len(assets),'required_v1':sum(a['scope']=='required_v1' for a in assets),'ignored_v1':sum(a['scope']=='ignore_v1' for a in assets)},'document_links':'PASS','hint_text_parity':'PASS'}
+    from verify_expansion import solve
+    expansion=solve()
+    for stage,checks in expansion.items():
+        assert D[stage]['solution']==checks['solution']
+    result={'expansion':expansion,'design_version' :D['design_version'],'checks':'PASS','note':'Combinatorial design checks; not human playtests or Android tests.','puzzles':report,'progression_orders':orders,'reachable_progression_states':len(states),'evidence_availability':'PASS for both branch orders','hints':51,'asset_manifest':{'entries':len(assets),'required_v1':sum(a['scope']=='required_v1' for a in assets),'ignored_v1':sum(a['scope']=='ignore_v1' for a in assets)},'document_links':'PASS','hint_text_parity':'PASS'}
     target=Path(__file__).resolve().parents[1]/'design/verification_report.json'
     target.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     for r in report:print(f"{r['puzzle']}: {r['states_examined']} states, {r['accepted_count']} accepted")

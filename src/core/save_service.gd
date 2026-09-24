@@ -2,9 +2,9 @@ class_name SaveService
 extends RefCounted
 
 const SCHEMA_VERSION := 1
-const CONTENT_VERSION := "1.1"
-const PUZZLE_IDS := ["p00", "p01", "p02", "p03", "p04", "p05", "p06", "p07"]
-const NARRATIVE_IDS := ["n00", "n01", "n02", "n03", "n04", "n05", "n06", "n07", "n08", "n09", "n10", "n11"]
+const CONTENT_VERSION := "1.2"
+const PUZZLE_IDS := ["p00", "p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17"]
+const NARRATIVE_IDS := ["n00", "n01", "n02", "n03", "n04", "n05", "n06", "n07", "n08", "n09", "n10", "n11", "n_p08", "n_p09", "n_p10", "n_p11", "n_p12", "n_p13", "n_p14", "n_p15", "n_p16", "n_p17"]
 
 var root_path: String
 var puzzles_contract: Dictionary
@@ -59,6 +59,14 @@ func save_campaign(snapshot: Dictionary, fail_phase: String = "") -> Dictionary:
 	var generation := 1
 	for info: Dictionary in valid:
 		generation = maxi(generation, int(info["generation"]) + 1)
+	for info: Dictionary in [a,b]:
+		if info.get("status") == "valid" and FileAccess.file_exists(str(info.path)):
+			var raw := FileAccess.get_file_as_string(str(info.path))
+			var env: Variant = JSON.parse_string(raw)
+			var original: Variant = JSON.parse_string(str(env.get("payload_utf8","{}"))) if env is Dictionary else null
+			if original is Dictionary and original.get("content_version") == "1.1":
+				if not FileAccess.file_exists(str(info.path)+".v11_backup") and not _write_text(str(info.path)+".v11_backup",raw):
+					return {"ok":false,"error":"legacy_backup_failed"}
 	var target := _choose_target(a, b)
 	if target.get("status") == "invalid":
 		_preserve_diagnostic(str(target["path"]))
@@ -188,8 +196,14 @@ func _read_slot(path: String) -> Dictionary:
 		return {"status": "invalid", "path": path, "reason": "generation_mismatch", "generation": int(envelope.get("generation", -1))}
 	var schema := int(snapshot.get("schema_version", -1))
 	var content := str(snapshot.get("content_version", ""))
-	if schema > SCHEMA_VERSION or (schema == SCHEMA_VERSION and content != CONTENT_VERSION):
+	if schema > SCHEMA_VERSION or (schema == SCHEMA_VERSION and content not in ["1.1", CONTENT_VERSION]):
 		return {"status": "future", "path": path, "generation": int(envelope["generation"])}
+	if schema == SCHEMA_VERSION and content == "1.1":
+		var migrated := _migrate_legacy(snapshot)
+		if not migrated.get("ok",false):
+			return {"status":"invalid","path":path,"reason":"legacy_migration","generation":int(envelope["generation"])}
+		snapshot = migrated.snapshot
+		content = CONTENT_VERSION
 	if schema != SCHEMA_VERSION or content != CONTENT_VERSION:
 		return {"status": "invalid", "path": path, "reason": "unsupported_old_version", "generation": int(envelope["generation"])}
 	var validation := validate_snapshot(snapshot)
@@ -207,11 +221,15 @@ func validate_snapshot(snapshot: Dictionary) -> Dictionary:
 		return {"ok": false, "error": "solved_type"}
 	var seen_solved: Dictionary = {}
 	var progression: Dictionary = puzzles_contract.get("progression", {})
+	var legacy: Variant = snapshot.get("legacy_solved", [])
+	if not legacy is Array: return {"ok":false,"error":"legacy_type"}
+	for id: Variant in legacy:
+		if id not in LEGACY_GRAPH or id not in solved: return {"ok":false,"error":"legacy_id"}
 	for raw_stage: Variant in solved:
 		var stage := str(raw_stage)
 		if stage not in PUZZLE_IDS or seen_solved.has(stage):
 			return {"ok": false, "error": "solved_id"}
-		for raw_req: Variant in progression.get(stage, []):
+		for raw_req: Variant in (LEGACY_GRAPH.get(stage, []) if stage in legacy else progression.get(stage, [])):
 			if not seen_solved.has(str(raw_req)):
 				return {"ok": false, "error": "solved_prerequisite"}
 		seen_solved[stage] = true
@@ -219,7 +237,7 @@ func validate_snapshot(snapshot: Dictionary) -> Dictionary:
 	var hints: Variant = snapshot.get("hints", {})
 	if typeof(hints) != TYPE_DICTIONARY:
 		return {"ok": false, "error": "hints_type"}
-	for stage in ["p01", "p02", "p03", "p04", "p05", "p06", "p07"]:
+	for stage in ["p01", "p02", "p03", "p04", "p05", "p06", "p07", "p08", "p09", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17"]:
 		var level := int((hints as Dictionary).get(stage, 0))
 		if level < 0 or level > 3:
 			return {"ok": false, "error": "hint_range"}
@@ -254,6 +272,10 @@ func _validate_puzzle_states(states: Dictionary) -> Dictionary:
 	for puzzle_id in PUZZLE_IDS:
 		if not states.has(puzzle_id) or typeof(states[puzzle_id]) != TYPE_DICTIONARY:
 			return {"ok": false, "error": "missing_state_%s" % puzzle_id}
+	for i in range(8,18):
+		var id := "p%02d" % i
+		if not preload("res://src/rules/expansion_rules.gd").valid_state(puzzles_contract[id],states[id]):
+			return {"ok":false,"error":"invalid_state_"+id}
 	var p00: Dictionary = states["p00"]
 	var latches: Array = p00.get("latches", [])
 	if latches.size() != 2:
@@ -378,3 +400,24 @@ func _path(filename: String) -> String:
 
 func _slot_path(slot_name: String) -> String:
 	return _path("campaign_%s.json" % slot_name)
+
+const LEGACY_GRAPH := {"p00":[],"p01":["p00"],"p02":["p01"],"p03":["p02"],"p04":["p02"],"p05":["p03","p04"],"p06":["p05"],"p07":["p06"]}
+func _migrate_legacy(old: Dictionary) -> Dictionary:
+	var s := old.duplicate(true)
+	if not s.get("solved") is Array or not s.get("puzzles") is Dictionary or not s.get("hints") is Dictionary:
+		return {"ok":false}
+	var seen: Array = []
+	for id: Variant in s.solved:
+		if id not in LEGACY_GRAPH or id in seen: return {"ok":false}
+		for req: Variant in LEGACY_GRAPH[id]:
+			if req not in seen: return {"ok":false}
+		seen.append(id)
+	s.legacy_solved = seen
+	s.content_version = CONTENT_VERSION
+	for i in range(8,18):
+		var id := "p%02d" % i
+		s.puzzles[id] = puzzles_contract[id].initial.duplicate(true)
+		s.hints[id] = 0
+	# Resume at the hub so the added work cannot be missed by an old location.
+	s.location = {"view":"s02","subview":"","focus":""}
+	return {"ok":true,"snapshot":s}

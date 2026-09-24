@@ -33,28 +33,12 @@ jobs:
           grep -q "4.6.2.stable" /tmp/godot-version.txt
       - name: Import project headlessly
         run: /tmp/godot/godot --headless --path . --editor --quit
-      - name: T01 contract tests
-        run: /tmp/godot/godot --headless --path . --script tests/contract_test.gd
-      - name: T02 rule tests
-        run: /tmp/godot/godot --headless --path . --script tests/rules/rules_test.gd
-      - name: T03 state tests
-        run: /tmp/godot/godot --headless --path . --script tests/state/state_test.gd
-      - name: T04 save tests
-        run: /tmp/godot/godot --headless --path . --script tests/save/save_test.gd
-      - name: T05 navigation tests
-        run: /tmp/godot/godot --headless --path . --script tests/ui/navigation_test.gd
-      - name: T06 opening and early puzzle tests
-        run: /tmp/godot/godot --headless --path . --script tests/ui/early_puzzles_test.gd
-      - name: T07 branch puzzle tests
-        run: /tmp/godot/godot --headless --path . --script tests/ui/branch_puzzles_test.gd
-      - name: T08 cargo greybox tests
-        run: /tmp/godot/godot --headless --path . --script tests/ui/cargo_test.gd
-      - name: T09 flood map greybox tests
-        run: /tmp/godot/godot --headless --path . --script tests/ui/flood_map_test.gd
-      - name: T10 passage greybox tests
-        run: /tmp/godot/godot --headless --path . --script tests/ui/passage_test.gd
-      - name: T11 end-to-end greybox tests
-        run: /tmp/godot/godot --headless --path . --script tests/integration/full_campaign_test.gd
+      - name: All runtime scripts, 17 puzzles, save migration and UI
+        run: python3 tools/run_godot_tests.py /tmp/godot/godot
+      - name: Independent expansion solvers
+        run: |
+          python3 tools/verify_expansion.py
+          git diff --exit-code -- design/expansion_verification.json
       - name: Runtime content parity
         run: |
           cmp design/puzzles.json content/puzzles.json
