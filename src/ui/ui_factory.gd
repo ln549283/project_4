@@ -70,7 +70,8 @@ static func make_page(root: Control, title: String, objective: String = "") -> V
 	scroll.add_child(box)
 	var heading := make_label(title, 72)
 	heading.add_theme_font_override("font", preload("res://assets/slice/lantern/title.ttf"))
-	box.add_child(heading)
+	if not title.is_empty(): box.add_child(heading)
+	else: heading.free()
 	if not objective.is_empty():
 		box.add_child(make_label(objective, 54))
 	# Keep the margin/scroll as child 0: controllers retain their scroll position.

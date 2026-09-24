@@ -64,7 +64,7 @@ func _verify() -> void:
 	if result.get("valid", false):
 		Session.state.resolve_puzzle("p01")
 		Session.save_now()
-		Session.navigate("s06", false)
+		Session.navigate(Session.objective_view(), false)
 	else:
 		feedback = "Certaines lignes s'interrompent aux raccords."
 		_rebuild()

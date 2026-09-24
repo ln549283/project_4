@@ -1,12 +1,17 @@
 extends Control
-## Disposable greybox geometry: visible material, marks, occlusion and touch areas.
+## Physical workshop board; exact geometry and hit areas remain contract-driven.
 signal pressed(index: int)
 const Rules = preload("res://src/rules/expansion_rules.gd")
-const INK := Color("26333c")
-const PAPER := Color("f1e8d5")
+const INK := Color("eadfc8")
+const PAPER := Color("142d32")
 const BLUE := Color("476d73")
-const ACCENT := Color("a86546")
-const COLORS := [Color("91a9ac"), Color("c99b7b"), Color("bbc6a0"), Color("d8bf8e"), Color("b4a8c5"), Color("b6b9c0"), Color("b9d4cf"), Color("d9afbd"), Color("cdcf99"), Color("9caed0")]
+const ACCENT := Color("dfb775")
+const COLORS := [Color("426166"), Color("785344"), Color("576046"), Color("74613e"), Color("60566c"), Color("53626c"), Color("3f665e"), Color("735c60"), Color("676943"), Color("485b73")]
+const BOARD_TEXTURE = preload("res://assets/slice/lantern/board.webp")
+const BUILDINGS = preload("res://assets/production/buildings.webp")
+var previous: Dictionary = {}
+var movement := 1.0
+
 var contract: Dictionary
 var state: Dictionary
 var selection := -1
@@ -15,7 +20,8 @@ var preview_turn := 0
 var regions: Array = []
 var trace_visible := false
 
-func configure(p: Dictionary, s: Dictionary, selected: int = -1, passengers: Array = [], rotation: int = 0, trace: bool = false) -> void:
+func configure(p: Dictionary, s: Dictionary, selected: int = -1, passengers: Array = [], rotation: int = 0, trace: bool = false, old_state: Dictionary = {}) -> void:
+	previous = old_state
 	contract = p
 	state = s
 	selection = selected
@@ -27,12 +33,24 @@ func configure(p: Dictionary, s: Dictionary, selected: int = -1, passengers: Arr
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	queue_redraw()
 
+func _ready() -> void:
+	if not previous.is_empty() and not bool(Session.settings.reduced_motion):
+		movement = 0.0
+		create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).tween_method(_animate, 0.0, 1.0, 0.32)
+
+func _animate(value: float) -> void:
+	movement = value
+	queue_redraw()
+
 func _label(pos: Vector2, text: String, font_size: int = 40, color: Color = INK) -> void:
 	draw_string(ThemeDB.fallback_font, pos, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 func _rect(rect: Rect2, color: Color, border: bool = true) -> void:
+	draw_rect(Rect2(rect.position + Vector2(0,6), rect.size), Color(0,0,0,0.3))
 	draw_rect(rect, color)
-	if border: draw_rect(rect, INK, false, 3)
+	if border:
+		draw_rect(rect, Color("728079"), false, 2)
+		draw_line(rect.position + Vector2(3,3), Vector2(rect.end.x-3,rect.position.y+3), Color(1,0.86,0.65,0.2), 2, true)
 
 func _hit(rect: Rect2, index: int) -> void:
 	regions.append({"rect": rect, "index": index})
@@ -45,13 +63,13 @@ func _center(x: int, y: int, cell: float = 144.0) -> Vector2:
 
 func _grid(cols: int, rows: int, cell: float = 144.0) -> void:
 	for y in range(rows):
-		for x in range(cols): _rect(_cell(x,y,cell), Color("e1d7c3"))
+		for x in range(cols): _rect(_cell(x,y,cell), Color("183339"))
 
 func _draw() -> void:
 	if contract.is_empty(): return
 	regions.clear()
 	draw_set_transform(Vector2.ZERO, 0, Vector2.ONE * size.x / 960.0)
-	_rect(Rect2(0,0,960,960), PAPER)
+	draw_texture_rect(BOARD_TEXTURE, Rect2(0,0,960,1000), false)
 	match str(contract.kind):
 		"facades": _facades()
 		"slide", "packing": _pieces()
@@ -66,18 +84,32 @@ func _draw() -> void:
 func _facades() -> void:
 	for i in range(6):
 		var id := int(state.order[i])
-		var r := Rect2(24 + (i % 3) * 308, 80 + (i / 3) * 340, 292, 300)
-		_rect(r, COLORS[id])
-		var house := Rect2(r.position + Vector2(66,65), Vector2(160,120))
-		_rect(house, PAPER)
-		draw_colored_polygon(PackedVector2Array([house.position, house.position+Vector2(80,-48),house.position+Vector2(160,0)]), INK)
-		for w in range(1 + id % 3):
-			_rect(Rect2(house.position+Vector2(15+w*42,40),Vector2(26,42)), BLUE)
-		_label(r.position+Vector2(12,250), str(contract.labels[id]), 40)
-		if i == selection: draw_rect(r.grow(-4), ACCENT, false, 10)
-		_hit(r, i)
+		var destination := Vector2(24 + (i % 3) * 308, 80 + (i / 3) * 340)
+		var old_index := i
+		if previous.has("order"): old_index = Rules.index_of(previous.order, id)
+		var origin := Vector2(24 + (old_index % 3) * 308, 80 + (old_index / 3) * 340)
+		var pos := origin.lerp(destination, movement)
+		if i == selection: pos.y -= 12
+		var r := Rect2(pos, Vector2(292,300))
+		draw_style_box(_tile_style(i == selection), r)
+		var art := Rect2(pos + Vector2(5,0), Vector2(282,248))
+		var source := Rect2((id % 3)*512, (id / 3)*512, 512,512)
+		draw_texture_rect_region(BUILDINGS, art, source)
+		_label(pos+Vector2(12,280), str(contract.labels[id]), 40)
+		_hit(Rect2(destination,Vector2(292,300)), i)
 	_rect(Rect2(24,810,916,70), BLUE, false)
-	_label(Vector2(48,858), "Rivière — rangée du bas", 42, PAPER)
+	_label(Vector2(48,858), "Rivière — rangée du bas", 42, INK)
+
+func _tile_style(active: bool) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("25434a") if active else Color(0.06,0.13,0.15,0.7)
+	style.border_color = ACCENT if active else Color("64756b")
+	style.set_border_width_all(3 if active else 1)
+	style.set_corner_radius_all(7)
+	style.shadow_color = Color(0,0,0,0.4)
+	style.shadow_size = 8
+	style.shadow_offset = Vector2(0,5)
+	return style
 
 func _pieces() -> void:
 	var cell := 144.0 if contract.kind == "slide" else 168.0
@@ -124,9 +156,10 @@ func _pour() -> void:
 		var x := 36.0 + i*312
 		var cap := int(contract.capacities[i])
 		var volume := int(state.volumes[i])
+		var visual_volume := lerpf(float(previous.get("volumes",state.volumes)[i]), float(volume), movement)
 		var r := Rect2(x, 780-cap*70, 240, cap*70)
-		_rect(r, Color("fcf8ee"))
-		_rect(Rect2(x+5,780-volume*70,230,volume*70), BLUE, false)
+		_rect(r, Color("25464d"))
+		_rect(Rect2(x+5,780-visual_volume*70,230,visual_volume*70), BLUE, false)
 		for n in range(cap+1):
 			draw_line(Vector2(x,780-n*70),Vector2(x+30,780-n*70),INK,3)
 		_label(Vector2(x,180), "%d / %d L" % [volume,cap],48)
@@ -210,11 +243,11 @@ func _ferry() -> void:
 func _gauges() -> void:
 	for i in range(4):
 		var x := 48.0+i*220
-		var off := int(state.offsets[i])
-		_rect(Rect2(x,80,185,790),Color("e0d5bc"))
+		var off := lerpf(float(previous.get("offsets",state.offsets)[i]),float(state.offsets[i]),movement)
+		_rect(Rect2(x,80,185,790),Color("3b4b49"))
 		for n in range(6):
 			var y := 830.0-(n+off)*70
-			draw_line(Vector2(x,y),Vector2(x+185,y),Color("b6ac95"),2)
+			draw_line(Vector2(x,y),Vector2(x+185,y),Color("7a8170"),2)
 			_label(Vector2(x+75,y-8),str(n),30)
 		_label(Vector2(x+36,940),"Fixe" if i==0 else str(i+1),40)
 	for j in range(contract.links.size()):
@@ -223,7 +256,7 @@ func _gauges() -> void:
 			var i := int(link[side])
 			var mark := int(link["m"+side])
 			var x := 48.0+i*220
-			var y := 830.0-(mark+int(state.offsets[i]))*70
+			var y := 830.0-(mark+lerpf(float(previous.get("offsets",state.offsets)[i]),float(state.offsets[i]),movement))*70
 			draw_line(Vector2(x,y),Vector2(x+185,y),COLORS[j],14)
 			_label(Vector2(x+6,y-18),str(j+1),48,INK)
 
@@ -236,6 +269,7 @@ func _gui_input(event: InputEvent) -> void:
 	point *= 960.0 / size.x
 	for region: Dictionary in regions:
 		if (region.rect as Rect2).has_point(point):
+			if Session.presentation_audio != null: Session.presentation_audio.touch()
 			pressed.emit(int(region.index))
 			accept_event()
 			return

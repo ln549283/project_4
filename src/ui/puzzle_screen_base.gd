@@ -11,15 +11,28 @@ func setup_page(title: String, objective: String) -> VBoxContainer:
 	return UiFactory.make_page(self, title, objective)
 
 func add_common_tools(box: VBoxContainer, puzzle_id: String, verify_action: Callable, reset_action: Callable, undo_action: Callable, functioning_text: String, verify_label: String = "Vérifier") -> void:
-	box.add_child(UiFactory.make_button(verify_label, verify_action, true))
-	box.add_child(UiFactory.make_button("Annuler", undo_action))
-	box.add_child(UiFactory.make_button("Replacer", reset_action))
-	box.add_child(UiFactory.make_button("Fonctionnement", func(): _show_functioning(functioning_text)))
-	box.add_child(UiFactory.make_button("Indice", func(): _show_hint(puzzle_id)))
-	box.add_child(UiFactory.make_button("Carnet", func(): Session.open_notebook()))
-	box.add_child(UiFactory.make_button("Retour", _back, true))
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation", 18)
+	box.add_child(actions)
+	actions.add_child(UiFactory.make_button(verify_label, verify_action, true))
+	actions.add_child(UiFactory.make_button("Indice", func(): _show_hint(puzzle_id)))
+	actions.add_child(UiFactory.make_button("Outils", func(): _tools(reset_action, undo_action, functioning_text)))
 	if not feedback.is_empty():
 		box.add_child(UiFactory.make_label(feedback, Session.font_size_px(16)))
+
+func _tools(reset_action: Callable, undo_action: Callable, functioning_text: String) -> void:
+	var modal := ColorRect.new()
+	modal.name = "PuzzleTools"
+	modal.color = Color("0b1c22")
+	modal.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(modal)
+	var box := UiFactory.make_page(modal, "Sur l'établi")
+	box.add_child(UiFactory.make_button("Annuler le dernier geste", func(): modal.queue_free(); undo_action.call()))
+	box.add_child(UiFactory.make_button("Replacer les éléments", func(): modal.queue_free(); reset_action.call()))
+	box.add_child(UiFactory.make_button("Fonctionnement", func(): modal.queue_free(); _show_functioning(functioning_text)))
+	box.add_child(UiFactory.make_button("Carnet", func(): Session.open_notebook()))
+	box.add_child(UiFactory.make_button("Quitter l'énigme", _back))
+	box.add_child(UiFactory.make_button("Revenir à l'énigme", modal.queue_free, true))
 
 func clear_page() -> void:
 	for child in get_children():

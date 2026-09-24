@@ -2,6 +2,7 @@ extends "res://src/ui/puzzle_screen_base.gd"
 const Rules = preload("res://src/rules/expansion_rules.gd")
 const Board = preload("res://src/ui/expansion_board.gd")
 @export var puzzle_id := "p08"
+var previous_state: Dictionary = {}
 var selected := -1
 var piece_turn := 0
 var passengers: Array = []
@@ -29,7 +30,8 @@ func _rebuild() -> void:
 	box.add_child(UiFactory.make_label(p.intro, Session.font_size_px(16)))
 	var board := Board.new()
 	board.name = "PuzzleBoard"
-	board.configure(p,_state(),selected,passengers,piece_turn,trace_visible)
+	board.configure(p,_state(),selected,passengers,piece_turn,trace_visible,previous_state)
+	previous_state = {}
 	board.pressed.connect(_board_pressed)
 	box.add_child(board)
 	if puzzle_id in Session.state.campaign.solved:
@@ -170,6 +172,7 @@ func _apply(action: Dictionary) -> void:
 	_remember_scroll()
 	var result: Dictionary = Rules.act(_contract(),_state(),action)
 	if result.get("ok",false):
+		previous_state = _state().duplicate(true)
 		history.append(_state().duplicate(true))
 		if history.size()>100: history.pop_front()
 		Session.state.campaign.puzzles[puzzle_id]=result.state

@@ -3,7 +3,10 @@ extends Control
 
 signal piece_pressed(index: int)
 
-const BG := Color(0.12, 0.13, 0.15, 1.0)
+const BG := Color("112a30")
+const LANDSCAPE = preload("res://assets/production/panorama.webp")
+const ART_ORDER := ["L3", "L1", "L5", "L2", "L4"]
+const WOOD = preload("res://assets/slice/lantern/board.webp")
 const PIECE := Color(0.23, 0.24, 0.27, 1.0)
 const BORDER := Color(0.60, 0.62, 0.66, 1.0)
 const SELECTED := Color(1.0, 0.82, 0.42, 1.0)
@@ -15,7 +18,7 @@ var selected := -1
 var piece_rects: Array[Rect2] = []
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(0, 460)
+	custom_minimum_size = Vector2(0, 800)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 func configure(new_order: Array, new_contract: Dictionary, new_selected: int) -> void:
@@ -34,21 +37,17 @@ func _gui_input(event: InputEvent) -> void:
 		if e.button_index == MOUSE_BUTTON_LEFT and e.pressed:
 			_handle_tap(e.position)
 			accept_event()
-	elif event is InputEventScreenTouch:
-		var e := event as InputEventScreenTouch
-		if e.pressed:
-			_handle_tap(e.position)
-			accept_event()
 
 func _handle_tap(position: Vector2) -> void:
 	for i in range(piece_rects.size()):
 		if piece_rects[i].has_point(position):
+			if Session.presentation_audio != null: Session.presentation_audio.touch()
 			piece_pressed.emit(i)
 			return
 
 func _draw() -> void:
 	_rebuild_geometry()
-	draw_rect(Rect2(Vector2.ZERO, size), BG, true)
+	draw_texture_rect(WOOD, Rect2(Vector2.ZERO, size), false)
 	var font := ThemeDB.fallback_font
 	draw_string(font, Vector2(0, 32), "Touchez deux lés pour les échanger.", HORIZONTAL_ALIGNMENT_LEFT, size.x, 26, BORDER)
 	if piece_rects.is_empty():
@@ -66,7 +65,9 @@ func _draw() -> void:
 	for i in range(order.size()):
 		var id := str(order[i])
 		var rect := piece_rects[i]
-		draw_rect(rect, PIECE, true)
+		draw_rect(Rect2(rect.position+Vector2(0,7),rect.size), Color(0,0,0,0.45))
+		var source := Rect2(ART_ORDER.find(id)*LANDSCAPE.get_width()/5.0,0,LANDSCAPE.get_width()/5.0,LANDSCAPE.get_height())
+		draw_texture_rect_region(LANDSCAPE,rect,source)
 		draw_rect(rect, SELECTED if i == selected else BORDER, false, 6.0 if i == selected else 3.0, true)
 		_draw_notch(rect)
 		if pieces.has(id):
@@ -74,7 +75,7 @@ func _draw() -> void:
 			if edges.size() == 2:
 				_draw_edge_signature(str(edges[0]), rect, true)
 				_draw_edge_signature(str(edges[1]), rect, false)
-		draw_string(font, rect.position + Vector2(0, 32), str(i + 1), HORIZONTAL_ALIGNMENT_CENTER, rect.size.x, 22, BORDER)
+
 
 func _rebuild_geometry() -> void:
 	piece_rects.clear()
