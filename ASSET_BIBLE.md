@@ -1,5 +1,7 @@
 # ASSET BIBLE — Les Rives pliées — conception 1.2
 
+> **Essai artistique limité à P13 :** le [vertical slice de la lanterne](docs/VERTICAL_SLICE.md) explore un atelier nocturne plus réaliste, le laiton patiné et une lumière animée. Cette variation autorisée pour le test ne généralise pas cette DA aux autres scènes. La production massive reste suspendue.
+
 **Contrat de fabrication verrouillé. Aucun asset final n'existe encore.** Les planches de design sont des schémas studio, pas des illustrations commerciales. `design/assets.csv` contient exactement les mêmes entrées que les tableaux ci-dessous. required_v1 obligatoire ; ignore_v1 interdit de fabrication pour cette version. Les sources font partie de la livraison même si elles ne sont pas exportées dans le jeu.
 
 ## Direction artistique

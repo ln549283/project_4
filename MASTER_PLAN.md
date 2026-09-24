@@ -4,7 +4,7 @@ Conception **1.2 — extension autorisée de dix énigmes**. Dépôt `ln549283/p
 
 ## État exact et prochaine tâche
 
-**Campagne greybox étendue à 17 énigmes, plus P00.** Dix nouveaux plateaux P08–P17, 30 indices supplémentaires (51 au total), progression intégrée, objectifs, preuves, textes et sauvegardes sont implémentés. Les sept énigmes d'origine conservent leurs règles. Les ajouts ne sont pas des assets finaux.
+**Campagne greybox étendue à 17 énigmes, plus P00.** Dix nouveaux plateaux P08–P17, 30 indices supplémentaires (51 au total), progression intégrée, objectifs, preuves, textes et sauvegardes sont implémentés. Les sept énigmes d'origine conservent leurs règles. P13 dispose désormais d’un vertical slice artistique et sonore ; les autres ajouts restent en greybox. Voir [le bilan de la séquence premium](docs/VERTICAL_SLICE.md).
 
 Retour producteur : les énigmes existantes prennent environ **35–40 minutes**. C'est une observation communiquée, sans protocole ni taille d'échantillon documentés. La durée finale de la version étendue n'est pas encore mesurée. Les vérifications reproductibles sont décrites dans QA et EXPANSION_1_2.
 
@@ -14,7 +14,7 @@ Reprise : MASTER, EXPANSION_1_2, PRODUCTION_PLAN, ASSET_BIBLE, contrats JSON. Le
 
 ## Vision et invariants
 
-**« Dépliez une ville. Retrouvez le chemin de ceux qu'elle a sauvés. »** Jeu tactile de déduction environnementale premium, Android, français, hors ligne, prix choisi 3,49 €, sans compte, publicité, achat intégré ou télémétrie. Sessions naturelles de 5–15 minutes ; première partie visée 60–90 minutes. Architecture localisable, aucune traduction promise en V1.
+**« Dépliez une ville. Retrouvez le chemin de ceux qu'elle a sauvés. »** Jeu tactile de déduction environnementale premium, Android, français, hors ligne, prix cible environ 1,99 €, sans compte, publicité, achat intégré ou télémétrie. Sessions naturelles de 5–15 minutes ; première partie visée 60–90 minutes. Architecture localisable, aucune traduction promise en V1.
 
 Dix-sept énigmes P01–P17, prise en main P00 et conclusion complète unique. P01 est l'apprentissage ; P04 une respiration active ; P07 une synthèse. P02, P03, P05 et P06 portent l'essentiel de la déduction. Ne pas compter le nombre de permutations comme mesure d'intérêt.
 

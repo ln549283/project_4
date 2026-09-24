@@ -38,3 +38,7 @@ Icône : maisonpapier/plancherpasserelle sur eau graphite, lisible48 px sans tex
 ## Extension 1.2 — Gestes et rythme
 
 Les dix ajouts réutilisent les matières papier/bois/eau, sans nouvelle scène géographique ni troisième musique imposée. Prévoir glissement sec pour P09, pose étouffée P10/P15, frottement de corde P11, versement P12 et passage doux P16, sans information exclusivement sonore. Réutiliser les SFX existants tant que la production sonore finale n'a pas commencé ; ne pas déclarer ces bruitages finalisés. Aucune transition ne retarde l'entrée joueur. Une réussite courte ferme chaque exercice ; les pauses plus longues restent aux changements d'acte.
+
+## Vertical slice P13
+
+La séquence de la lanterne dispose de ses propres illustrations, rotations animées, inspection d’objet, shader d’ambiance, musique et effets originaux. Ce test ciblé remplace pour P13 les restrictions techniques et formats génériques indiqués plus haut. Inventaire, timings, sources et bilan : [VERTICAL_SLICE.md](VERTICAL_SLICE.md). Les autres séquences ne sont pas mises en production artistique.
