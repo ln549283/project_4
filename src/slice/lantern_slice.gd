@@ -35,7 +35,10 @@ var reveal := 0.0
 var modal_tween: Tween
 var prior_marks := 0
 var save_error := false
+var previous_aspect := Window.CONTENT_SCALE_ASPECT_KEEP
 func _ready() -> void:
+ previous_aspect=get_window().content_scale_aspect
+ get_window().content_scale_aspect=Window.CONTENT_SCALE_ASPECT_EXPAND
  contract=Session.state.puzzles_contract.p13
  puzzle=contract.initial.duplicate(true)
  reduced=bool(Session.settings.get("reduced_motion",false))
@@ -307,6 +310,8 @@ func leave() -> void:
   Session.navigate("s02" if campaign_mode else "s00",false);return
  var fade:=ColorRect.new();fade.color=Color(0,0,0,0);fade.size=Vector2(1080,1920);canvas.add_child(fade)
  var tween:=create_tween();tween.tween_property(fade,"color:a",1.0,.24)
+ tween.parallel().tween_property(audio.music,"volume_db",-80.0,.24)
+ tween.parallel().tween_property(audio.ambience,"volume_db",-80.0,.24)
  await tween.finished
  Session.navigate("s02" if campaign_mode else "s00",false)
 func _process(delta: float) -> void:
@@ -324,3 +329,6 @@ func _input(event: InputEvent) -> void:
   if modal!=null and begun and not finished:_close_modal()
   else:leave()
   get_viewport().set_input_as_handled()
+
+func _exit_tree() -> void:
+ get_window().content_scale_aspect=previous_aspect

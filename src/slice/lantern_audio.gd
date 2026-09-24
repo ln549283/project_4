@@ -30,7 +30,7 @@ func apply_levels() -> void:
  if music==null:return
  music.volume_db=-80.0 if muted else linear_to_db(maxf(.001,float(Session.settings.music)))-5.0
  ambience.volume_db=-80.0 if muted else linear_to_db(maxf(.001,float(Session.settings.sfx)))-7.0
- for p in effects:p.volume_db=-80.0 if muted else linear_to_db(maxf(.001,float(Session.settings.sfx)))
+ for p in effects:p.volume_db=-80.0 if muted else linear_to_db(maxf(.001,float(Session.settings.sfx)))-6.0
 func play_cue(cue: String) -> void:
  if muted:return
  var p: AudioStreamPlayer=effects[effect_index%effects.size()]
