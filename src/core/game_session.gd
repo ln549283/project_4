@@ -44,6 +44,7 @@ const DEFAULT_SETTINGS := {
 	"locale": "fr",
 }
 
+var presentation_audio: Node
 var state: Node
 var save_service: RefCounted
 var router: RefCounted
@@ -60,6 +61,8 @@ var evidence_texts: Dictionary = {}
 
 func _ready() -> void:
 	initialize()
+	presentation_audio = preload("res://src/presentation/campaign_audio.gd").new()
+	add_child(presentation_audio)
 
 func initialize() -> Dictionary:
 	if state != null:
@@ -136,6 +139,7 @@ func save_now() -> Dictionary:
 	return result
 
 func save_settings_now() -> Dictionary:
+	if presentation_audio != null: presentation_audio.apply_levels()
 	return save_service.save_settings(settings)
 
 func navigate(view_id: String, push_history: bool = true) -> Dictionary:
@@ -149,6 +153,7 @@ func navigate(view_id: String, push_history: bool = true) -> Dictionary:
 		state.campaign["location"] = {"view": view_id, "subview": "", "focus": ""}
 		state.dirty = true
 		save_now()
+	if presentation_audio != null: presentation_audio.set_slice_active(view_id == "p13")
 	var error := get_tree().change_scene_to_file(route_result["path"])
 	if error == OK:
 		get_tree().process_frame.connect(present_pending_narrative, CONNECT_ONE_SHOT)
@@ -162,6 +167,7 @@ func go_back() -> Dictionary:
 		state.campaign["location"] = {"view": result["view_id"], "subview": "", "focus": ""}
 		state.dirty = true
 		save_now()
+	if presentation_audio != null: presentation_audio.set_slice_active(result["view_id"] == "p13")
 	var error := get_tree().change_scene_to_file(result["path"])
 	if error == OK:
 		get_tree().process_frame.connect(present_pending_narrative, CONNECT_ONE_SHOT)

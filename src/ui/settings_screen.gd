@@ -11,6 +11,19 @@ func _rebuild() -> void:
 		child.queue_free()
 	UiFactory.apply_root_theme(self, Session.font_size_px())
 	var box := UiFactory.make_page(self, "Réglages")
+	for key in ["music", "sfx"]:
+		box.add_child(UiFactory.make_label("Musique" if key == "music" else "Ambiance et effets", Session.font_size_px(18)))
+		var slider := HSlider.new()
+		slider.min_value = 0.0
+		slider.max_value = 1.0
+		slider.step = 0.05
+		slider.value = float(Session.settings[key])
+		slider.custom_minimum_size.y = 144
+		slider.value_changed.connect(func(value: float):
+			Session.settings[key] = value
+			Session.save_settings_now()
+		)
+		box.add_child(slider)
 	box.add_child(UiFactory.make_label("Taille du texte", Session.font_size_px(18)))
 	box.add_child(UiFactory.make_button("100 %", func(): _scale(1.0)))
 	box.add_child(UiFactory.make_button("125 %", func(): _scale(1.25)))

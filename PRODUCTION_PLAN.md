@@ -1,6 +1,6 @@
 # Plan de production — conception 1.2
 
-État : **T01–T11 déjà implémentés ; extension X01–X04 implémentée en greybox**. Le retour producteur de 35–40 minutes a autorisé dix ajouts. La cible 60–90 minutes doit être remesurée. Les tâches historiques ci-dessous décrivent la base 1.1 ; les lots X01–X04 l'étendent sans changer les sept règles existantes. Aucun asset final n'est annoncé.
+État : **T01–T11 déjà implémentés ; extension X01–X04 implémentée en greybox**. Le retour producteur de 35–40 minutes a autorisé dix ajouts. La cible 60–90 minutes doit être remesurée. Les tâches historiques ci-dessous décrivent la base 1.1 ; les lots X01–X04 l'étendent sans changer les sept règles existantes. Le vertical slice P13 est validé par le producteur ; la production finale est autorisée et suivie dans [FINAL_PRODUCTION](docs/FINAL_PRODUCTION.md).
 
 | Lot ajouté | Livrable | État / contrôle |
 |---|---|---|
@@ -8,7 +8,7 @@
 | X02 Greybox visuel | Dix plateaux spatiaux, gestes, essais, annuler/replacer, contrôleurs communs | Implémenté ; chargement et interactions testés |
 | X03 Intégration campagne | Nouveaux objectifs, dialogues, fin, 51 indices, migration 1.1 | Implémenté ; campagne et sauvegardes testées |
 | X04 Vérification | Solveurs, parité, CI, erreurs script bloquantes corrigées | Vérification automatisée ; observation humaine à faire |
-| T12 révisé | 17 énigmes complètes avec 8 novices, temps par énigme et pauses séparées | Prochaine tâche ; aucun résultat humain inventé |
+| T12 révisé | 17 énigmes complètes avec 8 novices, temps par énigme et pauses séparées | À effectuer avant commercialisation ; aucun résultat humain inventé |
 
 | Tâche | Dépendances | Livrable exact | Critère de fin |
 |---|---|---|---|

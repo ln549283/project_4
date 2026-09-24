@@ -5,7 +5,7 @@ func _ready() -> void:
 	Session.router.current_view = "s00"
 	UiFactory.apply_root_theme(self, Session.font_size_px())
 	var box := UiFactory.make_page(self, "Les Rives pliées", "Dépliez une ville. Retrouvez le chemin de ceux qu'elle a sauvés.")
-	box.add_child(UiFactory.make_button("La lanterne · séquence premium", func(): get_tree().change_scene_to_file("res://scenes/slice/lantern.tscn"), true))
+	box.add_child(UiFactory.make_button("La lanterne · séquence premium", _open_lantern, true))
 	if Session.has_saved_campaign():
 		box.add_child(UiFactory.make_button("Continuer", func(): Session.continue_game(), true))
 	box.add_child(UiFactory.make_button("Nouvelle partie", _new_game, true))
@@ -35,3 +35,7 @@ func _new_game() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
+
+func _open_lantern() -> void:
+	if Session.presentation_audio != null: Session.presentation_audio.set_slice_active(true)
+	get_tree().change_scene_to_file("res://scenes/slice/lantern.tscn")
