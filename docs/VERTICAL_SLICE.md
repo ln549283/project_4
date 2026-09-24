@@ -33,4 +33,14 @@ Prompts complets conservés dans `tools/slice/image_prompts.md`. Les images expo
 - Revue visuelle avant publication : lisibilité du rayon et des objets à 540×960, absence de débordement, cohérence matériaux/UI, finale lisible.
 - Restent à mesurer sur téléphones physiques : toucher long, qualité haut-parleur/casque, chauffe/mémoire et fluidité. Une capture et des tests headless ne certifient ni 60 fps mobile ni le succès commercial.
 
-**Statut initial : en revue.** Ne pas lancer le reste de la production artistique sur cette seule implémentation.
+## Bilan de la revue
+
+La première version a été refusée en revue interne : plateau trop plat, textes concurrencés par le HUD derrière les fenêtres. Corrections : véritable texture de plateau, interfaces masquées pendant la lecture, corps de texte agrandi, boutons secondaires allégés, transition d’inspection depuis la position du miroir et repère QUAI explicite. La vidéo a aussi conduit à réserver 6 dB supplémentaires pour les effets sonores et à ajouter un fondu audio en sortie.
+
+**Avis artistique : le rendu corrigé est une référence crédible pour viser un petit jeu premium.** C’est un jugement de production fondé sur le rendu Godot, pas une mesure d’intention d’achat. L’illustration est plus réaliste que la maquette papier initialement envisagée ; il faut assumer cette orientation si elle est retenue.
+
+Les 15 suites automatisées passent : compilation de tous les scripts, règles, campagne, sauvegardes, navigation, UI et vertical slice. Les six états visuels sont capturés dans le moteur, avec une vidéo de contrôle des transitions. Le contrôle du format allongé vérifie explicitement un viewport 540×1200 ; le mode habituel est 540×960. Les images et le film sont disponibles dans l’artifact `lantern-render-review` du workflow `Premium slice review`.
+
+Le lot d’assets runtime représente environ **2,42 Mo** (images, police et sons). Les sources sonores et les prompts sont inclus. Aucun asset des seize autres énigmes n’a été produit.
+
+**Production artistique générale toujours suspendue.** Cette séquence sert maintenant au test réel sur téléphone et au choix de DA. Le temps de résolution de P13, le confort tactile, l’écoute sur haut-parleur et casque, ainsi que les performances Android/iOS ne sont pas déclarés validés par les captures desktop. Ne pas présenter cette livraison comme le jeu complet prêt pour les stores.
