@@ -152,7 +152,7 @@ func _new_modal() -> Control:
  hud.visible=false
  board.visible=false
  modal=Control.new();modal.size=Vector2(1080,1920);canvas.add_child(modal)
- var shade:=ColorRect.new();shade.color=Color(.01,.025,.035,.78);shade.size=modal.size
+ var shade:=ColorRect.new();shade.color=Color(.01,.025,.035,.78);shade.size=size/canvas.scale;shade.position=-canvas.position/canvas.scale
  modal.add_child(shade)
  modal.add_child(_button("‹",Rect2(30,28,148,144),func():
   if begun and not finished:_close_modal()
@@ -314,7 +314,7 @@ func leave() -> void:
  board.set_enabled(false)
  if reduced:
   Session.navigate("s02" if campaign_mode else "s00",false);return
- var fade:=ColorRect.new();fade.color=Color(0,0,0,0);fade.size=Vector2(1080,1920);canvas.add_child(fade)
+ var fade:=ColorRect.new();fade.color=Color(0,0,0,0);fade.size=size/canvas.scale;fade.position=-canvas.position/canvas.scale;canvas.add_child(fade)
  var tween:=create_tween();tween.tween_property(fade,"color:a",1.0,.24)
  tween.parallel().tween_property(audio.music,"volume_db",-80.0,.24)
  tween.parallel().tween_property(audio.ambience,"volume_db",-80.0,.24)
