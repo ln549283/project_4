@@ -65,7 +65,9 @@ func _ready() -> void:
  var material:=ShaderMaterial.new()
  material.shader=preload("res://src/slice/atelier.gdshader")
  background.material=material
- canvas.add_child(background)
+ add_child(background)
+ move_child(background,1)
+ _fit()
  # Header/footer contrast is baked as translucent gradients, not a full-screen wash.
  _veil(Rect2(0,0,1080,360),Color(0.025,.055,.07,.78),Color(0,0,0,0))
  _veil(Rect2(0,1640,1080,280),Color(0,0,0,0),Color(.02,.045,.055,.92))
@@ -108,6 +110,10 @@ func _fit() -> void:
  var factor:=minf(size.x/1080.0,size.y/1920.0)
  canvas.scale=Vector2.ONE*factor
  canvas.position=(size-Vector2(1080,1920)*factor)*.5
+ if background!=null:
+  var art_scale:=maxf(size.x/1024.0,size.y/1536.0)
+  background.size=Vector2(1024,1536)*art_scale
+  background.position=Vector2.ZERO
 func _veil(rect: Rect2,top: Color,bottom: Color) -> void:
  var gradient:=Gradient.new();gradient.colors=PackedColorArray([top,bottom])
  var tex:=GradientTexture2D.new();tex.gradient=gradient;tex.fill_from=Vector2(0,0);tex.fill_to=Vector2(0,1)
