@@ -11,7 +11,14 @@ func _rebuild() -> void:
 		remove_child(child)
 		child.queue_free()
 	UiFactory.apply_root_theme(self, Session.font_size_px())
-	var box := UiFactory.make_page(self, "Conclusion", "Compléter le cartel")
+	var box := UiFactory.make_page(self, "Le passage retrouvé", "Compléter le cartel")
+	var town := TextureRect.new()
+	town.texture = preload("res://assets/production/panorama.webp")
+	town.custom_minimum_size.y = 580
+	town.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	town.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	town.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(town)
 	var acknowledged: Array = Session.state.campaign["narrative"]["acknowledged"]
 	box.add_child(UiFactory.make_label("Témoignage d'Aline", Session.font_size_px(18)))
 	box.add_child(UiFactory.make_label(str(Session.evidence_texts.get("evidence_statement", "")), Session.font_size_px(16)))

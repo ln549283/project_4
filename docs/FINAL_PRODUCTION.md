@@ -18,10 +18,10 @@ Référence immuable : P13 du commit ee5699e. Campagne : P00 puis 17 énigmes, o
 | Lot | Contenu | État |
 |---|---|---|
 | F01 | Palette, typographie, boutons, décors communs, son persistant, réglages audio | Premier commit dc8d00a ; tests Godot et 23 captures CI passés ; revue visuelle confirme que les plateaux demandent encore leur production propre |
-| F02 | Coffret, panorama, façades, archives et photographies | Panorama et six bâtiments intégrés ; revue à effectuer ; coffret et photographies à produire |
-| F03 | Volets, masques, colis et cargaison | À produire |
-| F04 | Cordages, eau, crue, carte et traversée | À produire |
-| F05 | Passerelle, étais, synthèse et conclusion | À produire |
+| F02 | Coffret, panorama, façades, archives et photographies | Panorama et façades revus par captures ; coffret animé, atlas de détails photographiques et agrandissement intégrés dans ea65a07, QA en cours |
+| F03 | Volets, masques, colis et cargaison | Objets et matières intégrés ; cargaison refaite pour supprimer le débordement horizontal ; QA en cours |
+| F04 | Cordages, eau, crue, carte et traversée | Accessoires intégrés, tiroir et traversée animés ; parcours carte rapproché du haut de l’écran ; QA en cours |
+| F05 | Passerelle, étais, synthèse et conclusion | Habillage de synthèse intégré ; carnet, dialogue et conclusion en finition |
 | F06 | Revue intégrale, formats portrait, sauvegardes, exports mobiles | À réaliser |
 
 ## Asset ajouté F01
@@ -37,3 +37,11 @@ Les textures, la police et les sons P13 sont réutilisés depuis leur dossier ve
 - Accueil composé autour du paysage ; accès outils regroupés pour ne plus empiler sept gros boutons sous chaque plateau.
 - Déplacements des façades, niveaux des récipients et repères de crue interpolés avec respect du mouvement réduit.
 - Correction de progression P01 → P08 : l'ancien contrôleur visait encore P02, désormais verrouillé à cette étape. Test Godot dédié ajouté.
+
+## Reprise du 25 septembre 2026
+
+Dernier lot validé avant reprise : 52d44fb, CI et rendus réussis. Les changements suivants étaient présents mais non commités ; ils ont été conservés et repris, pas recréés. Le commit ea65a07 les regroupe pour la vérification Godot et visuelle.
+
+Assets ajoutés : coffret.webp (base sans langues d’attaches), coffret_latches.webp (source des pièces animées), props.webp (12 accessoires), photo_details.webp (8 détails intacts/endommagés). Prompts, mode de génération et dimensions réelles documentés dans tools/production/image_prompts.md. La mise en page de P05 a été reconstruite après observation du débordement réel, et la double gestion touch/mouse des anciens plateaux supprimée puisque l’émulation tactile est activée dans le projet.
+
+Le carnet utilise désormais des titres français ; les scènes narratives reprennent Jo et Aline en silhouettes de papier et atténuent la musique. La conclusion réutilise le panorama restauré. Aucun résultat de QA physique ou d’écoute sur téléphone n’est revendiqué.

@@ -1,6 +1,7 @@
 extends "res://src/slice/lantern_audio.gd"
 ## A persistent bed across pages; P13 owns its own validated audio scene.
 var slice_active := false
+var ducked := false
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -11,6 +12,8 @@ func set_slice_active(active: bool) -> void:
 	if music == null: return
 	music.stream_paused = active
 	ambience.stream_paused = active
+	if active:
+		for player in effects: player.stop()
 
 func touch() -> void:
 	if slice_active: return
@@ -26,7 +29,12 @@ func _notification(what: int) -> void:
 func apply_levels() -> void:
 	super.apply_levels()
 	if music == null: return
+	if ducked and float(Session.settings.music) > 0.0: music.volume_db -= 4.0
 	if float(Session.settings.music) <= 0.0: music.volume_db = -80.0
 	if float(Session.settings.sfx) <= 0.0:
 		ambience.volume_db = -80.0
 		for player in effects: player.volume_db = -80.0
+
+func duck_narrative(active: bool) -> void:
+	ducked = active
+	apply_levels()

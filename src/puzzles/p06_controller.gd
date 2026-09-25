@@ -16,14 +16,13 @@ func _rebuild() -> void:
 	var box := setup_page("Quartier sous l'eau", "Relier les groupes aux refuges")
 	var contract: Dictionary = Session.state.puzzles_contract["p06"]
 	var state: Dictionary = Session.state.campaign["puzzles"]["p06"]
-	box.add_child(UiFactory.make_label("F3 montre l'eau au repère 4. Une liaison est inaccessible lorsque l'eau atteint sa marque.", Session.font_size_px(18)))
-	box.add_child(UiFactory.make_label("Deux liaisons bâties ; les autres blancs sont des bras d'eau. Les trajets peuvent partager un passage.", Session.font_size_px(16)))
+	box.add_child(UiFactory.make_label("Photographie F3 : eau au repère 4.", Session.font_size_px(18)))
 
 	box.add_child(UiFactory.make_label("Niveau d'eau actuel : %d" % int(state["water_level"]), Session.font_size_px(18)))
 	var water_row := HBoxContainer.new()
 	water_row.add_theme_constant_override("separation", 12)
 	for level in contract["water_levels"]:
-		water_row.add_child(UiFactory.make_button(str(level), _set_water.bind(int(level))))
+		water_row.add_child(UiFactory.make_button(str(int(level)), _set_water.bind(int(level))))
 	box.add_child(water_row)
 
 	var map_board := P06MapBoard.new()

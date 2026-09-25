@@ -9,12 +9,12 @@ func _ready() -> void:
 	for raw_id: Variant in available:
 		var evidence_id := str(raw_id)
 		var prefix := "[Épinglée] " if Session.view_state.get("pinned_evidence") == evidence_id else ""
-		box.add_child(UiFactory.make_button(prefix + evidence_id, _open_evidence.bind(evidence_id)))
+		box.add_child(UiFactory.make_button(prefix + Session.evidence_title(evidence_id), _open_evidence.bind(evidence_id)))
 	if available.is_empty():
 		box.add_child(UiFactory.make_label("Aucune preuve disponible.", Session.font_size_px(16)))
 	var compare: Array = Session.view_state.get("compare_evidence", [])
 	if not compare.is_empty():
-		box.add_child(UiFactory.make_label("Comparaison : " + " / ".join(compare), Session.font_size_px(16)))
+		box.add_child(UiFactory.make_label("Comparaison : " + " / ".join(compare.map(func(id): return Session.evidence_title(str(id)))), Session.font_size_px(16)))
 	box.add_child(UiFactory.make_button("Fermer", _back, true))
 
 func _open_evidence(evidence_id: String) -> void:

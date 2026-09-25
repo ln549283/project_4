@@ -44,6 +44,7 @@ const DEFAULT_SETTINGS := {
 	"locale": "fr",
 }
 
+var presented_solved_count := 0
 var presentation_audio: Node
 var state: Node
 var save_service: RefCounted
@@ -61,6 +62,7 @@ var evidence_texts: Dictionary = {}
 
 func _ready() -> void:
 	initialize()
+	presented_solved_count = state.campaign.solved.size() if state != null else 0
 	presentation_audio = preload("res://src/presentation/campaign_audio.gd").new()
 	add_child(presentation_audio)
 
@@ -153,7 +155,12 @@ func navigate(view_id: String, push_history: bool = true) -> Dictionary:
 		state.campaign["location"] = {"view": view_id, "subview": "", "focus": ""}
 		state.dirty = true
 		save_now()
-	if presentation_audio != null: presentation_audio.set_slice_active(view_id == "p13")
+	if presentation_audio != null:
+		presentation_audio.set_slice_active(view_id == "p13")
+		var solved_count: int = state.campaign.solved.size()
+		if solved_count > presented_solved_count and view_id != "p13":
+			presentation_audio.play_cue("arrival")
+		presented_solved_count = solved_count
 	var error := get_tree().change_scene_to_file(route_result["path"])
 	if error == OK:
 		get_tree().process_frame.connect(present_pending_narrative, CONNECT_ONE_SHOT)
@@ -280,3 +287,18 @@ func _resume_view() -> String:
 
 func _new_campaign_id() -> String:
 	return "local-%s" % str(Time.get_unix_time_from_system())
+
+func evidence_title(id: String) -> String:
+	var titles := {
+		"evidence_report":"Le cartel provisoire", "evidence_map":"Le panorama d’Orme-sur-Rive",
+		"evidence_statement":"Le témoignage d’Aline", "evidence_photo_note":"Les notes des photographies",
+		"evidence_delivery":"Le feuillet de livraison", "evidence_projection":"La silhouette du passage",
+		"evidence_cargo":"Les charges de la barge", "evidence_press":"L’étiquette de la presse",
+		"evidence_refuges":"Les refuges", "evidence_tide":"Les repères de crue",
+		"evidence_cartel_final":"Le cartel restauré"
+	}
+	if titles.has(id): return str(titles[id])
+	if id.begins_with("evidence_photo_"): return "Photographie " + id.trim_prefix("evidence_photo_").to_upper()
+	if id.begins_with("evidence_p"):
+		return str(state.puzzles_contract.get(id.trim_prefix("evidence_"),{}).get("title","Note de restauration"))
+	return "Document du carnet"

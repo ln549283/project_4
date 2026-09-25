@@ -46,7 +46,7 @@ func _draw() -> void:
 		var r := Rect2(24+i*152,120,144,240)
 		var id := "" if slots[i] == null else str(slots[i])
 		_card(r,id == selected_item and not id.is_empty())
-		_label(r.position+Vector2(0,48),str(contract.positions[i]),144,40)
+		_label(r.position+Vector2(0,48),str(int(contract.positions[i])),144,40)
 		if not id.is_empty():
 			var mass := int(contract.weights[id])
 			_draw_cargo(id,Rect2(r.position+Vector2(12,66),Vector2(120,108)))
@@ -69,7 +69,7 @@ func _draw() -> void:
 		_card(r,id == selected_item)
 		_draw_cargo(id,Rect2(r.position+Vector2(76,6),Vector2(140,108)))
 		_label(r.position+Vector2(8,145),str(contract.labels[id]),276,36)
-		_label(r.position+Vector2(8,186),"Masse : "+str(contract.weights[id]),276,32)
+		_label(r.position+Vector2(8,186),"Masse : "+str(int(contract.weights[id])),276,32)
 		hits.append({"rect":r,"item":id})
 
 func _draw_cargo(id: String, r: Rect2) -> void:

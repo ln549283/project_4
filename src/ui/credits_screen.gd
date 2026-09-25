@@ -4,8 +4,9 @@ const UiFactory = preload("res://src/ui/ui_factory.gd")
 func _ready() -> void:
 	Session.router.current_view = "s14"
 	UiFactory.apply_root_theme(self, Session.font_size_px())
-	var box := UiFactory.make_page(self, "Générique / exploration")
-	box.add_child(UiFactory.make_label("Greybox interne — crédits et licences définitifs seront intégrés avant livraison.", Session.font_size_px(18)))
+	var box := UiFactory.make_page(self, "Les Rives pliées")
+	box.add_child(UiFactory.make_label("Création et direction : Loïc Nebonne\nIllustrations réalisées avec une assistance générative.\nMusique et effets : compositions originales du projet.\nMoteur : Godot · Titres : DejaVu Serif.", Session.font_size_px(18)))
+	box.add_child(UiFactory.make_button("Licences", _licenses))
 	if bool(Session.state.campaign.get("completed", false)):
 		box.add_child(UiFactory.make_label("Reconstitutions conservées en lecture seule.", Session.font_size_px(18)))
 		for entry in [
@@ -33,3 +34,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		Session.navigate("s00", false)
 		get_viewport().set_input_as_handled()
+
+func _licenses() -> void:
+	var modal := preload("res://scenes/ui/functioning.tscn").instantiate()
+	modal.configure("Licences",Engine.get_license_text()+"\n\n"+FileAccess.get_file_as_string("res://assets/slice/lantern/FONT_LICENSE.txt"))
+	add_child(modal)

@@ -3,6 +3,9 @@ extends SceneTree
 var output := "res://build/production-captures"
 func _init() -> void: call_deferred("run")
 func run() -> void:
+	if "--tall" in OS.get_cmdline_user_args():
+		output += "/tall"
+		root.size = Vector2i(540,1200)
 	var session := root.get_node("Session")
 	session.save_service = load("res://src/core/save_service.gd").new(session.state.puzzles_contract, "user://production-capture")
 	session.campaign_started = false
@@ -14,6 +17,12 @@ func run() -> void:
 		root.add_child(scene)
 		current_scene = scene
 		await create_timer(0.8).timeout
+		if scene.get_child_count() > 0 and scene.get_child(0) is MarginContainer:
+			var margin: MarginContainer = scene.get_child(0)
+			if margin.size.x > scene.size.x + 1.0:
+				push_error("Horizontal overflow: " + view)
+				quit(1)
+				return
 		await RenderingServer.frame_post_draw
 		var error := root.get_texture().get_image().save_png(output + "/" + view + ".png")
 		if error != OK: quit(1); return

@@ -27,6 +27,9 @@ jobs:
           xvfb-run -a -s '-screen 0 1200x2100x24' /tmp/godot/godot --path . --rendering-method gl_compatibility --audio-driver Dummy --resolution 540x960 --script tools/production/capture.gd 2>&1 | tee /tmp/production-render.log
           ! grep -E 'SCRIPT ERROR|Shader compilation failed' /tmp/production-render.log
           test -f build/production-captures/s14.png
+          xvfb-run -a -s '-screen 0 1200x2100x24' /tmp/godot/godot --path . --rendering-method gl_compatibility --audio-driver Dummy --resolution 540x1200 --script tools/production/capture.gd -- --tall 2>&1 | tee /tmp/production-tall.log
+          ! grep -E 'SCRIPT ERROR|Shader compilation failed|Horizontal overflow' /tmp/production-tall.log
+          test -f build/production-captures/tall/s14.png
       - uses: actions/upload-artifact@v4
         with:
           name: production-render-review
