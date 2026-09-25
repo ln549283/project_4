@@ -4,13 +4,31 @@ const UiFactory = preload("res://src/ui/ui_factory.gd")
 func _ready() -> void:
 	Session.router.current_view = "s00"
 	UiFactory.apply_root_theme(self, Session.font_size_px())
-	var box := UiFactory.make_page(self, "Les Rives pliées", "Dépliez une ville. Retrouvez le chemin de ceux qu'elle a sauvés.")
-	box.add_child(UiFactory.make_button("La lanterne · séquence premium", func(): get_tree().change_scene_to_file("res://scenes/slice/lantern.tscn"), true))
+	var box := UiFactory.make_page(self, "", "")
+	var spacer := Control.new()
+	spacer.custom_minimum_size.y = 440
+	box.add_child(spacer)
+	var title := UiFactory.make_label("Les Rives\npliées", 104)
+	title.add_theme_font_override("font", preload("res://assets/slice/lantern/title.ttf"))
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	box.add_child(title)
+	var subtitle := UiFactory.make_label("Dépliez une ville.\nRetrouvez le chemin de ceux qu'elle a sauvés.", 44)
+	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	box.add_child(subtitle)
+	var gap := Control.new()
+	gap.custom_minimum_size.y = 84
+	box.add_child(gap)
 	if Session.has_saved_campaign():
-		box.add_child(UiFactory.make_button("Continuer", func(): Session.continue_game(), true))
-	box.add_child(UiFactory.make_button("Nouvelle partie", _new_game, true))
-	box.add_child(UiFactory.make_button("Réglages", func(): Session.navigate("s01"), true))
-	box.add_child(UiFactory.make_button("Générique", func(): Session.navigate("s14"), true))
+		box.add_child(UiFactory.make_button("Reprendre la restauration", func(): Session.continue_game(), true))
+	box.add_child(UiFactory.make_button("Commencer l'histoire" if not Session.has_saved_campaign() else "Nouvelle partie", _new_game, true))
+	var links := HBoxContainer.new()
+	links.add_theme_constant_override("separation", 24)
+	box.add_child(links)
+	links.add_child(UiFactory.make_button("Réglages", func(): Session.navigate("s01")))
+	links.add_child(UiFactory.make_button("Générique", func(): Session.navigate("s14")))
+	var backdrop := get_node("RoomBackdrop")
+	backdrop.shade = 0.28
+	backdrop.queue_redraw()
 	if not Session.recovery_message.is_empty():
 		box.add_child(UiFactory.make_label(Session.recovery_message, Session.font_size_px(16)))
 

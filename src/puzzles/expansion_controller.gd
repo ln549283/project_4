@@ -2,6 +2,7 @@ extends "res://src/ui/puzzle_screen_base.gd"
 const Rules = preload("res://src/rules/expansion_rules.gd")
 const Board = preload("res://src/ui/expansion_board.gd")
 @export var puzzle_id := "p08"
+var previous_state: Dictionary = {}
 var selected := -1
 var piece_turn := 0
 var passengers: Array = []
@@ -26,10 +27,11 @@ func _rebuild() -> void:
 		box.add_child(UiFactory.make_label("Terminez d'abord le travail précédent."))
 		box.add_child(UiFactory.make_button("Établi",func(): Session.navigate("s02",false)))
 		return
-	box.add_child(UiFactory.make_label(p.intro, Session.font_size_px(16)))
+	if str(p.kind) == "facades": box.add_child(UiFactory.make_button("Les cinq croquis de Jo",_show_facade_clues))
 	var board := Board.new()
 	board.name = "PuzzleBoard"
-	board.configure(p,_state(),selected,passengers,piece_turn,trace_visible)
+	board.configure(p,_state(),selected,passengers,piece_turn,trace_visible,previous_state)
+	previous_state = {}
 	board.pressed.connect(_board_pressed)
 	box.add_child(board)
 	if puzzle_id in Session.state.campaign.solved:
@@ -51,10 +53,7 @@ func _row(box: VBoxContainer) -> HBoxContainer:
 
 func _add_controls(box: VBoxContainer,p: Dictionary) -> void:
 	match str(p.kind):
-		"facades":
-			box.add_child(UiFactory.make_label("Croquis — voisins immédiats :",Session.font_size_px(18)))
-			for c: Array in p.clues:
-				box.add_child(UiFactory.make_label(str(p.labels[int(c[1])])+ (" → " if c[0]=="right" else " ↓ ")+str(p.labels[int(c[2])]),Session.font_size_px(18)))
+		"facades": pass
 		"slide":
 			box.add_child(UiFactory.make_label("Sélection : "+ (str(p.bars[selected].name) if selected>=0 else "touchez une pièce")))
 			var row := _row(box)
@@ -89,6 +88,13 @@ func _add_controls(box: VBoxContainer,p: Dictionary) -> void:
 				var row := _row(box)
 				row.add_child(UiFactory.make_button("Bande %d ↓" % (i+1),_apply.bind({"a":i,"b":-1})))
 				row.add_child(UiFactory.make_button("Bande %d ↑" % (i+1),_apply.bind({"a":i,"b":1})))
+
+func _show_facade_clues() -> void:
+	var p := _contract()
+	var lines: Array[String] = []
+	for c: Array in p.clues:
+		lines.append(str(p.labels[int(c[1])])+ (" → " if c[0]=="right" else " ↓ ")+str(p.labels[int(c[2])]))
+	_show_functioning(p.intro+"\n\n"+"\n\n".join(lines))
 
 func _instructions() -> String:
 	match str(_contract().kind):
@@ -170,6 +176,7 @@ func _apply(action: Dictionary) -> void:
 	_remember_scroll()
 	var result: Dictionary = Rules.act(_contract(),_state(),action)
 	if result.get("ok",false):
+		previous_state = _state().duplicate(true)
 		history.append(_state().duplicate(true))
 		if history.size()>100: history.pop_front()
 		Session.state.campaign.puzzles[puzzle_id]=result.state

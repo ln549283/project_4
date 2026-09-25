@@ -8,7 +8,7 @@ Conception **1.2 — extension autorisée de dix énigmes**. Dépôt `ln549283/p
 
 Retour producteur : les énigmes existantes prennent environ **35–40 minutes**. C'est une observation communiquée, sans protocole ni taille d'échantillon documentés. La durée finale de la version étendue n'est pas encore mesurée. Les vérifications reproductibles sont décrites dans QA et EXPANSION_1_2.
 
-**Prochaine tâche : T12 sur la campagne 1.2**, observation novice de l'ensemble, durée par étape, compréhension visuelle et rythme. Ne pas passer à la production artistique massive avant validation. Le moteur reste Godot ; aucune migration demandée ni effectuée.
+**Production finale autorisée par le producteur après validation du vertical slice P13.** Déployer sa direction visuelle et sonore sur la campagne entière, avec contrôles et commits réguliers. T12 (observation novice, durée, compréhension et rythme) reste à effectuer : aucune mesure humaine supplémentaire n’est revendiquée. Godot reste le moteur. Voir [le suivi de production finale](docs/FINAL_PRODUCTION.md).
 
 Reprise : MASTER, EXPANSION_1_2, PRODUCTION_PLAN, ASSET_BIBLE, contrats JSON. Les IDs sont stables mais leur ordre n'est plus numérique. Les sauvegardes 1.1 sont conservées et migrées ; les dix nouveautés restent à jouer.
 

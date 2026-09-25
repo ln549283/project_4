@@ -91,9 +91,17 @@ func _zoom_selected() -> void:
 		return
 	var index := selected if selected >= 0 else compare_indices[0]
 	var order: Array = Session.state.campaign["puzzles"]["p02"]["order"]
-	var overlay := preload("res://scenes/ui/image_detail.tscn").instantiate()
-	overlay.configure("Photographie agrandie", _photo_summary(str(order[index])))
+	var overlay := ColorRect.new()
+	overlay.color = Color("0b1c22")
+	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(overlay)
+	var box := UiFactory.make_page(overlay,"Photographie · détails")
+	var enlarged := P02PhotoBoard.new()
+	enlarged.detail_columns = 2
+	enlarged.configure([order[index]],Session.state.puzzles_contract.p02.observations,-1,[])
+	box.add_child(enlarged)
+	box.add_child(UiFactory.make_label(_photo_summary(str(order[index])),Session.font_size_px(16)))
+	box.add_child(UiFactory.make_button("Revenir aux photographies",overlay.queue_free,true))
 
 func _undo() -> void:
 	if history.is_empty():

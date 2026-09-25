@@ -4,6 +4,7 @@ const UiFactory = preload("res://src/ui/ui_factory.gd")
 @export var view_id := "s02"
 @export var screen_title := "Établi"
 var p00_message := ""
+var opening_box := false
 
 func _ready() -> void:
 	Session.router.current_view = view_id
@@ -45,8 +46,11 @@ func _build_branch_choice(box: VBoxContainer) -> void:
 func _build_p00(box: VBoxContainer) -> void:
 	box.add_child(UiFactory.make_label("Prise en main — Soulever les deux attaches, puis ouvrir.", Session.font_size_px(18)))
 	var latches: Array = Session.state.campaign["puzzles"]["p00"]["latches"]
-	box.add_child(UiFactory.make_button("Attache gauche : " + ("ouverte" if bool(latches[0]) else "fermée"), _toggle_latch.bind(0)))
-	box.add_child(UiFactory.make_button("Attache droite : " + ("ouverte" if bool(latches[1]) else "fermée"), _toggle_latch.bind(1)))
+	var coffret := preload("res://src/presentation/coffret.gd").new()
+	coffret.name = "Coffret"
+	coffret.configure(latches)
+	coffret.latch_pressed.connect(_toggle_latch)
+	box.add_child(coffret)
 	box.add_child(UiFactory.make_button("Ouvrir le coffret", _open_box))
 	if not p00_message.is_empty():
 		box.add_child(UiFactory.make_label(p00_message, Session.font_size_px(16)))
@@ -54,12 +58,17 @@ func _build_p00(box: VBoxContainer) -> void:
 func _toggle_latch(index: int) -> void:
 	Session.state.toggle_latch(index)
 	Session.save_now()
-	_rebuild()
+	var coffret := find_child("Coffret",true,false)
+	if coffret != null: coffret.animate_state(Session.state.campaign.puzzles.p00.latches)
 
 func _open_box() -> void:
+	if opening_box: return
 	var result: Dictionary = Session.state.open_box()
 	if result.get("ok", false):
+		opening_box = true
 		Session.save_now()
+		var coffret := find_child("Coffret",true,false)
+		if coffret != null: await coffret.reveal()
 		Session.navigate("s05")
 	else:
 		p00_message = "Une attache retient encore le couvercle."

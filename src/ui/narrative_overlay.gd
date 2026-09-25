@@ -17,6 +17,7 @@ func _ready() -> void:
 		Session.on_narrative_acknowledged(scene_id)
 		queue_free()
 		return
+	if Session.presentation_audio != null: Session.presentation_audio.duck_narrative(true)
 	_rebuild()
 
 func _rebuild() -> void:
@@ -24,15 +25,43 @@ func _rebuild() -> void:
 		remove_child(child)
 		child.queue_free()
 	var bg := ColorRect.new()
-	bg.color = Color(0.09, 0.10, 0.12, 0.97)
+	bg.color = Color("0b1c22")
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
 	UiFactory.apply_root_theme(self, Session.font_size_px())
-	var box := UiFactory.make_page(bg, "Récit")
+	var backdrop := preload("res://src/presentation/room_backdrop.gd").new()
+	backdrop.shade = 0.78
+	bg.add_child(backdrop)
+	var box := UiFactory.make_page(bg, "")
+	var spacer := Control.new()
+	spacer.custom_minimum_size.y = 120
+	box.add_child(spacer)
 	var index := clampi(int(Session.state.campaign["narrative"].get("segment", 0)), 0, segments.size() - 1)
-	box.add_child(UiFactory.make_label(str(segments[index]), Session.font_size_px(18)))
+	var words := str(segments[index])
+	var speaker := words.get_slice(" :",0) if " :" in words else "Orme-sur-Rive"
+	if speaker in ["Jo","Aline"]:
+		var portrait := TextureRect.new()
+		portrait.texture = preload("res://src/presentation/production_art.gd").texture(6 if speaker == "Jo" else 7)
+		portrait.custom_minimum_size.y = 300
+		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		box.add_child(portrait)
+	var heading := UiFactory.make_label(speaker,64)
+	heading.add_theme_font_override("font",preload("res://assets/slice/lantern/title.ttf"))
+	box.add_child(heading)
+	var text := words.substr(words.find(" :")+2).strip_edges() if " :" in words else words
+	box.add_child(UiFactory.make_label(text, Session.font_size_px(18)))
+	var breathing := Control.new()
+	breathing.custom_minimum_size.y = 72
+	box.add_child(breathing)
 	box.add_child(UiFactory.make_button("Continuer", _next, true))
-	box.add_child(UiFactory.make_button("Fermer", queue_free))
+	box.add_child(UiFactory.make_button("Revenir au jeu", queue_free))
+
+func _exit_tree() -> void:
+	var session := get_node_or_null("/root/Session")
+	if session != null and is_instance_valid(session.presentation_audio):
+		session.presentation_audio.duck_narrative(false)
 
 func _next() -> void:
 	var narrative: Dictionary = Session.state.campaign["narrative"]

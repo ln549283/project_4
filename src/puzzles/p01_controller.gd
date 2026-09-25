@@ -3,6 +3,7 @@ extends "res://src/ui/puzzle_screen_base.gd"
 const PanoramaRules = preload("res://src/rules/panorama_rules.gd")
 const P01PanoramaBoard = preload("res://src/ui/p01_panorama_board.gd")
 
+var previous_order: Array = []
 var selected := -1
 
 func _ready() -> void:
@@ -15,6 +16,8 @@ func _rebuild() -> void:
 	box.add_child(UiFactory.make_label("Les marges sont fixes. À chaque couture, deux détails du paysage doivent se poursuivre.", Session.font_size_px(16)))
 	var order: Array = Session.state.campaign["puzzles"]["p01"]["order"]
 	var board := P01PanoramaBoard.new()
+	board.previous_order = previous_order
+	previous_order = []
 	board.configure(order, Session.state.puzzles_contract["p01"], selected)
 	board.piece_pressed.connect(_select)
 	box.add_child(board)
@@ -34,6 +37,7 @@ func _select(index: int) -> void:
 		selected = -1
 	else:
 		history.append((Session.state.campaign["puzzles"]["p01"]["order"] as Array).duplicate())
+		previous_order = (Session.state.campaign.puzzles.p01.order as Array).duplicate()
 		Session.state.swap_order("p01", selected, index)
 		Session.save_now()
 		selected = -1
@@ -64,7 +68,7 @@ func _verify() -> void:
 	if result.get("valid", false):
 		Session.state.resolve_puzzle("p01")
 		Session.save_now()
-		Session.navigate("s06", false)
+		Session.navigate(Session.objective_view(), false)
 	else:
 		feedback = "Certaines lignes s'interrompent aux raccords."
 		_rebuild()

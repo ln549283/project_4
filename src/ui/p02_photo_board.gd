@@ -3,12 +3,14 @@ extends VBoxContainer
 
 signal photo_pressed(index: int)
 
+const DETAILS = preload("res://assets/production/photo_details.webp")
+var detail_columns := 4
 const BORDER := Color(0.62, 0.64, 0.68, 1.0)
 const SELECTED := Color(1.0, 0.82, 0.42, 1.0)
 const COMPARE := Color(0.48, 0.78, 0.90, 1.0)
-const CARD_BG := Color(0.17, 0.18, 0.20, 1.0)
-const TEXT := Color(0.90, 0.91, 0.93, 1.0)
-const MUTED := Color(0.68, 0.70, 0.73, 1.0)
+const CARD_BG := Color("172f34")
+const TEXT := Color("eee3ca")
+const MUTED := Color("c4b898")
 
 const DETAIL_ORDER := ["awning", "pane", "sign", "chimney"]
 const DETAIL_LABELS := {
@@ -54,7 +56,7 @@ func _rebuild() -> void:
 	var earlier := Label.new()
 	earlier.text = "PLUS TÔT"
 	earlier.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	earlier.add_theme_font_size_override("font_size", 24)
+	earlier.add_theme_font_size_override("font_size", 40)
 	earlier.add_theme_color_override("font_color", MUTED)
 	earlier.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(earlier)
@@ -73,14 +75,14 @@ func _rebuild() -> void:
 	var later := Label.new()
 	later.text = "PLUS TARD"
 	later.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	later.add_theme_font_size_override("font_size", 24)
+	later.add_theme_font_size_override("font_size", 40)
 	later.add_theme_color_override("font_color", MUTED)
 	later.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(later)
 
 func _make_photo_card(index: int, photo_id: String, obs: Dictionary) -> Button:
 	var card := Button.new()
-	card.custom_minimum_size = Vector2(0, 208)
+	card.custom_minimum_size = Vector2(0, 520 if detail_columns == 4 else 1040)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.focus_mode = Control.FOCUS_ALL
 	card.pressed.connect(_emit_photo.bind(index))
@@ -109,21 +111,23 @@ func _make_photo_card(index: int, photo_id: String, obs: Dictionary) -> Button:
 	var number := Label.new()
 	number.text = "PHOTO %d" % (index + 1)
 	number.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	number.add_theme_font_size_override("font_size", 24)
+	number.add_theme_font_size_override("font_size", 40)
 	number.add_theme_color_override("font_color", TEXT)
 	number.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	header.add_child(number)
 
 	var source := Label.new()
-	source.text = photo_id
-	source.add_theme_font_size_override("font_size", 18)
+	source.text = "Archives"
+	source.add_theme_font_size_override("font_size", 36)
 	source.add_theme_color_override("font_color", MUTED)
 	source.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	header.add_child(source)
 
-	var details := HBoxContainer.new()
+	var details := GridContainer.new()
+	details.columns = detail_columns
 	details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	details.add_theme_constant_override("separation", 8)
+	details.add_theme_constant_override("h_separation", 12)
+	details.add_theme_constant_override("v_separation", 20)
 	details.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	body.add_child(details)
 
@@ -140,18 +144,18 @@ func _make_detail_cell(detail: String, obs: Dictionary) -> VBoxContainer:
 	cell.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	var icon := TextureRect.new()
-	icon.custom_minimum_size = Vector2(72, 72)
+	icon.custom_minimum_size = Vector2(0, 200 if detail_columns == 4 else 320)
 	icon.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.texture = load(_icon_path(detail, obs)) as Texture2D
+	icon.texture = _detail_texture(detail, obs)
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cell.add_child(icon)
 
 	var label := Label.new()
 	label.text = str(DETAIL_LABELS[detail])
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", 16)
+	label.add_theme_font_size_override("font_size", 42)
 	label.add_theme_color_override("font_color", MUTED)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cell.add_child(label)
@@ -160,7 +164,7 @@ func _make_detail_cell(detail: String, obs: Dictionary) -> VBoxContainer:
 	state.text = _state_label(detail, obs)
 	state.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	state.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	state.add_theme_font_size_override("font_size", 15)
+	state.add_theme_font_size_override("font_size", 42)
 	state.add_theme_color_override("font_color", TEXT)
 	state.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cell.add_child(state)
@@ -200,3 +204,13 @@ func _state_label(detail: String, obs: Dictionary) -> String:
 	if not obs.has(detail):
 		return "hors cadre"
 	return str(STATE_LABELS[detail][int(obs[detail])])
+
+func _detail_texture(detail: String, obs: Dictionary) -> Texture2D:
+	if not obs.has(detail): return null
+	var edges := [0,463,888,1331,1774]
+	var column := DETAIL_ORDER.find(detail)
+	var row := int(obs[detail])
+	var result := AtlasTexture.new()
+	result.atlas = DETAILS
+	result.region = Rect2(edges[column]+8,8+row*443,edges[column+1]-edges[column]-16,427)
+	return result

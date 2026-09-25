@@ -4,11 +4,13 @@ extends Control
 signal shutter_pressed(index: int)
 signal route_pressed(route_id: String)
 
+const Art = preload("res://src/presentation/production_art.gd")
+const WOOD = preload("res://assets/slice/lantern/board.webp")
 const RoutesRules = preload("res://src/rules/routes_rules.gd")
 
 const FACE_BG := Color(0.16, 0.17, 0.19, 1.0)
-const FACE_BORDER := Color(0.62, 0.64, 0.67, 1.0)
-const CHANNEL_COLOR := Color(0.72, 0.74, 0.77, 1.0)
+const FACE_BORDER := Color("bba171")
+const CHANNEL_COLOR := Color("dcc69a")
 const PORT_COLOR := Color(0.92, 0.93, 0.94, 1.0)
 const MUTED_TEXT := Color(0.68, 0.70, 0.73, 1.0)
 const ACTIVE_COLOR := Color(1.0, 0.82, 0.42, 1.0)
@@ -47,6 +49,7 @@ func _draw() -> void:
 	if contract.is_empty():
 		return
 	_rebuild_geometry()
+	draw_texture_rect(WOOD,Rect2(Vector2.ZERO,size),false)
 	_draw_instruction()
 	_draw_external_ports()
 	for index in range(tile_rects.size()):
@@ -59,11 +62,6 @@ func _gui_input(event: InputEvent) -> void:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			_handle_tap(mouse_event.position)
-			accept_event()
-	elif event is InputEventScreenTouch:
-		var touch_event := event as InputEventScreenTouch
-		if touch_event.pressed:
-			_handle_tap(touch_event.position)
 			accept_event()
 
 func _handle_tap(position: Vector2) -> void:
@@ -123,6 +121,7 @@ func _draw_shutter(index: int, rect: Rect2) -> void:
 		return
 	var bit := int(bits[index])
 	draw_rect(rect, FACE_BG, true)
+	draw_texture_rect_region(Art.PROPS,rect,Rect2(800,402,206,248),Color(0.62,0.7,0.7))
 	draw_rect(rect, FACE_BORDER, false, 4.0, true)
 
 	var tab := Rect2(
