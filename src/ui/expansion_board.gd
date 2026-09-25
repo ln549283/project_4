@@ -1,6 +1,7 @@
 extends Control
 ## Physical workshop board; exact geometry and hit areas remain contract-driven.
 signal pressed(index: int)
+const Art = preload("res://src/presentation/production_art.gd")
 const Rules = preload("res://src/rules/expansion_rules.gd")
 const INK := Color("eadfc8")
 const PAPER := Color("142d32")
@@ -114,23 +115,36 @@ func _tile_style(active: bool) -> StyleBoxFlat:
 func _pieces() -> void:
 	var cell := 144.0 if contract.kind == "slide" else 168.0
 	_grid(int(contract.cols), int(contract.rows), cell)
-	var occupied: Dictionary = Rules.occupancy(contract, state).cells
-	for coord: Vector2i in occupied:
-		var id := int(occupied[coord])
-		_rect(_cell(coord.x,coord.y,cell).grow(-5), COLORS[id % COLORS.size()])
-		_label(_cell(coord.x,coord.y,cell).position+Vector2(15,52), str(id+1), 48)
-		if id == selection: draw_rect(_cell(coord.x,coord.y,cell).grow(-8), ACCENT, false, 8)
+	if contract.kind == "slide":
+		for id in range(contract.bars.size()):
+			var bar: Dictionary = contract.bars[id]
+			var pos := lerpf(float(previous.get("positions",state.positions)[id]),float(state.positions[id]),movement)
+			var r := Rect2(48+pos*cell,64+int(bar.lane)*cell,int(bar.length)*cell,cell) if bar.axis == "h" else Rect2(48+int(bar.lane)*cell,64+pos*cell,cell,int(bar.length)*cell)
+			r = r.grow(-7)
+			draw_style_box(_tile_style(id == selection),r)
+			if id == 0: Art.paint(self,11,r.grow(-8))
+			else: draw_texture_rect_region(Art.PROPS,r,Rect2(406,465,266,130),Color(0.8,0.9,0.88))
+			_label(r.position+Vector2(12,48),str(bar.name),36)
+	else:
+		var occupied: Dictionary = Rules.occupancy(contract,state).cells
+		for coord: Vector2i in occupied:
+			var id := int(occupied[coord])
+			var r := _cell(coord.x,coord.y,cell).grow(-5)
+			_rect(r,COLORS[id])
+			Art.paint(self,10 if id == 0 else 0,r.grow(-8))
+			_label(r.position+Vector2(8,42),str(id+1),36)
+			if id == selection: draw_rect(r.grow(-3),ACCENT,false,5)
 	for y in range(int(contract.rows)):
 		for x in range(int(contract.cols)): _hit(_cell(x,y,cell), y*int(contract.cols)+x)
 	if contract.kind == "slide":
-		_label(Vector2(914,450), "→", 44, ACCENT)
-		_label(Vector2(50,966), "1 : chemise à sortir →", 40)
+		_label(Vector2(914,450),"→",44,ACCENT)
+		_label(Vector2(50,966),"Chemise : sortie à droite →",40)
 	else:
 		if selection >= 0:
-			_label(Vector2(48,795), "Lot %d — forme à poser :" % (selection+1), 42)
-			for c: Vector2i in Rules.shape(contract.pieces[selection], preview_turn):
-				_rect(Rect2(Vector2(500,740)+Vector2(c)*48,Vector2(46,46)), COLORS[selection])
-		_label(Vector2(48,920), "Touchez la case du coin haut gauche.", 36)
+			_label(Vector2(48,795),"Lot %d — forme à poser :" % (selection+1),42)
+			for c: Vector2i in Rules.shape(contract.pieces[selection],preview_turn):
+				_rect(Rect2(Vector2(500,740)+Vector2(c)*48,Vector2(46,46)),COLORS[selection])
+		_label(Vector2(48,920),"Touchez la case du coin haut gauche.",36)
 
 func _ropes() -> void:
 	var positions: Array = []
@@ -143,7 +157,7 @@ func _ropes() -> void:
 	for i in range(6):
 		var pos: Vector2 = positions[i]
 		var rect := Rect2(pos-Vector2(76,76),Vector2(152,152))
-		_rect(rect, COLORS[int(state.order[i])])
+		Art.paint(self,2,rect)
 		_label(pos+Vector2(-18,18), str(int(state.order[i])+1), 54)
 		if Rules.has_number(contract.fixed,i):
 			_label(pos+Vector2(-55,62), "FIXE", 32)
@@ -158,8 +172,9 @@ func _pour() -> void:
 		var volume := int(state.volumes[i])
 		var visual_volume := lerpf(float(previous.get("volumes",state.volumes)[i]), float(volume), movement)
 		var r := Rect2(x, 780-cap*70, 240, cap*70)
-		_rect(r, Color("25464d"))
-		_rect(Rect2(x+5,780-visual_volume*70,230,visual_volume*70), BLUE, false)
+		Art.paint(self,1,r.grow(24))
+		draw_rect(Rect2(x+32,780-visual_volume*65,176,visual_volume*65),Color(0.18,0.43,0.49,0.64))
+		draw_line(Vector2(x+32,780-visual_volume*65),Vector2(x+208,780-visual_volume*65),Color("afd2cc"),4,true)
 		for n in range(cap+1):
 			draw_line(Vector2(x,780-n*70),Vector2(x+30,780-n*70),INK,3)
 		_label(Vector2(x,180), "%d / %d L" % [volume,cap],48)
@@ -229,15 +244,16 @@ func _ferry() -> void:
 	_label(Vector2(35,55),"Départ",46)
 	_label(Vector2(675,55),"Halle",46)
 	for i in range(4):
-		var x := 30.0 if int(state.bank[i]) == 0 else 650.0
+		var x := lerpf(30.0 if int(previous.get("bank",state.bank)[i]) == 0 else 650.0,30.0 if int(state.bank[i]) == 0 else 650.0,movement)
 		var r := Rect2(x,110+i*176,280,152)
-		_rect(r,COLORS[i])
-		_label(r.position+Vector2(12,58),str(contract.labels[i]),46)
-		_label(r.position+Vector2(12,118),str(int(contract.weights[i]))+" unité(s)",36)
+		draw_style_box(_tile_style(i in crew),r)
+		Art.paint(self,6+i if i<2 else (0 if i==2 else 10),Rect2(r.position+Vector2(150,4),Vector2(125,142)))
+		_label(r.position+Vector2(12,58),str(contract.labels[i]),38)
+		_label(r.position+Vector2(12,118),str(int(contract.weights[i]))+" u.",34)
 		if i in crew: draw_rect(r.grow(-3),ACCENT,false,10)
 		_hit(r,i)
-	var boat := Rect2(345 if int(state.boat)==0 else 475,780,140,90)
-	_rect(boat,PAPER)
+	var boat := Rect2(lerpf(345.0 if int(previous.get("boat",state.boat))==0 else 475.0,345.0 if int(state.boat)==0 else 475.0,movement),770,140,130)
+	Art.paint(self,3,boat)
 	_label(Vector2(40,945),"Navette : 3 unités ; au moins un secouriste.",38)
 
 func _gauges() -> void:

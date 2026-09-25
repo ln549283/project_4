@@ -3,10 +3,11 @@ extends Control
 
 signal node_pressed(node_id: String)
 
+const WOOD = preload("res://assets/slice/lantern/board.webp")
 const FloodMapRules = preload("res://src/rules/flood_map_rules.gd")
 
-const BG := Color(0.12, 0.13, 0.15, 1.0)
-const EDGE := Color(0.58, 0.60, 0.64, 1.0)
+const BG := Color("142f36")
+const EDGE := Color("d4c3a1")
 const FLOODED := Color(0.28, 0.42, 0.55, 0.75)
 const GAP := Color(0.46, 0.48, 0.52, 1.0)
 const FRAGMENT := Color(0.72, 0.62, 0.42, 1.0)
@@ -45,10 +46,6 @@ func _gui_input(event: InputEvent) -> void:
 		var e := event as InputEventMouseButton
 		position = e.position
 		pressed = e.button_index == MOUSE_BUTTON_LEFT and e.pressed
-	elif event is InputEventScreenTouch:
-		var e := event as InputEventScreenTouch
-		position = e.position
-		pressed = e.pressed
 	if not pressed:
 		return
 	for node_id: Variant in node_hit_rects:
@@ -60,13 +57,13 @@ func _gui_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	_rebuild_geometry()
-	draw_rect(Rect2(Vector2.ZERO, size), BG, true)
+	draw_texture_rect(WOOD,Rect2(Vector2.ZERO,size),false)
 	if contract.is_empty():
 		return
 	var water := int(state.get("water_level", 0))
 	var font := ThemeDB.fallback_font
-	draw_string(font, Vector2(0, 30), "Plan schématique — touchez les lieux pour tracer le groupe actif", HORIZONTAL_ALIGNMENT_CENTER, size.x, 23, EDGE)
-	draw_string(font, Vector2(0, 62), "Eau : repère %d" % water, HORIZONTAL_ALIGNMENT_CENTER, size.x, 22, FLOODED)
+	draw_string(font, Vector2(0, 30), "Plan schématique — touchez les lieux pour tracer le groupe actif", HORIZONTAL_ALIGNMENT_CENTER, size.x, 30, EDGE)
+	draw_string(font, Vector2(0, 62), "Eau : repère %d" % water, HORIZONTAL_ALIGNMENT_CENTER, size.x, 36, EDGE)
 
 	for raw_edge: Variant in contract.get("edges", []):
 		var edge: Dictionary = raw_edge
@@ -176,7 +173,7 @@ func _draw_node(node_id: String) -> void:
 	draw_circle(p, 24.0, EDGE, false, 4.0, true)
 	var font := ThemeDB.fallback_font
 	var label := str(contract["nodes"][node_id]["label"])
-	draw_string(font, p + Vector2(-74, 55), label, HORIZONTAL_ALIGNMENT_CENTER, 148, 19, ACTIVE if active else EDGE)
+	draw_string(font, p + Vector2(-74, 55), label, HORIZONTAL_ALIGNMENT_CENTER, 148, 29, ACTIVE if active else EDGE)
 
 func _draw_route(group_id: String, route: Array, is_active: bool) -> void:
 	var edges := FloodMapRules.active_edges(state.get("fragments", {}), contract)

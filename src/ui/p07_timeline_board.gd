@@ -3,9 +3,11 @@ extends Control
 
 signal phase_pressed(phase: int)
 
+const Art = preload("res://src/presentation/production_art.gd")
+const WOOD = preload("res://assets/slice/lantern/board.webp")
 const BG := Color(0.12, 0.13, 0.15, 1.0)
-const COLUMN := Color(0.22, 0.23, 0.26, 1.0)
-const BORDER := Color(0.60, 0.62, 0.66, 1.0)
+const COLUMN := Color("1b363b")
+const BORDER := Color("cfb889")
 const WATER := Color(0.28, 0.48, 0.62, 0.55)
 const CARD := Color(0.48, 0.78, 0.90, 1.0)
 const SELECTED := Color(1.0, 0.82, 0.42, 1.0)
@@ -34,10 +36,6 @@ func _gui_input(event: InputEvent) -> void:
 		var e := event as InputEventMouseButton
 		position = e.position
 		pressed = e.button_index == MOUSE_BUTTON_LEFT and e.pressed
-	elif event is InputEventScreenTouch:
-		var e := event as InputEventScreenTouch
-		position = e.position
-		pressed = e.pressed
 	if not pressed:
 		return
 	for i in range(phase_rects.size()):
@@ -48,7 +46,7 @@ func _gui_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	_rebuild_geometry()
-	draw_rect(Rect2(Vector2.ZERO, size), BG, true)
+	draw_texture_rect(WOOD,Rect2(Vector2.ZERO,size),false)
 	var font := ThemeDB.fallback_font
 	draw_string(font, Vector2(0, 28), "Six phases observées — l'eau monte de 0 à 5", HORIZONTAL_ALIGNMENT_CENTER, size.x, 22, BORDER)
 	for phase in range(phase_rects.size()):
@@ -82,6 +80,7 @@ func _draw_action_card(rect: Rect2, action: String, selected: bool) -> void:
 		"brace": "Étais", "evacuate": "Passage", "release": "Barge",
 	}
 	var card := Rect2(rect.position + Vector2(0, 66), Vector2(rect.size.x, 112))
-	draw_rect(card, Color(0.16, 0.18, 0.20, 1.0), true)
+	draw_rect(card, Color("172f34"), true)
+	Art.paint(self,{"deliver":0,"stairs":4,"floor":4,"brace":5,"evacuate":7,"release":3}.get(action,0),Rect2(rect.position+Vector2(0,190),Vector2(rect.size.x,130)))
 	draw_rect(card, SELECTED if selected else CARD, false, 4.0, true)
 	draw_string(ThemeDB.fallback_font, card.position + Vector2(3, 63), str(labels.get(action, action)), HORIZONTAL_ALIGNMENT_CENTER, card.size.x - 6, 17, CARD)

@@ -14,14 +14,6 @@ func _rebuild() -> void:
 	var box := setup_page("Contrejour", "Recomposer la silhouette")
 	var contract: Dictionary = Session.state.puzzles_contract["p04"]
 	var turns: Array = Session.state.campaign["puzzles"]["p04"]["turns"]
-	for i in range(3):
-		box.add_child(UiFactory.make_label("Calque %s — %s" % [["A", "B", "C"][i], "visible" if layer_visible[i] else "masqué"], Session.font_size_px(16)))
-		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 24)
-		row.add_child(UiFactory.make_button("Tourner gauche", _rotate.bind(i, -1)))
-		row.add_child(UiFactory.make_button("Tourner droite", _rotate.bind(i, 1)))
-		row.add_child(UiFactory.make_button("Masquer / montrer", _toggle_layer.bind(i)))
-		box.add_child(row)
 	var masks: Array = []
 	for i in range(3):
 		if layer_visible[i]:
@@ -30,6 +22,13 @@ func _rebuild() -> void:
 	var preview := P04MaskPreview.new()
 	preview.configure(union_mask, contract["target"], compare_mode)
 	box.add_child(preview)
+	for i in range(3):
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 24)
+		row.add_child(UiFactory.make_button("↶ " + ["A", "B", "C"][i], _rotate.bind(i, -1)))
+		row.add_child(UiFactory.make_button(["A", "B", "C"][i] + " ↷", _rotate.bind(i, 1)))
+		row.add_child(UiFactory.make_button("Masquer " + ["A", "B", "C"][i] if layer_visible[i] else "Montrer " + ["A", "B", "C"][i], _toggle_layer.bind(i)))
+		box.add_child(row)
 	box.add_child(UiFactory.make_button("Comparer à la cible", _toggle_compare))
 	add_common_tools(
 		box,

@@ -3,6 +3,8 @@ extends Control
 
 signal donor_pressed(donor_id: String)
 
+const Art = preload("res://src/presentation/production_art.gd")
+const WOOD = preload("res://assets/slice/lantern/board.webp")
 const BG := Color(0.12, 0.13, 0.15, 1.0)
 const CARD := Color(0.22, 0.23, 0.26, 1.0)
 const BORDER := Color(0.60, 0.62, 0.66, 1.0)
@@ -33,10 +35,6 @@ func _gui_input(event: InputEvent) -> void:
 		var e := event as InputEventMouseButton
 		position = e.position
 		pressed = e.button_index == MOUSE_BUTTON_LEFT and e.pressed
-	elif event is InputEventScreenTouch:
-		var e := event as InputEventScreenTouch
-		position = e.position
-		pressed = e.pressed
 	if not pressed:
 		return
 	for donor_id: Variant in donor_rects:
@@ -48,7 +46,7 @@ func _gui_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	_rebuild_geometry()
-	draw_rect(Rect2(Vector2.ZERO, size), BG, true)
+	draw_texture_rect(WOOD,Rect2(Vector2.ZERO,size),false)
 	var font := ThemeDB.fallback_font
 	draw_string(font, Vector2(0, 28), "Référence F2 + interruption", HORIZONTAL_ALIGNMENT_CENTER, size.x, 22, BORDER)
 	_draw_reference(Rect2(Vector2(size.x * 0.18, 48), Vector2(size.x * 0.64, 150)))
@@ -56,7 +54,8 @@ func _draw() -> void:
 	var names := {"roof": "Toiture", "door": "Porte", "floor": "Plancher"}
 	for donor_id in ["roof", "door", "floor"]:
 		var rect: Rect2 = donor_rects[donor_id]
-		draw_rect(rect, CARD, true)
+		draw_rect(rect, Color("1b363b"), true)
+		Art.paint(self,4,rect.grow(-24),Color(0.45,0.5,0.48))
 		draw_rect(rect, SELECTED if donor_id == selected_id else BORDER, false, 5.0 if donor_id == selected_id else 3.0, true)
 		draw_string(font, rect.position + Vector2(4, 28), names[donor_id], HORIZONTAL_ALIGNMENT_CENTER, rect.size.x - 8, 20, BORDER)
 		_draw_piece(rect.grow(-18.0), donors[donor_id])

@@ -26,11 +26,6 @@ func _rebuild() -> void:
 		water_row.add_child(UiFactory.make_button(str(level), _set_water.bind(int(level))))
 	box.add_child(water_row)
 
-	box.add_child(UiFactory.make_label("Fragments de carte", Session.font_size_px(18)))
-	_build_fragment_controls(box, "arcade")
-	_build_fragment_controls(box, "ramp")
-
-	box.add_child(UiFactory.make_button("Agrandir / réduire le plan", _toggle_zoom))
 	var map_board := P06MapBoard.new()
 	map_board.configure(state, contract, active_group, zoomed)
 	map_board.node_pressed.connect(_node_pressed)
@@ -44,6 +39,8 @@ func _rebuild() -> void:
 		var route: Array = state["routes"][group_id]
 		box.add_child(UiFactory.make_label("%s : %s" % [GROUP_NAMES[group_id], _route_text(route)], Session.font_size_px(16)))
 
+	box.add_child(UiFactory.make_button("Fragments et passages", _show_fragments))
+	box.add_child(UiFactory.make_button("Agrandir / réduire le plan", _toggle_zoom))
 	_build_route_controls(box)
 	add_common_tools(
 		box,
@@ -53,6 +50,16 @@ func _rebuild() -> void:
 		_undo,
 		"Réglez l'eau, placez l'arcade et la rampe, puis construisez trois chemins simples. Le brancard ne peut pas emprunter les marches."
 	)
+
+func _show_fragments() -> void:
+	var modal := ColorRect.new()
+	modal.color = Color("0b1c22")
+	modal.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(modal)
+	var box := UiFactory.make_page(modal,"Fragments de carte")
+	_build_fragment_controls(box,"arcade")
+	_build_fragment_controls(box,"ramp")
+	box.add_child(UiFactory.make_button("Revenir au plan",modal.queue_free,true))
 
 func _build_fragment_controls(box: VBoxContainer, fragment_id: String) -> void:
 	var contract: Dictionary = Session.state.puzzles_contract["p06"]
